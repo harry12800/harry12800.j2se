@@ -25,14 +25,15 @@ import cn.harry12800.tools.Lists;
 @SuppressWarnings("serial")
 public class TextScanDialog extends JDialog {
 	public static TextScanDialog instance;
+
 	public TextScanDialog(String text) {
 		super();
 		instance = this;
 		setType(JFrame.Type.UTILITY);
-		setSize(500,600);
+		setSize(500, 600);
 		setModal(true);
 		TabRootPane tabRootPane = new TabRootPane();
-		tabRootPane.add(new OperatePanel(this),BorderLayout.SOUTH);
+		tabRootPane.add(new OperatePanel(this), BorderLayout.SOUTH);
 		List<Tab> tabs = Lists.newArrayList();
 		Tab tab = new Tab("文本查看");
 		AreaTextPanel areaTextPanel = new AreaTextPanel();
@@ -45,28 +46,29 @@ public class TextScanDialog extends JDialog {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				System.out.println(e);
-				if(e.getKeyCode()==27) {
+				if (e.getKeyCode() == 27) {
 					TextScanDialog.this.dispose();
 				}
 			}
 		});
-		tabRootPane.addTab(tabs.toArray(new Tab[]{}));
-		JPanel jpeg  =new JPanel(){
+		tabRootPane.addTab(tabs.toArray(new Tab[] {}));
+		JPanel jpeg = new JPanel() {
 			@Override
 			protected void paintComponent(Graphics g) {
 				g.setColor(Color.WHITE);
-				g.drawRect(0, 0, getWidth()-1, getHeight()-1);
+				g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
 			}
 		};
 		jpeg.setBorder(new EmptyBorder(1, 1, 1, 1));
 		jpeg.setLayout(new BorderLayout());
-		jpeg.add(tabRootPane,BorderLayout.CENTER);
+		jpeg.add(tabRootPane, BorderLayout.CENTER);
 		setContentPane(jpeg);
 		setAlwaysOnTop(true);
 		setUndecorated(true);
 		new DragListener(this);
-//		MainFrame.instance.addWindow(this);
+		//		MainFrame.instance.addWindow(this);
 	}
+
 	public void setCenterScreen() {
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension d = tk.getScreenSize();

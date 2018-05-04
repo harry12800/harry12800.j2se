@@ -77,16 +77,18 @@ public class DIYButton extends JButton {
 		this.backgroundImgSrc = src;
 		setPreferredSize(new Dimension(width, height));
 	}
-	public DIYButton(int style, String src, String value,int width, int height) {
+
+	public DIYButton(int style, String src, String value, int width, int height) {
 		this(style);
 		this.width = width;
 		this.height = height;
 		this.w = width;
 		this.h = height;
 		this.backgroundImgSrc = src;
-		this.value =value;
+		this.value = value;
 		setPreferredSize(new Dimension(width, height));
 	}
+
 	public DIYButton(int style) {
 		this.style = style;
 		if (BALL == style) {
@@ -117,6 +119,7 @@ public class DIYButton extends JButton {
 	public static void main(String[] args) {
 		Clip.seeCom(new DIYButton(0));
 	}
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g.create();
@@ -137,7 +140,7 @@ public class DIYButton extends JButton {
 		} else {
 			p1 = new GradientPaint(0, 0, new Color(0, 0, 255), 0, h - 1,
 					new Color(0, 0, 0));
-			p2 = new GradientPaint(0, 1, new Color(255, 255, 255, 100), 0,h - 3, new Color(0, 0, 0, 50));
+			p2 = new GradientPaint(0, 1, new Color(255, 255, 255, 100), 0, h - 3, new Color(0, 0, 0, 50));
 		}
 		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
 				tran));
@@ -159,16 +162,16 @@ public class DIYButton extends JButton {
 			break;
 		}
 		case RECT: {
-//			RoundRectangle2D.Float r2d = new RoundRectangle2D.Float(0, 0,
-//					w , h , 1, 1);
-//			Shape clip = g2d.getClip();
-//			g2d.clip(r2d);
-//			g2d.fillRect(0, 0, w, h);
-//			g2d.setClip(clip);
-//			g2d.setPaint(p1);
-//			g2d.drawRoundRect(0, 0, w  , h  , 1, 1);
-//			g2d.setPaint(p2);
-//			g2d.drawRoundRect(0, 0, w , h , 1, 1);
+			//			RoundRectangle2D.Float r2d = new RoundRectangle2D.Float(0, 0,
+			//					w , h , 1, 1);
+			//			Shape clip = g2d.getClip();
+			//			g2d.clip(r2d);
+			//			g2d.fillRect(0, 0, w, h);
+			//			g2d.setClip(clip);
+			//			g2d.setPaint(p1);
+			//			g2d.drawRoundRect(0, 0, w  , h  , 1, 1);
+			//			g2d.setPaint(p2);
+			//			g2d.drawRoundRect(0, 0, w , h , 1, 1);
 			break;
 		}
 		case LEFT_ROUND_RECT: {
@@ -216,7 +219,7 @@ public class DIYButton extends JButton {
 			g2d.drawArc(0, 0, w - 1, h - 1, 0, 720); // draw shape's border
 														// line; and param own
 														// this angle
-			// gph.drawOval(0, 0, w - 1, h - 1);
+														// gph.drawOval(0, 0, w - 1, h - 1);
 			g2d.setPaint(p2);
 			// gph.drawOval(1, 1, w - 3, h - 3);
 			break;
@@ -224,8 +227,8 @@ public class DIYButton extends JButton {
 		default:
 			break;
 		}
-		
-		if(backgroundImgSrc!=null){
+
+		if (backgroundImgSrc != null) {
 			Image icon = Toolkit.getDefaultToolkit().getImage(backgroundImgSrc);
 			BufferedImage image = null;
 			try {
@@ -233,18 +236,18 @@ public class DIYButton extends JButton {
 				image = ImageIO.read(in);
 			} catch (IOException e) {
 			}
-			if(image!=null)
+			if (image != null)
 				g2d.drawImage(image, 0, 0, w, h, null);
-			else{
-				g2d.drawImage(icon,0, 0, w, h, null);
+			else {
+				g2d.drawImage(icon, 0, 0, w, h, null);
 			}
 		}
-		if(value!=null){
+		if (value != null) {
 			g2d.setStroke(new BasicStroke(2.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND)); //设置新的画刷
 			Font font = new Font("宋体", Font.BOLD, 20);
 			g.setFont(font);
 			g2d.setPaint(p1);
-			g2d.drawString(value, 0, h/2);
+			g2d.drawString(value, 0, h / 2);
 		}
 		g2d.dispose();
 		super.paintComponent(g);

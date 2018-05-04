@@ -21,45 +21,45 @@ import cn.harry12800.j2se.action.DragListener;
 import cn.harry12800.j2se.component.panel.TitlePanel;
 
 public class NotifyWindow extends BaseWindow {
- 
+
 	private static final long serialVersionUID = 1L;
 	static JTextPane textPane = new JTextPane();
 	private static int buffer = 50000;
 	static Timer time;
-//	static{
-//		System.setOut(new PrintStream(new Output()));
-//		System.setErr(new PrintStream(new Errput()));
-//	}
+	//	static{
+	//		System.setOut(new PrintStream(new Output()));
+	//		System.setErr(new PrintStream(new Errput()));
+	//	}
 
 	static NotifyWindow instance = new NotifyWindow();
 
 	private NotifyWindow() {
-//		this.setSize(250, 300);
-//		//setShape(new RoundRectangle2D.Double(0, 0, 400, 300, 0, 0));
-//		ImageIcon image = new ImageIcon("image\\logo\\3.png");
-//		picture = new JLabel(image);
-//		picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());
-//		this.getLayeredPane().add(picture, new Integer(Integer.MIN_VALUE));
-//		this.setOpacity(0.93f);
-//		setContentPane(createCenterPanel());
-//		
-//		setLeftTopScreen();
-//		this.setVisible(true);
-//		new DragListener(this);
+		//		this.setSize(250, 300);
+		//		//setShape(new RoundRectangle2D.Double(0, 0, 400, 300, 0, 0));
+		//		ImageIcon image = new ImageIcon("image\\logo\\3.png");
+		//		picture = new JLabel(image);
+		//		picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());
+		//		this.getLayeredPane().add(picture, new Integer(Integer.MIN_VALUE));
+		//		this.setOpacity(0.93f);
+		//		setContentPane(createCenterPanel());
+		//		
+		//		setLeftTopScreen();
+		//		this.setVisible(true);
+		//		new DragListener(this);
 	}
 
 	protected JComponent createCenterPanel() {
 		JPanel p1 = new JPanel();
 		textPane.setPreferredSize(new Dimension(400, 300));
 		textPane.setEditable(true);
-		JPanel p =new JPanel();
-		p.setLayout( new BorderLayout());
+		JPanel p = new JPanel();
+		p.setLayout(new BorderLayout());
 		JScrollPane scroll = new JScrollPane(textPane);
 		add(scroll, BorderLayout.CENTER);
 		p1.add(scroll);
 		add(p1, BorderLayout.CENTER);
-		p.add( new TitlePanel(TitlePanel.createBuilder(this)),BorderLayout.NORTH);
-		p.add( scroll,BorderLayout.CENTER);
+		p.add(new TitlePanel(TitlePanel.createBuilder(this)), BorderLayout.NORTH);
+		p.add(scroll, BorderLayout.CENTER);
 		return p;
 	}
 
@@ -72,12 +72,14 @@ public class NotifyWindow extends BaseWindow {
 		// int h = (int) d.getHeight();
 		this.setLocation(w - this.getWidth(), 0);
 	}
+
 	protected void setLeftTopScreen() {
 		this.setLocation(0, 0);
 	}
+
 	public synchronized static void error(String desc) {
-		if(true)
-			return ;
+		if (true)
+			return;
 		//	com.sun.awt.AWTUtilities.setWindowOpacity(NotifyWindow.instance, 0.0f);
 		instance.setVisible(true);
 		if (time != null) {
@@ -105,10 +107,11 @@ public class NotifyWindow extends BaseWindow {
 			}
 		}, 10000);
 	}
+
 	public synchronized static void out(String desc) {
-		if(true)
-		return ;
-			//	com.sun.awt.AWTUtilities.setWindowOpacity(NotifyWindow.instance, 0.0f);
+		if (true)
+			return;
+		//	com.sun.awt.AWTUtilities.setWindowOpacity(NotifyWindow.instance, 0.0f);
 		instance.setVisible(true);
 		if (time != null) {
 			time.cancel();
@@ -132,13 +135,14 @@ public class NotifyWindow extends BaseWindow {
 					e.printStackTrace();
 				}
 				NotifyWindow.instance.closeAndDispose();
-//				NotifyWindow.instance.setVisible(false);
+				//				NotifyWindow.instance.setVisible(false);
 			}
 		}, 10000);
 	}
+
 	private static void insert(String str, AttributeSet attrSet) {
 		Document doc = textPane.getDocument();
-		str = str+"\r\n";
+		str = str + "\r\n";
 		try {
 			if (doc.getLength() > buffer) {
 				doc.insertString(doc.getLength(), str, attrSet);
@@ -153,6 +157,7 @@ public class NotifyWindow extends BaseWindow {
 			System.out.println("BadLocationException: " + e);
 		}
 	}
+
 	private static void setErr(String str, boolean bold, int fontSize) {
 		SimpleAttributeSet attrSet = new SimpleAttributeSet();
 		StyleConstants.setForeground(attrSet, Color.RED);
@@ -168,6 +173,7 @@ public class NotifyWindow extends BaseWindow {
 		// 设置字体
 		insert(str, attrSet);
 	}
+
 	private static void setOut(String str, boolean bold, int fontSize) {
 		SimpleAttributeSet attrSet = new SimpleAttributeSet();
 		StyleConstants.setForeground(attrSet, Color.BLACK);

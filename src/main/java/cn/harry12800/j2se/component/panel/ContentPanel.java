@@ -20,25 +20,27 @@ import cn.harry12800.j2se.component.panel.TitlePanel.Builder;
 import cn.harry12800.j2se.component.panel.TitlePanel.TitleHeight;
 import cn.harry12800.j2se.component.utils.ImageUtils;
 
-
 public abstract class ContentPanel extends JPanel {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private Image image;
+
 	public ContentPanel(BaseDialog window) {
 		setLayout(new BorderLayout());
-		setBorder(new EmptyBorder(1,1,1,1));
+		setBorder(new EmptyBorder(1, 1, 1, 1));
 		setOpaque(true);
-		this.image=ImageUtils.getByName("desk.jpg");
+		this.image = ImageUtils.getByName("desk.jpg");
 		Builder builder = TitlePanel.createBuilder(window);
-		builder.hasTitle=true;
+		builder.hasTitle = true;
 		builder.titleHeight = TitleHeight.middle;
-		add(new TitlePanel(builder),BorderLayout.NORTH);
-		add(createCenter(),BorderLayout.CENTER);
+		add(new TitlePanel(builder), BorderLayout.NORTH);
+		add(createCenter(), BorderLayout.CENTER);
 	}
+
 	protected abstract Component createCenter();
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		int w = getWidth();
@@ -50,8 +52,8 @@ public abstract class ContentPanel extends JPanel {
 		g2d.setStroke(new BasicStroke(1));
 		g2d.setColor(Color.green);
 		GradientPaint p1;
-		p1 = new GradientPaint(0, 0, new Color(13, 84, 162,100), 0, h - 200,
-				new Color(13, 84, 162,100));
+		p1 = new GradientPaint(0, 0, new Color(13, 84, 162, 100), 0, h - 200,
+				new Color(13, 84, 162, 100));
 		RoundRectangle2D.Float r2d = new RoundRectangle2D.Float(0, 0, w - 1,
 				h - 1, 0, 0);
 		g2d.clip(r2d);
@@ -59,7 +61,7 @@ public abstract class ContentPanel extends JPanel {
 		 * int x = 0, y = 0; test.jpg是测试图片，与Demo.java放在同一目录下
 		 */
 
-		g2d.drawImage(image, 1, 1, w-2, h-2, null);
+		g2d.drawImage(image, 1, 1, w - 2, h - 2, null);
 		/*
 		 * g.drawImage(image, x, y, getSize().width, getSize().height, this);
 		 * while (true) { g2d.drawImage(image, 0, 0, w, h, null); if (x >

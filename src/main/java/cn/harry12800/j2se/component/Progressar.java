@@ -14,21 +14,20 @@ import java.text.DecimalFormat;
 import javax.swing.JLabel;
 
 public class Progressar extends JLabel {
-	
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7392957492657606793L;
 	Type type = Type.normal;
-//	private int w;
+	//	private int w;
 	private int h;
 	private int total = 100;
 	private int curr = 0;
 	private String desc;
 
 	public Progressar(String desc, Type type) {
-//		this.w = 300;
+		//		this.w = 300;
 		this.h = 30;
 		this.desc = desc;
 		if (type == Type.ball || type == Type.ballPercent)
@@ -38,10 +37,10 @@ public class Progressar extends JLabel {
 	}
 
 	public Progressar(String desc, Type type, int w, int h, int total) {
-		 
+
 		this.h = 30;
-		setPreferredSize(new Dimension(w,h));
-		setSize(new Dimension(w,h));
+		setPreferredSize(new Dimension(w, h));
+		setSize(new Dimension(w, h));
 		this.desc = desc;
 		if (type == Type.ball || type == Type.ballPercent)
 			this.h = 60 + 1;
@@ -114,7 +113,7 @@ public class Progressar extends JLabel {
 	private void paintPercent(Graphics g) {
 		int w = getWidth();
 		int h = 10;
-	
+
 		Graphics2D g2d = (Graphics2D) g.create();
 		Stroke stroke = g2d.getStroke();
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -185,11 +184,11 @@ public class Progressar extends JLabel {
 	private void paintNormal(Graphics g) {
 		int w = getWidth();
 		int h = getHeight();
-		h=10;
-		setPreferredSize(new Dimension(w,10));
-		  w = getWidth();
-		  h = getHeight();
-		System.out.println(w+"  "+h);
+		h = 10;
+		setPreferredSize(new Dimension(w, 10));
+		w = getWidth();
+		h = getHeight();
+		System.out.println(w + "  " + h);
 		Graphics2D g2d = (Graphics2D) g.create();
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
@@ -311,7 +310,7 @@ public class Progressar extends JLabel {
 	}
 
 	public void setHeight(int i) {
-		this.h  =3;
+		this.h = 3;
 		setPreferredSize(new Dimension(0, 3));
 	}
 

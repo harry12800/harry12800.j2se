@@ -35,17 +35,17 @@ public class ImageHelper {
 			// 写入图标
 			ImageFilter imgf = new MyFilter(255);
 			FilteredImageSource fis = new FilteredImageSource(imageBiao.getSource(), imgf);
-			
+
 			Image im = Toolkit.getDefaultToolkit().createImage(fis);
 			BufferedImage bi = new BufferedImage(im.getWidth(null), im.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 			ImageIO.write(bi, "png", new File("d:\\1.png"));
-//			g.drawImage(im, 0, 0, imageBiao.getWidth(null),
-//					imageBiao.getHeight(null), null);
-//			g.dispose();
-//			FileOutputStream out = new FileOutputStream("f:\\图标文字合成3.gif");
-//			JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-//			encoder.encode(image);
-//			out.close();
+			//			g.drawImage(im, 0, 0, imageBiao.getWidth(null),
+			//					imageBiao.getHeight(null), null);
+			//			g.dispose();
+			//			FileOutputStream out = new FileOutputStream("f:\\图标文字合成3.gif");
+			//			JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
+			//			encoder.encode(image);
+			//			out.close();
 			// 把以上原图和加上图标后的图像
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -77,85 +77,87 @@ class MyFilter extends RGBImageFilter {// 抽象类RGBImageFilter是ImageFilter�
 		} else {
 			alpha = 255;
 		}
-		 if (alp==0) {//png和gif格式图片透明部分仍然透明
-		 alpha = 0;
-		 }else{
-		 alpha = 255;
-		 }
+		if (alp == 0) {//png和gif格式图片透明部分仍然透明
+			alpha = 0;
+		} else {
+			alpha = 255;
+		}
 		return alpha << 24 | red << 16 | green << 8 | blue;// 进行标准ARGB输出以实现图象过滤
 	}
 
 	/*
 	 * 根据尺寸图片居中裁剪
 	 */
-	 public static void cutCenterImage(String src,String dest,int w,int h) throws IOException{ 
-		 Iterator<ImageReader> iterator = ImageIO.getImageReadersByFormatName("jpg"); 
-         ImageReader reader = (ImageReader)iterator.next(); 
-         InputStream in=new FileInputStream(src);
-         ImageInputStream iis = ImageIO.createImageInputStream(in); 
-         reader.setInput(iis, true); 
-         ImageReadParam param = reader.getDefaultReadParam(); 
-         int imageIndex = 0; 
-         Rectangle rect = new Rectangle((reader.getWidth(imageIndex)-w)/2, (reader.getHeight(imageIndex)-h)/2, w, h);  
-         param.setSourceRegion(rect); 
-         BufferedImage bi = reader.read(0,param);   
-         ImageIO.write(bi, "jpg", new File(dest));           
-  
-	 }
+	public static void cutCenterImage(String src, String dest, int w, int h) throws IOException {
+		Iterator<ImageReader> iterator = ImageIO.getImageReadersByFormatName("jpg");
+		ImageReader reader = (ImageReader) iterator.next();
+		InputStream in = new FileInputStream(src);
+		ImageInputStream iis = ImageIO.createImageInputStream(in);
+		reader.setInput(iis, true);
+		ImageReadParam param = reader.getDefaultReadParam();
+		int imageIndex = 0;
+		Rectangle rect = new Rectangle((reader.getWidth(imageIndex) - w) / 2, (reader.getHeight(imageIndex) - h) / 2, w, h);
+		param.setSourceRegion(rect);
+		BufferedImage bi = reader.read(0, param);
+		ImageIO.write(bi, "jpg", new File(dest));
+
+	}
+
 	/*
 	 * 图片裁剪二分之一
 	 */
-	 public static void cutHalfImage(String src,String dest) throws IOException{ 
-		 Iterator<ImageReader> iterator = ImageIO.getImageReadersByFormatName("jpg"); 
-         ImageReader reader = (ImageReader)iterator.next(); 
-         InputStream in=new FileInputStream(src);
-         ImageInputStream iis = ImageIO.createImageInputStream(in); 
-         reader.setInput(iis, true); 
-         ImageReadParam param = reader.getDefaultReadParam(); 
-         int imageIndex = 0; 
-         int width = reader.getWidth(imageIndex)/2; 
-         int height = reader.getHeight(imageIndex)/2; 
-         Rectangle rect = new Rectangle(width/2, height/2, width, height); 
-         param.setSourceRegion(rect); 
-         BufferedImage bi = reader.read(0,param);   
-         ImageIO.write(bi, "jpg", new File(dest));   
-	 }
+	public static void cutHalfImage(String src, String dest) throws IOException {
+		Iterator<ImageReader> iterator = ImageIO.getImageReadersByFormatName("jpg");
+		ImageReader reader = (ImageReader) iterator.next();
+		InputStream in = new FileInputStream(src);
+		ImageInputStream iis = ImageIO.createImageInputStream(in);
+		reader.setInput(iis, true);
+		ImageReadParam param = reader.getDefaultReadParam();
+		int imageIndex = 0;
+		int width = reader.getWidth(imageIndex) / 2;
+		int height = reader.getHeight(imageIndex) / 2;
+		Rectangle rect = new Rectangle(width / 2, height / 2, width, height);
+		param.setSourceRegion(rect);
+		BufferedImage bi = reader.read(0, param);
+		ImageIO.write(bi, "jpg", new File(dest));
+	}
 	/*
 	 * 图片裁剪通用接口
 	 */
 
-    public static void cutImage(String src,String dest,int x,int y,int w,int h) throws IOException{ 
-           Iterator<ImageReader> iterator = ImageIO.getImageReadersByFormatName("jpg"); 
-           ImageReader reader = (ImageReader)iterator.next(); 
-           InputStream in=ImageHelper.class.getResourceAsStream(src);
-           System.out.println("asd:"+in);
-           ImageInputStream iis = ImageIO.createImageInputStream(in); 
-           reader.setInput(iis, true); 
-           ImageReadParam param = reader.getDefaultReadParam(); 
-           Rectangle rect = new Rectangle(x, y, w,h);  
-           param.setSourceRegion(rect); 
-           BufferedImage bi = reader.read(0,param);   
-           ImageIO.write(bi, "jpg", new File(dest));           
+	public static void cutImage(String src, String dest, int x, int y, int w, int h) throws IOException {
+		Iterator<ImageReader> iterator = ImageIO.getImageReadersByFormatName("jpg");
+		ImageReader reader = (ImageReader) iterator.next();
+		InputStream in = ImageHelper.class.getResourceAsStream(src);
+		System.out.println("asd:" + in);
+		ImageInputStream iis = ImageIO.createImageInputStream(in);
+		reader.setInput(iis, true);
+		ImageReadParam param = reader.getDefaultReadParam();
+		Rectangle rect = new Rectangle(x, y, w, h);
+		param.setSourceRegion(rect);
+		BufferedImage bi = reader.read(0, param);
+		ImageIO.write(bi, "jpg", new File(dest));
 
-    } 
-    /*
-     * 图片缩放
-     */
-    public static void zoomImage(String src,String dest,int w,int h) throws Exception {
-		double wr=0,hr=0;
+	}
+
+	/*
+	 * 图片缩放
+	 */
+	public static void zoomImage(String src, String dest, int w, int h) throws Exception {
+		double wr = 0, hr = 0;
 		File srcFile = new File(src);
 		File destFile = new File(dest);
 		BufferedImage bufImg = ImageIO.read(srcFile);
 		Image Itemp = bufImg.getScaledInstance(w, h, Image.SCALE_SMOOTH);
-		wr=w*1.0/bufImg.getWidth();
-		hr=h*1.0 / bufImg.getHeight();
+		wr = w * 1.0 / bufImg.getWidth();
+		hr = h * 1.0 / bufImg.getHeight();
 		AffineTransformOp ato = new AffineTransformOp(AffineTransform.getScaleInstance(wr, hr), null);
 		Itemp = ato.filter(bufImg, null);
 		try {
-			ImageIO.write((BufferedImage) Itemp,dest.substring(dest.lastIndexOf(".")+1), destFile);
+			ImageIO.write((BufferedImage) Itemp, dest.substring(dest.lastIndexOf(".") + 1), destFile);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		
+
 	}
 }

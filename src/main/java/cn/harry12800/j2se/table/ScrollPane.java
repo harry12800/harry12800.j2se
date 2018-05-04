@@ -25,33 +25,34 @@ public class ScrollPane extends JLayeredPane {
 	int height = 100;
 	int barHeight = 0;
 	Bar bar;
-	boolean enter =	false;
+	boolean enter = false;
 	int barmove;
 	int panelmove;
 	private JComponent p;
 	final JViewport port = new JViewport();
+
 	public ScrollPane(final JComponent p) {
 		this.p = p;
-//		setSize(p.getWidth()+2, height+2);
+		//		setSize(p.getWidth()+2, height+2);
 		setLayout(new BorderLayout());
-//		setBackground(Color.WHITE);
+		//		setBackground(Color.WHITE);
 		//p.setBounds(1, 1, p.getWidth(), p.getHeight());
-//		JPanel jPanel = new JPanel() {
-//			protected void paintComponent(Graphics g) {
-//				g.setColor(Color.WHITE);
-//				g.drawRect(0, 0, getWidth()-1, getHeight()-1);
-//				g.dispose();
-//			}
-//		};
-//		jPanel.setOpaque(false);
+		//		JPanel jPanel = new JPanel() {
+		//			protected void paintComponent(Graphics g) {
+		//				g.setColor(Color.WHITE);
+		//				g.drawRect(0, 0, getWidth()-1, getHeight()-1);
+		//				g.dispose();
+		//			}
+		//		};
+		//		jPanel.setOpaque(false);
 		//jPanel.setBounds(0, 0, getWidth(), getHeight());
-//		add(jPanel,BorderLayout.CENTER);
-//		moveToFront(jPanel);
-		
+		//		add(jPanel,BorderLayout.CENTER);
+		//		moveToFront(jPanel);
+
 		port.setView(p);
-		add(port,BorderLayout.CENTER);
-	 	p.addMouseListener(new MouseAdapter() {
-			
+		add(port, BorderLayout.CENTER);
+		p.addMouseListener(new MouseAdapter() {
+
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 			}
@@ -60,18 +61,20 @@ public class ScrollPane extends JLayeredPane {
 			public void mouseExited(MouseEvent e) {
 
 			}
+
 			@Override
-			public void mouseWheelMoved(MouseWheelEvent e) { 
+			public void mouseWheelMoved(MouseWheelEvent e) {
 			}
 		});
 		addMouseWheelListener(new MouseWheelListener() {
-			
+
 			@Override
 			public void mouseWheelMoved(MouseWheelEvent e) {
-				
+
 				barmove = height - barHeight;
 				panelmove = contentHeight - height;
-				if(bar==null)return ;
+				if (bar == null)
+					return;
 				int left = bar.getLocation().x;
 				int top = bar.getLocation().y;
 				int x = top + e.getWheelRotation();
@@ -80,7 +83,7 @@ public class ScrollPane extends JLayeredPane {
 					port.setLocation(0, -new Double(1.0 * x * panelmove / barmove)
 							.intValue());
 				}
-				for (int i = 0; i <8 ; i++) {
+				for (int i = 0; i < 8; i++) {
 					left = bar.getLocation().x;
 					top = bar.getLocation().y;
 					x = top + e.getWheelRotation();
@@ -90,7 +93,7 @@ public class ScrollPane extends JLayeredPane {
 								.intValue());
 					}
 				}
-				
+
 			}
 		});
 	}
@@ -100,10 +103,10 @@ public class ScrollPane extends JLayeredPane {
 		contentHeight = p.getHeight();
 		height = getHeight();
 		barHeight = new Double(height * 1.0 / contentHeight * height)
-		.intValue();
+				.intValue();
 		if (barHeight < height) {
-			if(bar == null)
-			{	bar = new Bar(barHeight);
+			if (bar == null) {
+				bar = new Bar(barHeight);
 				setLayout(null);
 				bar.setBounds(p.getWidth() - 5, 0, 5, barHeight);
 				port.setBounds(0, 0, p.getWidth(), p.getHeight());
@@ -113,21 +116,24 @@ public class ScrollPane extends JLayeredPane {
 		}
 		super.paintChildren(g);
 	}
+
 	public class Bar extends JPanel {
 
 		boolean drag = false;
+
 		public Bar(int barHeight) {
 			setSize(5, barHeight);
 			setOpaque(false);
 			addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseEntered(MouseEvent e) {
-					drag =true;
+					drag = true;
 					super.mouseEntered(e);
 				}
+
 				@Override
 				public void mouseExited(MouseEvent e) {
-					drag =false;
+					drag = false;
 					super.mouseExited(e);
 				}
 			});
@@ -153,18 +159,18 @@ public class ScrollPane extends JLayeredPane {
 		}
 		JPanel jp = new JPanel();
 		jp.setLayout(null);
-//		SlidePanel slidePanel = new SlidePanel(p);
-//		slidePanel.setBounds(0, 0, slidePanel.getWidth(),
-//				slidePanel.getHeight());
-//		jp.add(slidePanel);
-//		Clip.seeCom(jp);
+		//		SlidePanel slidePanel = new SlidePanel(p);
+		//		slidePanel.setBounds(0, 0, slidePanel.getWidth(),
+		//				slidePanel.getHeight());
+		//		jp.add(slidePanel);
+		//		Clip.seeCom(jp);
 	}
 
 	public void setView(final JPanel p, int height) {
-		this.p =p;
+		this.p = p;
 		this.height = height;
 		contentHeight = p.getHeight();
-		setSize(p.getWidth()+2, height+2);
+		setSize(p.getWidth() + 2, height + 2);
 		barHeight = new Double(height * 1.0 / contentHeight * height)
 				.intValue();
 		setLayout(null);
@@ -180,27 +186,28 @@ public class ScrollPane extends JLayeredPane {
 		panelmove = contentHeight - height;
 		add(p);
 		addMouseListener(new MouseAdapter() {
-			
+
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				enter = true;
 				bar.setVisible(true);
-//				System.out.println("mouseEntered");
+				//				System.out.println("mouseEntered");
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-//				int x2 = e.getX();
-//				int y2 = e.getY();
+				//				int x2 = e.getX();
+				//				int y2 = e.getY();
 				//System.out.println(x2+" "+y2);
 				//System.out.println(getWidth()+" "+getHeight());
-//				enter=false;
-//				if(x2<=0||x2>=getWidth())
-//					bar.setVisible(false);
-//				if(y2<=0||y2>=getHeight())
-//					bar.setVisible(false);
+				//				enter=false;
+				//				if(x2<=0||x2>=getWidth())
+				//					bar.setVisible(false);
+				//				if(y2<=0||y2>=getHeight())
+				//					bar.setVisible(false);
 				//System.out.println("mouseExited");
 			}
+
 			@Override
 			public void mouseWheelMoved(MouseWheelEvent e) {
 				//System.out.println("mouseWheelMoved");
@@ -208,7 +215,6 @@ public class ScrollPane extends JLayeredPane {
 		});
 		addMouseWheelListener(new MouseWheelListener() {
 
-			
 			@Override
 			public void mouseWheelMoved(MouseWheelEvent e) {
 				int left = bar.getLocation().x;
@@ -264,32 +270,34 @@ public class ScrollPane extends JLayeredPane {
 	}
 
 	public void reset() {
-		int x=0;
-		if(bar!=null){
-			x= bar.getLocation().y;
+		int x = 0;
+		if (bar != null) {
+			x = bar.getLocation().y;
 			remove(bar);
 		}
 		contentHeight = p.getHeight();
-		setSize(p.getWidth()+2, height+2);
+		setSize(p.getWidth() + 2, height + 2);
 		barHeight = new Double(height * 1.0 / contentHeight * height)
 				.intValue();
 		setLayout(null);
 		p.setBounds(1, 1, p.getWidth(), p.getHeight());
 		if (barHeight < height) {
 			bar = new Bar(barHeight);
-			bar.setBounds(p.getWidth() - 2,x, 2, barHeight);
+			bar.setBounds(p.getWidth() - 2, x, 2, barHeight);
 			add(bar);
 			moveToFront(bar);
 		}
 		setBackground(Color.BLACK);
 		barmove = height - barHeight;
 		panelmove = contentHeight - height;
-		return ;
+		return;
 	}
-	public Point getData(){
+
+	public Point getData() {
 		return p.getLocation();
 	}
-	public void setData(Point p){
+
+	public void setData(Point p) {
 		this.p.setLocation(p);
 	}
 }

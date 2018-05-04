@@ -22,6 +22,7 @@ import cn.harry12800.tools.SQLUtils;
 public class MyTable<T> extends JTable {
 	private PopupFrame popupMenu = null;
 	private String selectSql = "";
+
 	public String getSelectSql() {
 		return selectSql;
 	}
@@ -32,6 +33,7 @@ public class MyTable<T> extends JTable {
 
 	private String editBeforeValue = "";
 	private String sql = null;
+
 	public String getEditBeforeValue() {
 		return editBeforeValue;
 	}
@@ -49,43 +51,47 @@ public class MyTable<T> extends JTable {
 	public List<T> list = null;
 	static int x = 0;
 	private String lastestSql;
+
 	@Override
 	public JToolTip createToolTip() {
 		return new MyToolTip(x++);
 	}
+
 	public MyTable(DisplayPanel<T> displayPanel) {
 		//this.setFont(J2seFont.getDefinedFont(14.0f));
 		this.context = displayPanel;
-		
+
 		setRowHeight(20);
 		setBackground(UI.backColor);
 		setForeground(Color.WHITE);
 		sql = displayPanel.getBaseSql();
-		addMouseListener(new MyTableMouseListener<T>(displayPanel,this));
+		addMouseListener(new MyTableMouseListener<T>(displayPanel, this));
 		addMouseMotionListener(new MouseMotionListener() {
-			
+
 			@Override
 			public void mouseMoved(MouseEvent arg0) {
-//				int row=MyTable.this.rowAtPoint(arg0.getPoint());
-//				Component componentAt = getComponentAt(arg0.getPoint());
-//				Component component2 = arg0.getComponent();
-//				System.out.println("mouseMoved:"+row);
+				//				int row=MyTable.this.rowAtPoint(arg0.getPoint());
+				//				Component componentAt = getComponentAt(arg0.getPoint());
+				//				Component component2 = arg0.getComponent();
+				//				System.out.println("mouseMoved:"+row);
 			}
-			
+
 			@Override
 			public void mouseDragged(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 		addPop();
-		
+
 	}
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		getTableHeader().setFont(UI.normalFont(14));
 		super.paintComponent(g);
 	}
+
 	@Override
 	public boolean isCellEditable(int row, int column) {
 		if (column > 0)
@@ -104,7 +110,7 @@ public class MyTable<T> extends JTable {
 				int column = MyTable.this.getEditingColumn();
 				String editAfterValue = MyTable.this.getModel().getValueAt(row, column) + "";
 				if (editBeforeValue.equals(editAfterValue)) {
-//					System.out.println("没修改");
+					//					System.out.println("没修改");
 				} else {
 					MyTable.this.setValueAt(editBeforeValue, row, column);
 					((AbstractTableModel) MyTable.this.getModel()).fireTableCellUpdated(row, column);
@@ -113,26 +119,27 @@ public class MyTable<T> extends JTable {
 		});
 	}
 
-	public void setTableContent(List<T>  list) {
-		tm = new MyTableModel<T>(context,this);
-		for(int i = 0 ; i < list.size() ; ++i) {
+	public void setTableContent(List<T> list) {
+		tm = new MyTableModel<T>(context, this);
+		for (int i = 0; i < list.size(); ++i) {
 			tm.addRow(list.get(i));
 		}
 		setModel(tm);
 	}
+
 	public void refresh(String sqlurl) {
-		String mysqlPageSQL= sql + sqlurl;
-		if(context.isPage) {
+		String mysqlPageSQL = sql + sqlurl;
+		if (context.isPage) {
 			mysqlPageSQL = SQLUtils.getMysqlPageSQL(sql + sqlurl, context.getPageSize(), 1);
 		}
-		this.lastestSql = mysqlPageSQL ;
-		list = context.executeQuery( mysqlPageSQL );
-		if(context.isPage) {
+		this.lastestSql = mysqlPageSQL;
+		list = context.executeQuery(mysqlPageSQL);
+		if (context.isPage) {
 			int count = context.executeQueryCount(SQLUtils.getMysqlPageContent(sql + sqlurl));
-			context.getPagePanel().update(count,1);
+			context.getPagePanel().update(count, 1);
 		}
 		selectSql = sqlurl;
-		context.getWorkPane().getInfoLabel().setText("共"+list.size()+"条记录");
+		context.getWorkPane().getInfoLabel().setText("共" + list.size() + "条记录");
 		setTableContent(list);
 		TableColumnModel columnModel = getColumnModel();
 		TableColumn column = columnModel.getColumn(0);
@@ -142,13 +149,14 @@ public class MyTable<T> extends JTable {
 		column.setPreferredWidth(0);
 		context.addRender(columnModel);
 	}
+
 	public void refresh(int count, int cur) {
 		String mysqlPageSQL = SQLUtils.getMysqlPageSQL(sql + selectSql, context.getPageSize(), cur);
-//		System.out.println(mysqlPageSQL);
+		//		System.out.println(mysqlPageSQL);
 		list = context.executeQuery(mysqlPageSQL);
 		this.lastestSql = mysqlPageSQL;
-//		list = context.executeQuery(sql + selectSql);
-		context.getWorkPane().getInfoLabel().setText("共"+list.size()+"条记录");
+		//		list = context.executeQuery(sql + selectSql);
+		context.getWorkPane().getInfoLabel().setText("共" + list.size() + "条记录");
 		setTableContent(list);
 		TableColumnModel columnModel = getColumnModel();
 		TableColumn column = columnModel.getColumn(0);
@@ -158,9 +166,10 @@ public class MyTable<T> extends JTable {
 		column.setPreferredWidth(0);
 		context.addRender(columnModel);
 	}
-	public void refresh( List<T> list ) {
-		this.list =list;
-		context.getWorkPane().getInfoLabel().setText("共"+list.size()+"条记录");
+
+	public void refresh(List<T> list) {
+		this.list = list;
+		context.getWorkPane().getInfoLabel().setText("共" + list.size() + "条记录");
 		setTableContent(list);
 		TableColumnModel columnModel = getColumnModel();
 		TableColumn column = columnModel.getColumn(0);
@@ -170,13 +179,15 @@ public class MyTable<T> extends JTable {
 		column.setPreferredWidth(0);
 		context.addRender(columnModel);
 	}
-	public T getBeanByRow(int row){
+
+	public T getBeanByRow(int row) {
 		return list.get(row);
 	}
+
 	public void refreshLatest() {
-//		System.out.println(mysqlPageSQL);
+		//		System.out.println(mysqlPageSQL);
 		list = context.executeQuery(lastestSql);
-		context.getWorkPane().getInfoLabel().setText("共"+list.size()+"条记录");
+		context.getWorkPane().getInfoLabel().setText("共" + list.size() + "条记录");
 		setTableContent(list);
 		TableColumnModel columnModel = getColumnModel();
 		TableColumn column = columnModel.getColumn(0);
@@ -201,14 +212,14 @@ public class MyTable<T> extends JTable {
 
 	public void reload(Object bean) {
 		int indexOf = list.indexOf(bean);
-//		System.out.println(bean);
-//		System.out.println(indexOf);
-		if(indexOf >= 0) {
+		//		System.out.println(bean);
+		//		System.out.println(indexOf);
+		if (indexOf >= 0) {
 			List<Object[]> annotationList = context.getAnnotationList();
-			int i =0;
+			int i = 0;
 			for (Object[] field : annotationList) {
-				Field ef= ((Field)field[1]);
-				Object invokeGetter = Reflections.invokeGetter(bean,ef.getName());
+				Field ef = ((Field) field[1]);
+				Object invokeGetter = Reflections.invokeGetter(bean, ef.getName());
 				setValueAt(invokeGetter, indexOf, i++);
 			}
 			tm.fireTableRowsUpdated(indexOf, indexOf);

@@ -10,14 +10,14 @@ import javax.swing.JPanel;
 import cn.harry12800.j2se.utils.Clip;
 import cn.harry12800.tools.Lists;
 
-public class ListPanel<T extends Letter>extends JPanel {
+public class ListPanel<T extends Letter> extends JPanel {
 	/**
 	 * 
 	 */
-	private Color selectColor  = new Color(18,171,130);
-	private Color selectBackColor  = new Color(18,171,130);
+	private Color selectColor = new Color(18, 171, 130);
+	private Color selectBackColor = new Color(18, 171, 130);
 	private static final long serialVersionUID = 1L;
-	private ListCallBack<T >  callback;
+	private ListCallBack<T> callback;
 	private List<ItemPanel<T>> items = Lists.newArrayList();
 	/**
 	 * 父子缩进
@@ -27,12 +27,13 @@ public class ListPanel<T extends Letter>extends JPanel {
 	 * 两个单元格的间距
 	 */
 	private int itemGap = 0;
+
 	public ListPanel() {
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 	}
 
 	public static long getSerialversionuid() {
-		return serialVersionUID ;
+		return serialVersionUID;
 	}
 
 	public List<ItemPanel<T>> getItems() {
@@ -45,7 +46,7 @@ public class ListPanel<T extends Letter>extends JPanel {
 
 	public void setItems(List<T> letters) {
 		for (T letter : letters) {
-			ItemPanel<T> itemPanel = new ItemPanel<T>(this, letter );
+			ItemPanel<T> itemPanel = new ItemPanel<T>(this, letter);
 			addItem(itemPanel);
 		}
 		updateUI();
@@ -88,7 +89,7 @@ public class ListPanel<T extends Letter>extends JPanel {
 		this.callback = callback;
 	}
 
-	public static interface ListCallBack <T extends Letter>{
+	public static interface ListCallBack<T extends Letter> {
 		void item(ItemPanel<T> itemPanel, T letter);
 	}
 

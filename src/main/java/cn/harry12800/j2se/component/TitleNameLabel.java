@@ -15,6 +15,7 @@ public class TitleNameLabel extends JLabel {
 	int w = 100;// getWidth();
 	public int width;
 	public int height;
+
 	public TitleNameLabel(String name) {
 		super(name);
 		this.width = 300;
@@ -22,46 +23,48 @@ public class TitleNameLabel extends JLabel {
 		this.w = width;
 		this.h = height;
 		setOpaque(false);
-		setSize(w, h) ;
+		setSize(w, h);
 		setPreferredSize(new Dimension(w, h));
 		setFont(UI.normalFont(14));
-		Color color = new Color(231,224,224);
+		Color color = new Color(231, 224, 224);
 		setForeground(color);
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				Color color = new Color(255,255,255);
+				Color color = new Color(255, 255, 255);
 				setForeground(color);
 				TitleNameLabel.this.getParent().repaint();
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
-				Color color = new Color(231,224,224);
+				Color color = new Color(231, 224, 224);
 				setForeground(color);
 				TitleNameLabel.this.getParent().repaint();
 			}
 		});
 	}
-//	@Override
-//	protected void paintComponent(Graphics g) {
-// 
-//		super.paintComponent(g);
-//	}
+
+	//	@Override
+	//	protected void paintComponent(Graphics g) {
+	// 
+	//		super.paintComponent(g);
+	//	}
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	Image offScreenImage = null; // 虚拟图片
-//	@Override
-//	public void update(Graphics g) {
-//		if (offScreenImage == null) {
-//			offScreenImage = this.createImage( width, height);
-//		}
-//		Graphics gOffScreen = offScreenImage.getGraphics();
-//		Color c = gOffScreen.getColor();
-//		gOffScreen.setColor(new Color(220,127,32));
-//		gOffScreen.fillRect(0, 0, width, height);
-//		gOffScreen.setColor(c);
-//		g.drawImage(offScreenImage, 0, 0, null);
-//	}
+	//	@Override
+	//	public void update(Graphics g) {
+	//		if (offScreenImage == null) {
+	//			offScreenImage = this.createImage( width, height);
+	//		}
+	//		Graphics gOffScreen = offScreenImage.getGraphics();
+	//		Color c = gOffScreen.getColor();
+	//		gOffScreen.setColor(new Color(220,127,32));
+	//		gOffScreen.fillRect(0, 0, width, height);
+	//		gOffScreen.setColor(c);
+	//		g.drawImage(offScreenImage, 0, 0, null);
+	//	}
 }

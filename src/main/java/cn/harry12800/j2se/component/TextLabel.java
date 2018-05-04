@@ -35,10 +35,10 @@ public class TextLabel extends JLabel {
 		public boolean hasTip;
 		public boolean hasCheck = false;
 		public boolean checked = false;
-		public Image image= null;
+		public Image image = null;
 		public Color bgcolor;
-		public int align=0;
-		public int borderRadius= 0;
+		public int align = 0;
+		public int borderRadius = 0;
 	}
 
 	public static Builder createLabelBuilder() {
@@ -95,8 +95,8 @@ public class TextLabel extends JLabel {
 		addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(e.getKeyCode()==10){
-					if(clickAction!=null){
+				if (e.getKeyCode() == 10) {
+					if (clickAction != null) {
 						clickAction.leftClick(null);
 					}
 				}
@@ -109,15 +109,15 @@ public class TextLabel extends JLabel {
 				hover = false;
 				repaint();
 			}
-			
+
 			@Override
 			public void focusGained(FocusEvent arg0) {
 				hover = true;
-				repaint();				
+				repaint();
 			}
 		});
-		setMinimumSize(new Dimension(w, h) );
-		setMaximumSize( new Dimension(w, h) );
+		setMinimumSize(new Dimension(w, h));
+		setMaximumSize(new Dimension(w, h));
 		setPreferredSize(new Dimension(w, h));
 		setFont(UI.微软雅黑Font);
 		Color color = new Color(231, 224, 224);
@@ -129,7 +129,7 @@ public class TextLabel extends JLabel {
 				setForeground(color);
 				hover = true;
 				repaint();
-				if(hoverAction!=null)
+				if (hoverAction != null)
 					hoverAction.hover(e);
 			}
 
@@ -139,14 +139,14 @@ public class TextLabel extends JLabel {
 				setForeground(color);
 				hover = false;
 				repaint();
-				if(hoverAction!=null)
+				if (hoverAction != null)
 					hoverAction.out();
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				if (e.getButton() == MouseEvent.BUTTON1) {
-					
+
 					if (builder.hasCheck) {
 						builder.checked = !builder.checked;
 						repaint();
@@ -171,13 +171,17 @@ public class TextLabel extends JLabel {
 	public interface ChangeListener {
 		void changed(boolean checked);
 	}
+
 	public interface HoverListener {
-		void hover( MouseEvent e);
+		void hover(MouseEvent e);
+
 		void out();
 	}
+
 	public void addChangeListener(ChangeListener a) {
 		this.changeAction = a;
 	}
+
 	public void addHoverListener(HoverListener a) {
 		this.hoverAction = a;
 	}
@@ -191,26 +195,26 @@ public class TextLabel extends JLabel {
 		Graphics2D g2d = (Graphics2D) g.create();
 		GradientPaint p2;
 		if (builder.bgcolor != null) {
-//			g2d.setColor(builder.bgcolor);
-//			g2d.fillRoundRect(1, 1, w - 1, h -1, builder.borderRadius*2, builder.borderRadius*2);
+			//			g2d.setColor(builder.bgcolor);
+			//			g2d.fillRoundRect(1, 1, w - 1, h -1, builder.borderRadius*2, builder.borderRadius*2);
 		}
 		if (builder.hasborder)
 			if (hover) {
 				p2 = new GradientPaint(0, 1, new Color(186, 131, 164, 200), 0, h - 10, new Color(255, 255, 255, 255));
 				g2d.setPaint(p2);
-				g2d.drawRoundRect(1, 1, w-2 , h-2, 5, 5);
+				g2d.drawRoundRect(1, 1, w - 2, h - 2, 5, 5);
 			} else {
 				p2 = new GradientPaint(0, 1, new Color(150, 150, 150, 50), 0, h - 10, new Color(160, 160, 160, 100));
 				g2d.setPaint(p2);
-				g2d.drawRoundRect(1, 1, w-2 , h-2, 5, 5);
+				g2d.drawRoundRect(1, 1, w - 2, h - 2, 5, 5);
 			}
-		
+
 		GradientPaint p1 = new GradientPaint(0, 1, new Color(255, 255, 255, 255), 0, h - 10,
 				new Color(255, 255, 255, 255));
 		g2d.setPaint(p1);
 		g2d.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND)); // 设置新的画刷
 		g2d.setFont(UI.微软雅黑Font);
-		g2d.drawString(name,  builder.align, h / 2 + 5);
+		g2d.drawString(name, builder.align, h / 2 + 5);
 		g2d.dispose();
 	}
 
@@ -219,6 +223,7 @@ public class TextLabel extends JLabel {
 	 */
 
 	private static final long serialVersionUID = 1L;
+
 	public static Builder createBgColorBuilder(Color color) {
 		Builder createBuilder = createBuilder();
 		createBuilder.bgcolor = color;
@@ -245,5 +250,5 @@ public class TextLabel extends JLabel {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 }

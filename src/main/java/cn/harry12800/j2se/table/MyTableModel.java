@@ -7,7 +7,6 @@ import java.util.Vector;
 import javax.swing.table.AbstractTableModel;
 
 public class MyTableModel<T> extends AbstractTableModel {
-	
 
 	private static final long serialVersionUID = 1L;
 
@@ -17,14 +16,14 @@ public class MyTableModel<T> extends AbstractTableModel {
 
 	private DisplayPanel<T> context;
 
-//	private MyTable<T> table;
+	//	private MyTable<T> table;
 
 	public MyTableModel(DisplayPanel<T> context, MyTable<T> myTable) {
 		content = new Vector<Object>();
 		this.context = context;
-//		this.table = myTable;
+		//		this.table = myTable;
 		this.title = context.getTitles().toArray(new String[0]);
-		
+
 	}
 
 	public void removeRow(int row) {
@@ -54,10 +53,10 @@ public class MyTableModel<T> extends AbstractTableModel {
 	 */
 	@SuppressWarnings("unchecked")
 	public void setValueAt(Object value, int row, int col) {
-		 ((Vector<Object>) content.get(row)).remove(col);
-		 ((Vector<Object>) content.get(row)).add(col, value);
-		if(context.meta.immediatelyUpdate){
-			context.updateColumn(row,col,value);
+		((Vector<Object>) content.get(row)).remove(col);
+		((Vector<Object>) content.get(row)).add(col, value);
+		if (context.meta.immediatelyUpdate) {
+			context.updateColumn(row, col, value);
 		}
 		this.fireTableCellUpdated(row, col);
 	}
@@ -76,16 +75,17 @@ public class MyTableModel<T> extends AbstractTableModel {
 
 	@SuppressWarnings("unchecked")
 	public Object getValueAt(int row, int col) {
-		return  ((Vector<Object>) content.get(row)).get(col);
+		return ((Vector<Object>) content.get(row)).get(col);
 	}
-//	/**
-//	 * 返回数据类型
-//	 */
-//	public Class<?> getColumnClass(int col) {
-//		Class<?> columnClass = super.getColumnClass(col);
-//		 
-//		return columnClass;
-//	}
+
+	//	/**
+	//	 * 返回数据类型
+	//	 */
+	//	public Class<?> getColumnClass(int col) {
+	//		Class<?> columnClass = super.getColumnClass(col);
+	//		 
+	//		return columnClass;
+	//	}
 	public void addRow(T t) {
 		Vector<Object> v = new Vector<Object>(title.length);
 		//"序号", "物料编码", "旧物料编码",
@@ -93,15 +93,16 @@ public class MyTableModel<T> extends AbstractTableModel {
 		//"数量(工厂开单数量)", "尺寸", "材质", "非零号",
 		//"刀模号", "颜色", "备注", "导入日期", "最后修改日期" };
 		List<Object[]> annotationList = context.getAnnotationList();
-		int i =0;
+		int i = 0;
 		for (Object[] field : annotationList) {
-			Field ef= ((Field)field[1]);
-			Object invokeGetter = Reflections.invokeGetter(t,ef.getName());
-			v.add(i++,invokeGetter);
+			Field ef = ((Field) field[1]);
+			Object invokeGetter = Reflections.invokeGetter(t, ef.getName());
+			v.add(i++, invokeGetter);
 		}
 		content.add(v);
 	}
-	 public void setContent(Vector<Object> content) {
+
+	public void setContent(Vector<Object> content) {
 		this.content = content;
 		//setDataVector(Vector data, Vector names);
 	}

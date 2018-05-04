@@ -18,71 +18,75 @@ import javax.swing.JPanel;
 
 import cn.harry12800.j2se.component.utils.GBC;
 
-
-public class Manager extends RemindWindow{
+public class Manager extends RemindWindow {
 	/**
 	 * 
 	 */
 	static JPanel containter = new JPanel();
+
 	public JPanel getContainter() {
 		return containter;
 	}
+
 	private static final long serialVersionUID = 1L;
-	private  static Manager  manager= null;
-	public static Map<String,Notify> notifyMap = new LinkedHashMap<String,Notify>(0);
-	private Manager(){
+	private static Manager manager = null;
+	public static Map<String, Notify> notifyMap = new LinkedHashMap<String, Notify>(0);
+
+	private Manager() {
 		super("消息队列");
-		for(int i =0 ;i < 10;i++){
-			Manager.addNotify(""+i, new TestNotify(i));
+		for (int i = 0; i < 10; i++) {
+			Manager.addNotify("" + i, new TestNotify(i));
 		}
 		revalidate();
 		setVisible(true);
 	}
-	public static Manager getInstance(){
-		if(manager == null) {
-			manager =new Manager();
+
+	public static Manager getInstance() {
+		if (manager == null) {
+			manager = new Manager();
 		}
 		return manager;
 	}
-	
+
 	public static void main(String[] args) {
 		new Manager().setVisible(true);
 	}
+
 	@Override
 	protected JComponent createCenterPanel() {
 		containter.removeAll();
 		containter.setLayout(new FlowLayout(FlowLayout.LEFT));
 		//containter.setSize(300, notifyMap.size()*40+40);
-		setSize(300, notifyMap.size()*50+40);
+		setSize(300, notifyMap.size() * 50 + 40);
 		setRightBottomScreen();
 		containter.setBackground(Color.WHITE);
-		System.out.println( notifyMap.size()+"a");
-		for (Entry<String,Notify> entry : notifyMap.entrySet()) {
+		System.out.println(notifyMap.size() + "a");
+		for (Entry<String, Notify> entry : notifyMap.entrySet()) {
 			Notify notify = entry.getValue();
-			final JPanel item = new  JPanel();
+			final JPanel item = new JPanel();
 			final String id = entry.getKey();
 			item.setLayout(new GridBagLayout());
 			Dimension preferredSize = new Dimension(300, 50);
-			item.setPreferredSize(preferredSize );
-			JLabel title= new JLabel(notify.getTitle());
-			JLabel content= new JLabel(notify.getContent());
-			JLabel icon= new JLabel(notify.getIcon());
-			JLabel times= new JLabel(notify.getTimes()+"");
-			item.add(icon,new GBC(0, 0,  GBC.WEST, new Insets(5, 5, 5, 5), 1, 2));
-			item.add(title,new GBC(1, 0,  GBC.WEST, new Insets(5, 5, 5, 5), 1, 1));
-			item.add(content,new GBC(1, 1,  GBC.WEST, new Insets(5, 5, 5, 5), 1, 1));
-			item.add(times,new GBC(2, 0,  GBC.WEST, new Insets(5, 5, 5, 5), 1, 2));
+			item.setPreferredSize(preferredSize);
+			JLabel title = new JLabel(notify.getTitle());
+			JLabel content = new JLabel(notify.getContent());
+			JLabel icon = new JLabel(notify.getIcon());
+			JLabel times = new JLabel(notify.getTimes() + "");
+			item.add(icon, new GBC(0, 0, GBC.WEST, new Insets(5, 5, 5, 5), 1, 2));
+			item.add(title, new GBC(1, 0, GBC.WEST, new Insets(5, 5, 5, 5), 1, 1));
+			item.add(content, new GBC(1, 1, GBC.WEST, new Insets(5, 5, 5, 5), 1, 1));
+			item.add(times, new GBC(2, 0, GBC.WEST, new Insets(5, 5, 5, 5), 1, 2));
 			item.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseExited(MouseEvent e) {
 					item.setBackground(Color.WHITE);
 				}
-				
+
 				@Override
 				public void mouseEntered(MouseEvent e) {
 					item.setBackground(Color.BLUE);
 				}
-				
+
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					notifyMap.remove(id);
@@ -95,16 +99,19 @@ public class Manager extends RemindWindow{
 		}
 		return containter;
 	}
-	 
-	public static void addNotify(String id,Notify notify) {
-		notifyMap.put(id,notify);
+
+	public static void addNotify(String id, Notify notify) {
+		notifyMap.put(id, notify);
 	}
+
 	public static void removeNotify(String id) {
 		notifyMap.remove(id);
 	}
+
 	public static Map<String, Notify> getNotifyMap() {
 		return notifyMap;
 	}
+
 	public static void setNotifyMap(Map<String, Notify> notifyMap) {
 		Manager.notifyMap = notifyMap;
 	}

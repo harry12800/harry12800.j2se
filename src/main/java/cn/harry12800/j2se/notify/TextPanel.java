@@ -20,31 +20,33 @@ public class TextPanel extends JPanel {
 	public static final Color BUTTON_COLOR2 = Color.LIGHT_GRAY;
 	static int w = 50;
 	static int h = 50;
+
 	public TextPanel() {
 		setOpaque(false);
 		textPane.setEditable(true);
 		textPane.setPreferredSize(new Dimension(400, 300));
 	}
+
 	@Override
 	public void paintComponents(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g.create();
-//		float tran = 1.0F;
-//		if (!hover) {
-//			tran = 0.3F;
-//		}
+		//		float tran = 1.0F;
+		//		if (!hover) {
+		//			tran = 0.3F;
+		//		}
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
 		GradientPaint p1;
 		GradientPaint p2;
-		 
-			p1 = new GradientPaint(0, 0, new Color(0, 0, 255), 0, h - 1,
-					new Color(0, 0, 0));
-			p2 = new GradientPaint(0, 1, new Color(255, 255, 255, 100), 0,h - 3, new Color(0, 0, 0, 50));
-		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.7f));
+
+		p1 = new GradientPaint(0, 0, new Color(0, 0, 255), 0, h - 1,
+				new Color(0, 0, 0));
+		p2 = new GradientPaint(0, 1, new Color(255, 255, 255, 100), 0, h - 3, new Color(0, 0, 0, 50));
+		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
 		GradientPaint gp = new GradientPaint(0.0F, 0.0F, BUTTON_COLOR1, 0.0F,
 				h, BUTTON_COLOR2, true);
 		g2d.setPaint(gp);
-		RoundRectangle2D.Float r2d = new RoundRectangle2D.Float(0, 0,(w - 1) + 20, h - 1, 20, 20);
+		RoundRectangle2D.Float r2d = new RoundRectangle2D.Float(0, 0, (w - 1) + 20, h - 1, 20, 20);
 		Shape clip = g2d.getClip();
 		g2d.clip(r2d);
 		g2d.fillRect(0, 0, w, h);

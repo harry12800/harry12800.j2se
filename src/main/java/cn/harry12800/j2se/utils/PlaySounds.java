@@ -16,13 +16,14 @@ public class PlaySounds extends Thread {
 	private String filename;
 
 	public PlaySounds(String wavfile) {
-		filename =   wavfile;
+		filename = wavfile;
 	}
+
 	public void run() {
-		 //注意加载资源文件的写法  /表示从根目录开始  否则就表示从当前类所在的路径下开始  
-        InputStream is=this.getClass().getResourceAsStream(filename);    
+		//注意加载资源文件的写法  /表示从根目录开始  否则就表示从当前类所在的路径下开始  
+		InputStream is = this.getClass().getResourceAsStream(filename);
 		AudioInputStream audioInputStream = null;
-		BufferedInputStream bufferedInputStream = new BufferedInputStream(is );
+		BufferedInputStream bufferedInputStream = new BufferedInputStream(is);
 		try {
 			audioInputStream = AudioSystem.getAudioInputStream(bufferedInputStream);
 		} catch (Exception e1) {
@@ -57,6 +58,7 @@ public class PlaySounds extends Thread {
 			auline.close();
 		}
 	}
+
 	public static void play(String str) {
 		new PlaySounds(str).run();
 	}

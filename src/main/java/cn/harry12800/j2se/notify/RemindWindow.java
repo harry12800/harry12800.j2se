@@ -10,13 +10,13 @@ import javax.swing.JComponent;
 import cn.harry12800.j2se.component.BaseWindow;
 import cn.harry12800.j2se.component.panel.TitlePanel;
 
-
 public abstract class RemindWindow extends BaseWindow {
 
 	private static final long serialVersionUID = 5575710694424302773L;
-  
+
 	protected Object[] object = null;
-	public RemindWindow(String title,Object... object) {
+
+	public RemindWindow(String title, Object... object) {
 		this.setName(title);
 		this.object = object;
 		this.setLayout(new BorderLayout());// GridBagLayout();
@@ -25,10 +25,11 @@ public abstract class RemindWindow extends BaseWindow {
 		// this.getRootPane().setWindowDecorationStyle(JRootPane.NONE);//
 		// 采用指定的窗口装饰风格
 	}
-	
+
 	protected abstract JComponent createCenterPanel();
+
 	private void initPanel() {
-		add(new TitlePanel(TitlePanel.createBuilder(this)),BorderLayout.NORTH);
+		add(new TitlePanel(TitlePanel.createBuilder(this)), BorderLayout.NORTH);
 		add(createCenterPanel(), BorderLayout.CENTER);
 	}
 

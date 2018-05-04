@@ -15,41 +15,43 @@ import cn.harry12800.j2se.style.FadeOut;
 @SuppressWarnings("serial")
 public abstract class BaseDialog extends JDialog {
 	protected Object object[];
-	public BaseDialog(Window win,Object...object)  {
+
+	public BaseDialog(Window win, Object... object) {
 		super(win);
 		this.object = object;
 		initObject(object);
 		setUndecorated(true);
-		setLayout(new BorderLayout(0,0));
+		setLayout(new BorderLayout(0, 0));
 		setModal(true);
 		new DragListener(this);
 		getLayeredPane().setOpaque(false);
 		getRootPane().setOpaque(false);
-		getLayeredPane().setBackground (new Color (0, 0, 0, 0));
-		setContentPane(new ContentPanel(this){
+		getLayeredPane().setBackground(new Color(0, 0, 0, 0));
+		setContentPane(new ContentPanel(this) {
 			@Override
 			protected Component createCenter() {
 				return createCenterPanel();
 			}
-			
+
 		});
 	}
-	public BaseDialog(Object...object)  {
+
+	public BaseDialog(Object... object) {
 		this.object = object;
 		initObject(object);
 		setUndecorated(true);
-		setLayout(new BorderLayout(0,0));
+		setLayout(new BorderLayout(0, 0));
 		setModal(true);
 		new DragListener(this);
 		getLayeredPane().setOpaque(false);
 		getRootPane().setOpaque(false);
-		getLayeredPane().setBackground (new Color (0, 0, 0, 0));
-		setContentPane(new ContentPanel(this){
+		getLayeredPane().setBackground(new Color(0, 0, 0, 0));
+		setContentPane(new ContentPanel(this) {
 			@Override
 			protected Component createCenter() {
 				return createCenterPanel();
 			}
-			
+
 		});
 	}
 
@@ -61,15 +63,19 @@ public abstract class BaseDialog extends JDialog {
 	}
 
 	protected abstract JComponent createCenterPanel();
+
 	public void leftClick() {
-		
+
 	}
+
 	public void rightClick() {
-		
+
 	}
+
 	public void close() {
 		new FadeOut(this).hide();
 	}
+
 	public void closeAndDispose() {
 		new FadeOut(this).closeAndDispose();
 	}

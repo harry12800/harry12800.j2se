@@ -32,7 +32,7 @@ public class LabelButton extends JButton {
 		public boolean hasTip;
 		public boolean hasCheck = false;
 		public boolean checked = false;
-		public File file= null;
+		public File file = null;
 		public Color bgcolor;
 	}
 
@@ -92,8 +92,8 @@ public class LabelButton extends JButton {
 		setOpaque(false);
 		setBorder(null);
 		setContentAreaFilled(false);
-		setMinimumSize(new Dimension(w, h) );
-		setMaximumSize( new Dimension(w, h) );
+		setMinimumSize(new Dimension(w, h));
+		setMaximumSize(new Dimension(w, h));
 		setPreferredSize(new Dimension(w, h));
 		setFont(UI.normalFont(14));
 		Color color = new Color(231, 224, 224);

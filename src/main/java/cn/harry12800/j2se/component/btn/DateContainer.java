@@ -33,13 +33,14 @@ public class DateContainer implements MouseListener, AncestorListener,
 		FocusListener, DateActionListener {
 
 	private DatePanel datePanel;
-	public String value="单击选择日期";
+	public String value = "单击选择日期";
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 	private JComponent showDate;
 	public Lunar selectLunar;
-//	private Date initDate;
-//	private Calendar now = Calendar.getInstance();
-	public Calendar select  = Calendar.getInstance();
+	//	private Date initDate;
+	//	private Calendar now = Calendar.getInstance();
+	public Calendar select = Calendar.getInstance();
+
 	public DateContainer relative(JComponent c) {
 		this.showDate = c;
 		datePanel = DatePanel.getInstance();
@@ -51,7 +52,6 @@ public class DateContainer implements MouseListener, AncestorListener,
 		return this;
 	}
 
-	
 	// 隐藏日期选择面板
 	private void hidePanel() {
 		if (pop != null) {
@@ -146,17 +146,18 @@ public class DateContainer implements MouseListener, AncestorListener,
 	public void focusLost(FocusEvent e) {
 		hidePanel();
 	}
+
 	@Override
-	public void dateActionClick(Calendar calendar,String date) {
+	public void dateActionClick(Calendar calendar, String date) {
 		this.select = calendar;
 		selectLunar = new Lunar(calendar);
 		value = sdf.format(select.getTime());
-		value = value+"("+selectLunar+")";
+		value = value + "(" + selectLunar + ")";
 		if (showDate instanceof JTextField) {
 			((JTextField) showDate).setText(value);
 		} else if (showDate instanceof JLabel) {
 			((JLabel) showDate).setText(value);
-		}else if (showDate instanceof JButton) {
+		} else if (showDate instanceof JButton) {
 			((JButton) showDate).setText(value);
 		}
 		hidePanel();

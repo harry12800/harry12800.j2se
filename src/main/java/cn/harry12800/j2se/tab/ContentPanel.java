@@ -9,29 +9,32 @@ import javax.swing.JLayeredPane;
 public class ContentPanel extends JLayeredPane {
 
 	private CardLayout cardLayout;
+
 	public ContentPanel(List<Container> panelList) {
 		setOpaque(false);
-//		setBackground(UI.backColor);
+		//		setBackground(UI.backColor);
 		this.cardLayout = new CardLayout(0, 0);
 		setLayout(cardLayout);
-		int i = 0 ;
+		int i = 0;
 		for (Container jPanel : panelList) {
-			add(""+i, jPanel);
+			add("" + i, jPanel);
 			i++;
 		}
 	}
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 	public void showIndex(int indexOf) {
-		cardLayout.show(this, ""+indexOf);
+		cardLayout.show(this, "" + indexOf);
 	}
-//	@Override
-//	protected void paintComponent(Graphics g) {
-//		g.setColor(Style.backColor);
-//		g.fillRect(0, 0, getWidth(), getHeight());
-//		g.setColor(Color.WHITE);
-//		g.drawRect(0, 0, getWidth()-1, getHeight()-1);
-//	}
+	//	@Override
+	//	protected void paintComponent(Graphics g) {
+	//		g.setColor(Style.backColor);
+	//		g.fillRect(0, 0, getWidth(), getHeight());
+	//		g.setColor(Color.WHITE);
+	//		g.drawRect(0, 0, getWidth()-1, getHeight()-1);
+	//	}
 }

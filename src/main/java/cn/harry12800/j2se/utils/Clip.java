@@ -96,7 +96,7 @@ public class Clip {
 				sun.awt.shell.ShellFolder sf = sun.awt.shell.ShellFolder
 						.getShellFolder(f);
 				ImageIcon imageIcon = new ImageIcon(sf.getIcon(true));
-//				System.out.println(imageIcon);
+				//				System.out.println(imageIcon);
 				return imageIcon;
 			} catch (FileNotFoundException e) {
 				/* TODO Auto-generated catch block */
@@ -156,8 +156,8 @@ public class Clip {
 
 	public static void seeCom(Component s) {
 		JFrame jFrame = new JFrame();
-//		jFrame.setUndecorated(true);
-//		jFrame.setBackground(new Color(0,0,0,0));
+		//		jFrame.setUndecorated(true);
+		//		jFrame.setBackground(new Color(0,0,0,0));
 		jFrame.setSize(400, 400);
 		jFrame.setLocationRelativeTo(null);
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -170,19 +170,20 @@ public class Clip {
 	}
 
 	public static void main(String[] args) {
-		
+
 		JLabel jLabel = new JLabel();
 		try {
 			jLabel.setBounds(1, 1, 50, 50);
 			jLabel.setBorder(BorderFactory.createLineBorder(Color.GREEN));
 			jLabel.setIcon(NetworkUtils.getImageByUrl("http://www.baidu.com/"));
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		seeCom( jLabel);
-		
+		seeCom(jLabel);
+
 	}
+
 	public static void setStyle(Component c) {
 		try {
 			/*

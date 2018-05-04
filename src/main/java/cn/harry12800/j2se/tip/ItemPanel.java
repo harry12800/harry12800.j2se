@@ -59,36 +59,36 @@ public class ItemPanel<T extends Letter> extends JPanel {
 
 	public ItemPanel(T letter) {
 		this.letter = letter;
-//		setTransferHandler(new MyTransferHandler(this) );
+		//		setTransferHandler(new MyTransferHandler(this) );
 		DropTarget dt1 = new DropTarget();
 		dt1.setComponent(this);
 		dt1.setDefaultActions(DnDConstants.ACTION_COPY_OR_MOVE);
 		try {
 			dt1.addDropTargetListener(new DropTargetListener() {
-				
+
 				@Override
 				public void dropActionChanged(DropTargetDragEvent dtde) {
-					
+
 				}
-				
+
 				@Override
 				public void drop(DropTargetDropEvent dtde) {
-					
+
 				}
-				
+
 				@Override
 				public void dragOver(DropTargetDragEvent dtde) {
-					
+
 				}
-				
+
 				@Override
 				public void dragExit(DropTargetEvent dte) {
-					
+
 				}
-				
+
 				@Override
 				public void dragEnter(DropTargetDragEvent dtde) {
-					
+
 				}
 			});
 		} catch (TooManyListenersException e) {
@@ -154,7 +154,7 @@ public class ItemPanel<T extends Letter> extends JPanel {
 		// add(createVerticalBox1);
 	}
 
-	public ItemPanel(final ListPanel<?> listPanel, final T letter ) {
+	public ItemPanel(final ListPanel<?> listPanel, final T letter) {
 		setCursor(new Cursor(Cursor.HAND_CURSOR));
 		this.letter = letter;
 		setRequestFocusEnabled(true);
@@ -184,7 +184,7 @@ public class ItemPanel<T extends Letter> extends JPanel {
 		ImageBtn imageBtn = new ImageBtn(ImageUtils.getByName("downG.png"));
 		JLabel label = new JLabel("   +");
 		titleBox.add(label);
-		
+
 		titleBox.add(titleLabel);
 		titleBox.add(hglue);
 		// createVerticalBox1.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
@@ -207,10 +207,10 @@ public class ItemPanel<T extends Letter> extends JPanel {
 		// createVerticalBox1.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		contentBox.setOpaque(false);
 		add(titleBox);
-		if (letter.getContent()!=null&&!"".equals(letter.getContent().trim())) {
+		if (letter.getContent() != null && !"".equals(letter.getContent().trim())) {
 			add(contentBox);
 		}
-		if (letter.getDate()!=null&&!"".equals(letter.getDate().trim())) {
+		if (letter.getDate() != null && !"".equals(letter.getDate().trim())) {
 			add(dateBox);
 		}
 		// add(mainBox);
@@ -248,9 +248,9 @@ public class ItemPanel<T extends Letter> extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				@SuppressWarnings("unchecked")
-				ListCallBack<T>callback =  (ListCallBack<T>) listPanel.getCallback();
+				ListCallBack<T> callback = (ListCallBack<T>) listPanel.getCallback();
 				if (callback != null)
-					callback.item(ItemPanel.this,ItemPanel.this.letter);
+					callback.item(ItemPanel.this, ItemPanel.this.letter);
 			}
 		});
 	}

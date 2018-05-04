@@ -38,6 +38,7 @@ public class TitlePanel extends JPanel {
 	private MenuButton menuButton;
 	private Builder builder;
 	private LogoLabel logoBtn;
+
 	public static enum TitleHeight {
 		large, middle, small;
 	}
@@ -59,18 +60,18 @@ public class TitlePanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		setSize(getWidth(), getHeight());
 		setPreferredSize(new Dimension(getWidth(), getHeight()));
-		if(exitBtn!=null){
-			exitBtn.setBounds(getWidth()-exitBtn.getWidth()-10,5, exitBtn.getWidth(), exitBtn.getHeight());
+		if (exitBtn != null) {
+			exitBtn.setBounds(getWidth() - exitBtn.getWidth() - 10, 5, exitBtn.getWidth(), exitBtn.getHeight());
 		}
-		if(maxBtn!=null){
-			maxBtn.setBounds(getWidth()-exitBtn.getWidth()*2-25,5, maxBtn.getWidth(), maxBtn.getHeight());
+		if (maxBtn != null) {
+			maxBtn.setBounds(getWidth() - exitBtn.getWidth() * 2 - 25, 5, maxBtn.getWidth(), maxBtn.getHeight());
 		}
-		if(minBtn!=null){
-			minBtn.setBounds(getWidth()-minBtn.getWidth()*3-40,5, minBtn.getWidth(), minBtn.getHeight());
+		if (minBtn != null) {
+			minBtn.setBounds(getWidth() - minBtn.getWidth() * 3 - 40, 5, minBtn.getWidth(), minBtn.getHeight());
 		}
-		if(menuButton!=null){
-			menuButton.setBounds(getWidth()-minBtn.getWidth()*4-55,5, menuButton.getWidth(), menuButton.getHeight());
-		} 
+		if (menuButton != null) {
+			menuButton.setBounds(getWidth() - minBtn.getWidth() * 4 - 55, 5, menuButton.getWidth(), menuButton.getHeight());
+		}
 		int h = getHeight();
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -78,24 +79,24 @@ public class TitlePanel extends JPanel {
 		g2d.setStroke(new BasicStroke(1));
 		g2d.setColor(J2seColor.getBackgroundColor());
 		GradientPaint p1;
-		p1 = new GradientPaint(0, 0, new Color(255, 255, 255,0), getWidth(),0, new Color(
-				255, 255, 255,200));
+		p1 = new GradientPaint(0, 0, new Color(255, 255, 255, 0), getWidth(), 0, new Color(
+				255, 255, 255, 200));
 		g2d.setPaint(p1);
-		g2d.drawLine(0, h-1,getWidth(), h-1);
+		g2d.drawLine(0, h - 1, getWidth(), h - 1);
 		super.paintComponent(g);
 	}
 
 	public TitlePanel(Builder builder) {
 		this.builder = builder;
-		if(builder.titleHeight == TitleHeight.large)		{
+		if (builder.titleHeight == TitleHeight.large) {
 			setSize(200, 30);
 			setPreferredSize(new Dimension(200, 30));
 		}
-		if(builder.titleHeight == TitleHeight.middle)		{
+		if (builder.titleHeight == TitleHeight.middle) {
 			setSize(200, 30);
 			setPreferredSize(new Dimension(200, 30));
 		}
-		if(builder.titleHeight == TitleHeight.small)		{
+		if (builder.titleHeight == TitleHeight.small) {
 			setSize(200, 10);
 			setPreferredSize(new Dimension(200, 10));
 		}
@@ -111,7 +112,7 @@ public class TitlePanel extends JPanel {
 		if (builder.hasTitle) {
 			TitleNameLabel logolab = new TitleNameLabel(
 					builder.window.getName());
-			logolab.setBounds(logoBtn==null?0:logoBtn.getWidth()+4,3, logolab.getWidth(),
+			logolab.setBounds(logoBtn == null ? 0 : logoBtn.getWidth() + 4, 3, logolab.getWidth(),
 					logolab.getHeight());
 			add(logolab);
 		}
@@ -180,6 +181,7 @@ public class TitlePanel extends JPanel {
 		public int height;
 		boolean hover = false;
 		BufferedImage byName;
+
 		public MenuButton(final Builder builder) {
 			switch (builder.titleHeight) {
 			case large:
@@ -197,13 +199,13 @@ public class TitlePanel extends JPanel {
 			default:
 				break;
 			}
-			byName= ImageUtils.getByName("selected-bars.png");
+			byName = ImageUtils.getByName("selected-bars.png");
 			setCursor(new Cursor(Cursor.HAND_CURSOR));
 			setIcon(new ImageIcon(byName));
 			setOpaque(false);
 			setContentAreaFilled(false);
 			setBorder(null);
-			setSize(width,height);
+			setSize(width, height);
 			setPreferredSize(new Dimension(width, height));
 			addMouseListener(new MouseAdapter() {
 				@Override

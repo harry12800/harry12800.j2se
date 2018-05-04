@@ -12,7 +12,8 @@ import javax.swing.JTextPane;
 @SuppressWarnings("serial")
 public class HtmlDialog extends BaseDialog {
 	private JPanel display = null;
-	private Dimension preferredSize  = new Dimension(1000, 565);
+	private Dimension preferredSize = new Dimension(1000, 565);
+
 	/**
 	 * type 1是添加，type 2是修改
 	 * @param type
@@ -23,22 +24,24 @@ public class HtmlDialog extends BaseDialog {
 		setCenterScreen();
 		setLocationRelativeTo(null);
 		this.setVisible(true);
-		
+
 	}
+
 	@Override
 	protected void initObject(Object[] object) {
 		setName("预览页面（只看数据是否正确。）");
 	}
+
 	@Override
 	protected JComponent createCenterPanel() {
-		display =new JPanel();
+		display = new JPanel();
 		JTextPane tp = new JTextPane();
 		tp.setContentType("text/html; charset=utf-8");
 		JScrollPane scroll = new JScrollPane(tp);
-		scroll.setPreferredSize(preferredSize  );
-		String url =(String) object[0];
-		 
-//		System.out.println(url);
+		scroll.setPreferredSize(preferredSize);
+		String url = (String) object[0];
+
+		//		System.out.println(url);
 		try {
 			tp.setPage(url);
 		} catch (IOException e) {
@@ -47,6 +50,7 @@ public class HtmlDialog extends BaseDialog {
 		display.add(scroll);
 		return scroll;
 	}
+
 	private void setCenterScreen() {
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension d = tk.getScreenSize();

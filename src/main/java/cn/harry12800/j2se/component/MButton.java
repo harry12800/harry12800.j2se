@@ -31,9 +31,10 @@ public class MButton extends JButton {
 	public boolean hasTip;
 	public boolean hasCheck = false;
 	public boolean checked = false;
-	public Image image= null;
+	public Image image = null;
 	public Color bgcolor;
-	public int borderRadius= 0;
+	public int borderRadius = 0;
+
 	/**
 	 * 
 	 * @param name
@@ -58,8 +59,8 @@ public class MButton extends JButton {
 		addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(e.getKeyCode()==10){
-					if(clickAction!=null){
+				if (e.getKeyCode() == 10) {
+					if (clickAction != null) {
 						clickAction.leftClick(null);
 					}
 				}
@@ -71,15 +72,15 @@ public class MButton extends JButton {
 				hover = false;
 				repaint();
 			}
-			
+
 			@Override
 			public void focusGained(FocusEvent arg0) {
 				hover = true;
-				repaint();				
+				repaint();
 			}
 		});
-		setMinimumSize(new Dimension(w, h) );
-		setMaximumSize( new Dimension(w, h) );
+		setMinimumSize(new Dimension(w, h));
+		setMaximumSize(new Dimension(w, h));
 		setPreferredSize(new Dimension(w, h));
 		setBorderPainted(false);
 		setContentAreaFilled(false);
@@ -91,7 +92,7 @@ public class MButton extends JButton {
 			public void mouseEntered(MouseEvent e) {
 				hover = true;
 				repaint();
-				if(hoverAction!=null)
+				if (hoverAction != null)
 					hoverAction.hover(e);
 			}
 
@@ -99,7 +100,7 @@ public class MButton extends JButton {
 			public void mouseExited(MouseEvent e) {
 				hover = false;
 				repaint();
-				if(hoverAction!=null)
+				if (hoverAction != null)
 					hoverAction.out();
 			}
 
@@ -124,10 +125,13 @@ public class MButton extends JButton {
 	public interface ChangeListener {
 		void changed(boolean checked);
 	}
+
 	public interface HoverListener {
-		void hover( MouseEvent e);
+		void hover(MouseEvent e);
+
 		void out();
 	}
+
 	public void addHoverListener(HoverListener a) {
 		this.hoverAction = a;
 	}
@@ -135,44 +139,44 @@ public class MButton extends JButton {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		if(hover) {
+		if (hover) {
 			Graphics2D g2d = (Graphics2D) g.create();
-			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 			g2d.setColor(UI.foreColor(200));
-			g2d.fillRoundRect(0, 0, w-1 , h-1, w,h/2);
-		}else if(bgcolor!=null) {
+			g2d.fillRoundRect(0, 0, w - 1, h - 1, w, h / 2);
+		} else if (bgcolor != null) {
 			Graphics2D g2d = (Graphics2D) g.create();
-			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 			g2d.setColor(bgcolor);
-			g2d.fillRoundRect(0, 0, w-1 , h-1, w,h/2);
+			g2d.fillRoundRect(0, 0, w - 1, h - 1, w, h / 2);
 		}
 		g.dispose();
-//		Graphics2D g2d = (Graphics2D) g.create();
-//		GradientPaint p2;
-//		if (builder.bgcolor != null) {
-//			g2d.setColor(builder.bgcolor);
-//			g2d.fillRoundRect(0, 0, w , h, builder.borderRadius*2, builder.borderRadius*2);
-//		}
-//		if (builder.hasborder)
-//			if (hover) {
-//				p2 = new GradientPaint(0, 0, new Color(186, 131, 164, 200), 0, h, new Color(255, 255, 255, 255));
-//				g2d.setPaint(p2);
-//				g2d.drawRoundRect(0, 0, w-1 , h-1, builder.borderRadius*2, builder.borderRadius*2);
-//			} else {
-//				p2 = new GradientPaint(0, 1, new Color(150, 150, 150, 50), 0, h, new Color(160, 160, 160, 100));
-//				g2d.setPaint(p2);
-//				g2d.drawRoundRect(0, 0, w-1 , h-1, builder.borderRadius*2, builder.borderRadius*2);
-//			}
-//		
-//		GradientPaint p1 = new GradientPaint(0, 1, new Color(255, 255, 255, 255), 0, h ,
-//				new Color(255, 255, 255, 255));
-//		g2d.setPaint(p1);
-//		g2d.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND)); // 设置新的画刷
-//		g2d.setFont(new Font("宋体", Font.PLAIN, 12));
-//		g2d.drawString(name, w / 2 - 15 * (nameLen / 2), h / 2 + 5);
-//		if(builder.image!=null)
-//		g2d.drawImage(builder.image, 3, 3, h-6, h-6, null);
-//		g2d.dispose();
+		//		Graphics2D g2d = (Graphics2D) g.create();
+		//		GradientPaint p2;
+		//		if (builder.bgcolor != null) {
+		//			g2d.setColor(builder.bgcolor);
+		//			g2d.fillRoundRect(0, 0, w , h, builder.borderRadius*2, builder.borderRadius*2);
+		//		}
+		//		if (builder.hasborder)
+		//			if (hover) {
+		//				p2 = new GradientPaint(0, 0, new Color(186, 131, 164, 200), 0, h, new Color(255, 255, 255, 255));
+		//				g2d.setPaint(p2);
+		//				g2d.drawRoundRect(0, 0, w-1 , h-1, builder.borderRadius*2, builder.borderRadius*2);
+		//			} else {
+		//				p2 = new GradientPaint(0, 1, new Color(150, 150, 150, 50), 0, h, new Color(160, 160, 160, 100));
+		//				g2d.setPaint(p2);
+		//				g2d.drawRoundRect(0, 0, w-1 , h-1, builder.borderRadius*2, builder.borderRadius*2);
+		//			}
+		//		
+		//		GradientPaint p1 = new GradientPaint(0, 1, new Color(255, 255, 255, 255), 0, h ,
+		//				new Color(255, 255, 255, 255));
+		//		g2d.setPaint(p1);
+		//		g2d.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND)); // 设置新的画刷
+		//		g2d.setFont(new Font("宋体", Font.PLAIN, 12));
+		//		g2d.drawString(name, w / 2 - 15 * (nameLen / 2), h / 2 + 5);
+		//		if(builder.image!=null)
+		//		g2d.drawImage(builder.image, 3, 3, h-6, h-6, null);
+		//		g2d.dispose();
 	}
 
 	/**
@@ -180,6 +184,7 @@ public class MButton extends JButton {
 	 */
 
 	private static final long serialVersionUID = 1L;
+
 	public void setHover(boolean hover) {
 		this.hover = hover;
 		repaint();
@@ -200,5 +205,5 @@ public class MButton extends JButton {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 }

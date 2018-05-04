@@ -16,20 +16,21 @@ public class TitleNamePanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-//	private Builder builder;
-	private LogoLabel logoBtn ;
-	private JLabel logolab ;
+	//	private Builder builder;
+	private LogoLabel logoBtn;
+	private JLabel logolab;
+
 	public TitleNamePanel(Builder builder) {
-//		this.builder = builder;
-		setLayout(new FlowLayout(FlowLayout.RIGHT,10,-1));
-		setBorder(new EmptyBorder(1,1,1,1));
+		//		this.builder = builder;
+		setLayout(new FlowLayout(FlowLayout.RIGHT, 10, -1));
+		setBorder(new EmptyBorder(1, 1, 1, 1));
 		setOpaque(false);
-		if(builder.hasLogo) {
-			logoBtn= new LogoLabel("logo");
+		if (builder.hasLogo) {
+			logoBtn = new LogoLabel("logo");
 			add(logoBtn);
 		}
-		if(builder.hasTitle) {
-			logolab = new TitleNameLabel(builder.window.getName());			
+		if (builder.hasTitle) {
+			logolab = new TitleNameLabel(builder.window.getName());
 			add(logolab);
 		}
 	}

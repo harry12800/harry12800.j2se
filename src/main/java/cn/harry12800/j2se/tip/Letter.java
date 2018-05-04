@@ -5,20 +5,23 @@ public class Letter {
 	private String title;
 	private String content;
 	private String date;
-	private int indent=0;
-	
+	private int indent = 0;
+
 	public int getIndent() {
 		return indent;
 	}
+
 	public void setIndent(int indent) {
 		this.indent = indent;
 	}
+
 	public Letter(String title, String content, String date) {
 		super();
 		this.title = title;
 		this.content = content;
 		this.date = date;
 	}
+
 	/**
 	 * 获取title
 	 *	@return the title
@@ -26,6 +29,7 @@ public class Letter {
 	public String getTitle() {
 		return title;
 	}
+
 	/**
 	 * 设置title
 	 * @param title the title to set
@@ -33,6 +37,7 @@ public class Letter {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	/**
 	 * 获取content
 	 *	@return the content
@@ -40,6 +45,7 @@ public class Letter {
 	public String getContent() {
 		return content;
 	}
+
 	/**
 	 * 设置content
 	 * @param content the content to set
@@ -47,6 +53,7 @@ public class Letter {
 	public void setContent(String content) {
 		this.content = content;
 	}
+
 	/**
 	 * 获取date
 	 *	@return the date
@@ -54,6 +61,7 @@ public class Letter {
 	public String getDate() {
 		return date;
 	}
+
 	/**
 	 * 设置date
 	 * @param date the date to set
@@ -61,6 +69,7 @@ public class Letter {
 	public void setDate(String date) {
 		this.date = date;
 	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -68,6 +77,5 @@ public class Letter {
 	public String toString() {
 		return "Letter [title=" + title + ", content=" + content + ", date=" + date + "]";
 	}
-	 
-	 
+
 }

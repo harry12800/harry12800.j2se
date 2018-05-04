@@ -4,5 +4,6 @@ import java.awt.event.MouseEvent;
 
 public interface HoverListener {
 	void hover(MouseEvent e);
+
 	void out();
 }

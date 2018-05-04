@@ -14,10 +14,11 @@ import javazoom.jl.player.Player;
 public class MP3Player {
 	private String filename;
 	private Player player;
+
 	public MP3Player(String filename) {
-//		Media Media = new Media("file:///"+new File(filename).toURI());
-//		MediaPlayer player = new MediaPlayer(Media  );
-//		player.setAutoPlay(true);
+		//		Media Media = new Media("file:///"+new File(filename).toURI());
+		//		MediaPlayer player = new MediaPlayer(Media  );
+		//		player.setAutoPlay(true);
 		this.filename = filename;
 	}
 
@@ -25,15 +26,15 @@ public class MP3Player {
 		try {
 			player = new Player(new ByteArrayInputStream(data));
 			player.play();
-//			int position = player.getPosition();
+			//			int position = player.getPosition();
 		} catch (JavaLayerException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public void stop() {
-		if(player!=null)
-		player.close();
+		if (player != null)
+			player.close();
 	}
 
 	public void play() {
@@ -42,9 +43,10 @@ public class MP3Player {
 			player = new Player(buffer);
 			player.play();
 		} catch (Exception e) {
-			 e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
+
 	public static void main(String[] args) {
 		try {
 			Speak.speak1("阿萨德发阿萨发送地方");

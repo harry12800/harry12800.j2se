@@ -19,7 +19,7 @@ public class TextAndPicButton extends JButton {
 	public TextAndPicButton(String filename, String text) {
 		InputStream in = TextAndPicButton.class.getResourceAsStream(filename);
 		try {
-			TextAndPic(in,text);
+			TextAndPic(in, text);
 		} catch (Exception e) {
 			setHorizontalTextPosition(SwingConstants.CENTER);
 			setVerticalTextPosition(SwingConstants.TOP);

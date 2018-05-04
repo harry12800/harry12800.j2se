@@ -8,7 +8,7 @@ import java.util.Date;
 public class Lunar {
 	public boolean isleap;
 	public int day;
-	public int month =2;
+	public int month = 2;
 	public int year;
 	final static String chineseNumber[] = { "一", "二", "三", "四", "五", "六", "七",
 			"八", "九", "十", "十一", "十二" };
@@ -45,6 +45,7 @@ public class Lunar {
 	 */
 	public Lunar() {
 	}
+
 	final public static int yearDays(int y) {
 		int i, sum = 348;
 		for (i = 0x8000; i > 0x8; i >>= 1) {
@@ -317,9 +318,10 @@ public class Lunar {
 	public void setLunarYear(int lunarYear) {
 		this.year = lunarYear;
 	}
+
 	public static int getCurrentYear() {
 		Calendar today = Calendar.getInstance();
-		Lunar lunar = new Lunar(today);  
+		Lunar lunar = new Lunar(today);
 		return lunar.year;
 	}
 }

@@ -19,7 +19,7 @@ import cn.harry12800.tools.DbField;
  */
 @SuppressWarnings("serial")
 public class WorkPanel<T> extends JPanel {
-	public JLabel infoLabel=new JLabel();
+	public JLabel infoLabel = new JLabel();
 	public LabelButton btnAdd;
 	public LabelButton btnDelete;
 	public LabelButton btnEdit;
@@ -35,32 +35,33 @@ public class WorkPanel<T> extends JPanel {
 		initButton();
 		initPane();
 	}
+
 	private void initPane() {
 		int index = 0;
 		setOpaque(false);
 		setLayout(new GridBagLayout());
 		add(infoLabel, new GBC(0, index++, GBC.WEST, new Insets(5, 5, 5, 5), 1, 1));
-		if(btnAdd!=null)
-		add(btnAdd, new GBC(0, index++, GBC.WEST, new Insets(5, 5, 5, 5), 1, 1));
-		if(btnEdit!=null)
-		add(btnEdit, new GBC(0, index++, GBC.WEST, new Insets(5, 5, 5, 5), 1, 1));
-		if(btnDelete!=null)
-		add(btnDelete, new GBC(0, index++, GBC.WEST, new Insets(5, 5, 5, 5), 1, 1));
-		if(btnRefresh!=null)
-		add(btnRefresh, new GBC(0,index++, GBC.WEST, new Insets(5, 5, 5, 5), 1, 1));
-		if(btnSearch!=null)
-		add(btnSearch, new GBC(0,index++, GBC.WEST, new Insets(5, 5, 5, 5), 1, 1));
-		if(btnImp!=null)
-		add(btnImp, new GBC(0,index++, GBC.WEST, new Insets(5, 5, 5, 5), 1, 1));
-		if(btnExp!=null)
-		add(btnExp, new GBC(0,index++, GBC.WEST, new Insets(5, 5, 5, 5), 1, 1));
-			
+		if (btnAdd != null)
+			add(btnAdd, new GBC(0, index++, GBC.WEST, new Insets(5, 5, 5, 5), 1, 1));
+		if (btnEdit != null)
+			add(btnEdit, new GBC(0, index++, GBC.WEST, new Insets(5, 5, 5, 5), 1, 1));
+		if (btnDelete != null)
+			add(btnDelete, new GBC(0, index++, GBC.WEST, new Insets(5, 5, 5, 5), 1, 1));
+		if (btnRefresh != null)
+			add(btnRefresh, new GBC(0, index++, GBC.WEST, new Insets(5, 5, 5, 5), 1, 1));
+		if (btnSearch != null)
+			add(btnSearch, new GBC(0, index++, GBC.WEST, new Insets(5, 5, 5, 5), 1, 1));
+		if (btnImp != null)
+			add(btnImp, new GBC(0, index++, GBC.WEST, new Insets(5, 5, 5, 5), 1, 1));
+		if (btnExp != null)
+			add(btnExp, new GBC(0, index++, GBC.WEST, new Insets(5, 5, 5, 5), 1, 1));
+
 		List<Component> compList = context.getWorkComp();
-		if(compList  !=null)
-		for(int i =0 ;i < compList.size() ; i++) {
-			add(compList.get(i), new GBC(0,index++, GBC.WEST, new Insets(5, 5, 5, 5), 1, 1)); 
-		}
-		add(btnBack, new GBC(0,index++, GBC.WEST, new Insets(5, 5, 5, 5), 1, 1));
+		if (compList != null)
+			for (int i = 0; i < compList.size(); i++) {
+				add(compList.get(i), new GBC(0, index++, GBC.WEST, new Insets(5, 5, 5, 5), 1, 1));
+			}
+		add(btnBack, new GBC(0, index++, GBC.WEST, new Insets(5, 5, 5, 5), 1, 1));
 	}
 
 	public void initButton() {
@@ -70,66 +71,65 @@ public class WorkPanel<T> extends JPanel {
 		boolean isCanImp = false;
 		boolean isCanExp = false;
 		for (Object[] objects : context.annotationList) {
-			DbField ef= ((DbField)objects[0]);
-			if(!ef.isKey()&&ef.canAdd()){
-				 isCanAdd =  true;
+			DbField ef = ((DbField) objects[0]);
+			if (!ef.isKey() && ef.canAdd()) {
+				isCanAdd = true;
 			}
-			if(!ef.isKey()&&ef.canEdit()){
-				 isCanEdit = true;
+			if (!ef.isKey() && ef.canEdit()) {
+				isCanEdit = true;
 			}
-			if(!ef.isKey()&&ef.canSearch()){
-				 isCanSearch = true;
+			if (!ef.isKey() && ef.canSearch()) {
+				isCanSearch = true;
 			}
-			if(!ef.isKey()&&ef.imp()){
-				 isCanImp = true;
+			if (!ef.isKey() && ef.imp()) {
+				isCanImp = true;
 			}
-			if(!ef.isKey()&&ef.exp()){
-				 isCanExp = true;
+			if (!ef.isKey() && ef.exp()) {
+				isCanExp = true;
 			}
 		}
-		if(context.meta.isCanAdd&&isCanAdd)
-		{
-			btnAdd = new LabelButton("增加",100,32);
+		if (context.meta.isCanAdd && isCanAdd) {
+			btnAdd = new LabelButton("增加", 100, 32);
 			btnAdd.setToolTipText(context.meta.addHint);
 			btnAddListener();
 		}
-		btnRefresh =  new LabelButton("刷新",100,32);
+		btnRefresh = new LabelButton("刷新", 100, 32);
 		btnRefreshListener();
-		if(context.meta.isCanDel)
-		{
-			btnDelete = new LabelButton("删除",100,32);
+		if (context.meta.isCanDel) {
+			btnDelete = new LabelButton("删除", 100, 32);
 			btnDelete.setToolTipText(context.meta.deleteHint);
 			btnDeleteListener();
 		}
-		if(context.meta.isCanEdit&&isCanEdit){
-			btnEdit =  new LabelButton("编辑" ,100,32); 
+		if (context.meta.isCanEdit && isCanEdit) {
+			btnEdit = new LabelButton("编辑", 100, 32);
 			btnEdit.setToolTipText(context.meta.editHint);
 			btnEditListener();
 		}
-		if(context.meta.isCanSearch&&isCanSearch){
-			btnSearch =  new LabelButton("搜索",100,32); 
+		if (context.meta.isCanSearch && isCanSearch) {
+			btnSearch = new LabelButton("搜索", 100, 32);
 			btnSearch.setToolTipText(context.meta.searchHint);
 			btnSearchListener();
 		}
-		if(context.meta.isCanImp&&isCanImp){
-			btnImp =  new LabelButton("导入",100,32); 
+		if (context.meta.isCanImp && isCanImp) {
+			btnImp = new LabelButton("导入", 100, 32);
 			btnImp.setToolTipText(context.meta.impHint);
 			btnImpListener();
 		}
-		if(context.meta.isCanExp&&isCanExp){
-			btnExp =  new LabelButton("导出",100,32); 
+		if (context.meta.isCanExp && isCanExp) {
+			btnExp = new LabelButton("导出", 100, 32);
 			btnExp.setToolTipText(context.meta.expHint);
 			btnExpListener();
 		}
-		btnBack = new LabelButton("分页",100,32); 
+		btnBack = new LabelButton("分页", 100, 32);
 		btnBack.setToolTipText("分页");
 		btnBackListener();
 	}
+
 	private void btnBackListener() {
 		btnBack.addMouseListener(new MouseAdapter() {
-			 @Override
+			@Override
 			public void mouseReleased(MouseEvent e) {
-				if(btnBack.contains(e.getPoint())){
+				if (btnBack.contains(e.getPoint())) {
 					context.setPage(!context.isPage);
 				}
 			}
@@ -140,7 +140,7 @@ public class WorkPanel<T> extends JPanel {
 		btnExp.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				if(btnExp.contains(e.getPoint())){
+				if (btnExp.contains(e.getPoint())) {
 					context.excelExp();
 				}
 			}
@@ -151,7 +151,7 @@ public class WorkPanel<T> extends JPanel {
 		btnImp.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				if(btnImp.contains(e.getPoint())){
+				if (btnImp.contains(e.getPoint())) {
 					context.excelImp();
 				}
 			}
@@ -162,7 +162,7 @@ public class WorkPanel<T> extends JPanel {
 		btnRefresh.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				if(btnRefresh.contains(e.getPoint())){
+				if (btnRefresh.contains(e.getPoint())) {
 					context.getTable().refreshLatest();
 				}
 			}
@@ -172,7 +172,7 @@ public class WorkPanel<T> extends JPanel {
 	private void btnSearchListener() {
 		btnSearch.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent e) {
-				if(btnSearch.contains(e.getPoint())){
+				if (btnSearch.contains(e.getPoint())) {
 					context.showSearchDialog();
 				}
 			}
@@ -182,7 +182,7 @@ public class WorkPanel<T> extends JPanel {
 	private void btnEditListener() {
 		btnEdit.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent e) {
-				if(btnEdit.contains(e.getPoint())){
+				if (btnEdit.contains(e.getPoint())) {
 					context.showEditDialog();
 				}
 			}
@@ -192,7 +192,7 @@ public class WorkPanel<T> extends JPanel {
 	private void btnDeleteListener() {
 		btnDelete.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent e) {
-				if(btnDelete.contains(e.getPoint())){
+				if (btnDelete.contains(e.getPoint())) {
 					context.deleteData();
 				}
 			}
@@ -202,7 +202,7 @@ public class WorkPanel<T> extends JPanel {
 	private void btnAddListener() {
 		btnAdd.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent e) {
-				if(btnAdd.contains(e.getPoint())){
+				if (btnAdd.contains(e.getPoint())) {
 					System.out.println(e.getPoint());
 					System.out.println(e.getX());
 					System.out.println(e.getY());

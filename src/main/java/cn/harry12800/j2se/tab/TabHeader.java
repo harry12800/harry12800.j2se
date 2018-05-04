@@ -70,7 +70,6 @@ public class TabHeader extends JButton {
 		});
 	}
 
-
 	public boolean contains(int x, int y) {
 		// 不判定的话会越界，在组件之外也会激发这个方法
 		if (!super.contains(x, y))
@@ -85,9 +84,9 @@ public class TabHeader extends JButton {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g.create();
-		GradientPaint  p2;
+		GradientPaint p2;
 		if (tab.getCurrIndex() == index) {
-			p2 = new GradientPaint(0, 0, UI.foreColor(100), 0, h ,UI.foreColor(100));
+			p2 = new GradientPaint(0, 0, UI.foreColor(100), 0, h, UI.foreColor(100));
 			g2d.setPaint(p2);
 			g2d.fillRect(0, 0, w, h);
 			g2d.setColor(Color.WHITE);
@@ -103,7 +102,7 @@ public class TabHeader extends JButton {
 			g2d.setPaint(p2);
 			g2d.fillRect(0, 0, w, h);
 			g2d.setColor(Color.WHITE);
-			g2d.drawRect(0,0,w-1,h-1);
+			g2d.drawRect(0, 0, w - 1, h - 1);
 		}
 		g2d.dispose();
 	}

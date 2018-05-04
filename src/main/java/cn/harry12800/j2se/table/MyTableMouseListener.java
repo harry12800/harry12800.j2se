@@ -7,11 +7,10 @@ import javax.swing.table.TableColumn;
 
 public class MyTableMouseListener<T> implements MouseListener {
 
-
 	private DisplayPanel<T> context;
 	private MyTable<T> table;
 
-	public MyTableMouseListener(DisplayPanel<T> displayPanel, MyTable<T> myTable   ) {
+	public MyTableMouseListener(DisplayPanel<T> displayPanel, MyTable<T> myTable) {
 		this.context = displayPanel;
 		this.table = myTable;
 	}
@@ -22,12 +21,12 @@ public class MyTableMouseListener<T> implements MouseListener {
 		//int row = table.getSelectedRow();
 		// table.setEditBeforeValue(table.getValueAt(row, col) + "");
 		if (e.getButton() == MouseEvent.BUTTON1) {
-			
+
 		}
 
 		if (e.getButton() == MouseEvent.BUTTON3) {
-			if(table.getPopupMenu()!=null)
-				table.getPopupMenu().show(e.getPoint(),table);
+			if (table.getPopupMenu() != null)
+				table.getPopupMenu().show(e.getPoint(), table);
 		}
 	}
 
@@ -44,7 +43,7 @@ public class MyTableMouseListener<T> implements MouseListener {
 		if (evt.isPopupTrigger()) {
 			/*// 取得右键点击所在行
 			//int row = evt.getY() / table.getRowHeight();
-*/
+			*/
 			/**
 			 * 取得是表名的那一列
 			 */
@@ -59,7 +58,7 @@ public class MyTableMouseListener<T> implements MouseListener {
 					break;
 				}
 			}
-			table.getPopupMenu().show(evt.getPoint(),table);
+			table.getPopupMenu().show(evt.getPoint(), table);
 			/**
 			 * 取得表名并弹出菜单
 			 */
@@ -70,13 +69,13 @@ public class MyTableMouseListener<T> implements MouseListener {
 				/*String tableName = (String) table.getValueAt(row,
 					tableNameColumn);
 				tableNameItem.setText(tableName);
-
+				
 				弹出菜单
 				//evt.getComponent()
 				 * 
 				 * *
 				 */
-				table.getPopupMenu().show(evt.getPoint(),table);
+				table.getPopupMenu().show(evt.getPoint(), table);
 			}
 		}
 	}
@@ -88,7 +87,7 @@ public class MyTableMouseListener<T> implements MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-//		System.out.println("mouseEntered");
+		//		System.out.println("mouseEntered");
 	}
 
 	@Override

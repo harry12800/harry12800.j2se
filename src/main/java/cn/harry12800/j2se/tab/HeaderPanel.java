@@ -18,7 +18,7 @@ public class HeaderPanel extends JPanel {
 	public HeaderPanel(List<TabHeader> headList) {
 		setLayout(new BorderLayout(0, 0));
 		setOpaque(false);
-//		setBackground(new Color(0,0,0,0));
+		//		setBackground(new Color(0,0,0,0));
 		setLayout(new FlowLayout(FlowLayout.LEFT, -1, 0));
 		for (TabHeader tabHeader : headList) {
 			add(tabHeader);
@@ -29,8 +29,8 @@ public class HeaderPanel extends JPanel {
 		g.setColor(UI.backColor);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		Graphics2D g2d = (Graphics2D) g.create();
-		GradientPaint p2 = new GradientPaint(0, 0,new Color(255, 255, 255,255),getWidth(), 0, new Color(255, 255, 255,0));
+		GradientPaint p2 = new GradientPaint(0, 0, new Color(255, 255, 255, 255), getWidth(), 0, new Color(255, 255, 255, 0));
 		g2d.setPaint(p2);
-		g2d.drawLine(2, 24, getWidth()-2, 24);
+		g2d.drawLine(2, 24, getWidth() - 2, 24);
 	}
 }

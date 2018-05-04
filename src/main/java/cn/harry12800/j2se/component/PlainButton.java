@@ -31,7 +31,7 @@ public class PlainButton extends JButton {
 	private int w;
 	private int h;
 	private String name;
-	private int nameLen =0;
+	private int nameLen = 0;
 	public Builder builder;
 	private ClickAction clickAction;
 	private HoverListener hoverAction;
@@ -42,9 +42,9 @@ public class PlainButton extends JButton {
 		public boolean hasTip;
 		public boolean hasCheck = false;
 		public boolean checked = false;
-		public Image image= null;
+		public Image image = null;
 		public Color bgcolor;
-		public int borderRadius= 0;
+		public int borderRadius = 0;
 	}
 
 	public static Builder createLabelBuilder() {
@@ -103,17 +103,17 @@ public class PlainButton extends JButton {
 		setSize(w, h);
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		try {
-			nameLen = name.getBytes("GBK").length/2;
+			nameLen = name.getBytes("GBK").length / 2;
 		} catch (UnsupportedEncodingException e1) {
 			e1.printStackTrace();
 		}
-//		if (builder.hasTip)
-//			setToolTipText(name);
+		//		if (builder.hasTip)
+		//			setToolTipText(name);
 		addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(e.getKeyCode()==10){
-					if(clickAction!=null){
+				if (e.getKeyCode() == 10) {
+					if (clickAction != null) {
 						clickAction.leftClick(null);
 					}
 				}
@@ -126,15 +126,15 @@ public class PlainButton extends JButton {
 				hover = false;
 				repaint();
 			}
-			
+
 			@Override
 			public void focusGained(FocusEvent arg0) {
 				hover = true;
-				repaint();				
+				repaint();
 			}
 		});
-		setMinimumSize(new Dimension(w, h) );
-		setMaximumSize( new Dimension(w, h) );
+		setMinimumSize(new Dimension(w, h));
+		setMaximumSize(new Dimension(w, h));
 		setPreferredSize(new Dimension(w, h));
 		setFont(new Font("宋体", Font.PLAIN, 12));
 		Color color = new Color(231, 224, 224);
@@ -147,7 +147,7 @@ public class PlainButton extends JButton {
 				setForeground(color);
 				hover = true;
 				repaint();
-				if(hoverAction!=null)
+				if (hoverAction != null)
 					hoverAction.hover(e);
 			}
 
@@ -157,7 +157,7 @@ public class PlainButton extends JButton {
 				setForeground(color);
 				hover = false;
 				repaint();
-				if(hoverAction!=null)
+				if (hoverAction != null)
 					hoverAction.out();
 			}
 
@@ -182,10 +182,13 @@ public class PlainButton extends JButton {
 	public interface ChangeListener {
 		void changed(boolean checked);
 	}
+
 	public interface HoverListener {
-		void hover( MouseEvent e);
+		void hover(MouseEvent e);
+
 		void out();
 	}
+
 	public void addHoverListener(HoverListener a) {
 		this.hoverAction = a;
 	}
@@ -200,14 +203,14 @@ public class PlainButton extends JButton {
 		GradientPaint p2;
 		if (builder.bgcolor != null) {
 			g2d.setColor(builder.bgcolor);
-			g2d.fillRoundRect(0, 0, w , h, builder.borderRadius*2, builder.borderRadius*2);
+			g2d.fillRoundRect(0, 0, w, h, builder.borderRadius * 2, builder.borderRadius * 2);
 		}
 		if (hover) {
 			p2 = new GradientPaint(0, 0, new Color(186, 131, 164, 200), 0, h, new Color(255, 255, 255, 255));
 			g2d.setPaint(p2);
-			g2d.drawRoundRect(0, 0, w-1 , h-1, builder.borderRadius*2, builder.borderRadius*2);
-		}  
-		GradientPaint p1 = new GradientPaint(0, 1, new Color(255, 255, 255, 255), 0, h ,
+			g2d.drawRoundRect(0, 0, w - 1, h - 1, builder.borderRadius * 2, builder.borderRadius * 2);
+		}
+		GradientPaint p1 = new GradientPaint(0, 1, new Color(255, 255, 255, 255), 0, h,
 				new Color(255, 255, 255, 255));
 		g2d.setPaint(p1);
 		Stroke stroke = g2d.getStroke();
@@ -215,8 +218,8 @@ public class PlainButton extends JButton {
 		g2d.setFont(new Font("宋体", Font.PLAIN, 12));
 		g2d.drawString(name, w / 2 - 15 * (nameLen / 2), h / 2 + 5);
 		g2d.setStroke(stroke);
-		if(builder.image!=null)
-		g2d.drawImage(builder.image, 3, 3, h-6, h-6, null);
+		if (builder.image != null)
+			g2d.drawImage(builder.image, 3, 3, h - 6, h - 6, null);
 		g2d.dispose();
 	}
 
@@ -226,21 +229,23 @@ public class PlainButton extends JButton {
 
 	private static final long serialVersionUID = 1L;
 
-	public static Builder createBgColorBuilder(Color color,File file) {
+	public static Builder createBgColorBuilder(Color color, File file) {
 		Builder createBuilder = createBuilder();
 		createBuilder.bgcolor = color;
 		ImageIcon bigIcon = Clip.getBigIcon(file);
-		if(bigIcon!=null){
+		if (bigIcon != null) {
 			createBuilder.image = bigIcon.getImage();
 		}
 		return createBuilder;
 	}
+
 	public static Builder createBgColorBuilder(Color color, BufferedImage byName) {
 		Builder createBuilder = createBuilder();
 		createBuilder.bgcolor = color;
-		createBuilder.image =byName;
+		createBuilder.image = byName;
 		return createBuilder;
 	}
+
 	public static Builder createBgColorBuilder(Color color) {
 		Builder createBuilder = createBuilder();
 		createBuilder.bgcolor = color;
@@ -267,5 +272,5 @@ public class PlainButton extends JButton {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 }

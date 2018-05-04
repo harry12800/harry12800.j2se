@@ -12,19 +12,20 @@ import javax.swing.JLabel;
 
 import cn.harry12800.j2se.component.utils.ImageUtils;
 
-public class HeaderJLabel extends JLabel implements MouseListener{
+public class HeaderJLabel extends JLabel implements MouseListener {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static final String logo ="logo.png";
+	public static final String logo = "logo.png";
 	private boolean isHover = false;
 	BufferedImage backImage2 = ImageUtils.getByName("point_black.png");
 
 	public HeaderJLabel() {
 		addMouseListener(this);
 	}
+
 	protected void paintComponent(java.awt.Graphics g) {
 		// int w =getWidth();
 		// int h = getHeight();
@@ -45,7 +46,7 @@ public class HeaderJLabel extends JLabel implements MouseListener{
 			g2d.drawImage(ImageUtils.getByName(logo), 0, 0, getWidth() - 1,
 					getWidth() - 1, this);
 		} else {
-			Shape clip = new RoundRectangle2D.Double(2, 2, getWidth() -5,
+			Shape clip = new RoundRectangle2D.Double(2, 2, getWidth() - 5,
 					getWidth() - 5, getWidth() - 5, getWidth() - 5);
 			g2d.setClip(clip);
 			// g2d.fillRoundRect(1, 1,128,128, 128,128);
@@ -54,28 +55,33 @@ public class HeaderJLabel extends JLabel implements MouseListener{
 			// g2d.drawRoundRect(0, 0, 127,127, 127,127);
 			g2d.drawImage(ImageUtils.getByName(logo), 0, 0, getWidth() - 1,
 					getWidth() - 1, this);
-			
+
 		}
 		g2d.dispose();
 	}
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		
+
 	}
+
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		
+
 	}
+
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		isHover = true;
 		repaint();
 	}
+
 	@Override
 	public void mouseExited(MouseEvent e) {
 		isHover = false;

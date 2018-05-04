@@ -271,9 +271,9 @@ public class DatePanel extends JPanel {
 	private void commit() {
 		value = sdf.format(select.getTime());
 		if (dateListener != null)
-			dateListener.dateActionClick(select,sdf.format(select.getTime()));
-//		this.getParent().repaint();
-//		repaint();
+			dateListener.dateActionClick(select, sdf.format(select.getTime()));
+		//		this.getParent().repaint();
+		//		repaint();
 	}
 
 	/**
@@ -472,9 +472,9 @@ public class DatePanel extends JPanel {
 			for (int i = 0; i < 42; i++) {
 				select.add(Calendar.DAY_OF_MONTH, 1);
 				int x = select.get(Calendar.YEAR);
-				int y = select.get(Calendar.MONTH); 
+				int y = select.get(Calendar.MONTH);
 				int z = select.get(Calendar.DAY_OF_MONTH);
-				MyLabel myLabel = new MyLabel(x,y,z);
+				MyLabel myLabel = new MyLabel(x, y, z);
 				MyLabelContainer myLabelContainer = new MyLabelContainer(myLabel);
 				lm.addLabel(myLabelContainer);
 			}
@@ -485,8 +485,8 @@ public class DatePanel extends JPanel {
 		}
 	}
 
-	private class MyLabelContainer extends JPanel  implements Comparator<MyLabel>,
-	MouseListener, MouseMotionListener  {
+	private class MyLabelContainer extends JPanel implements Comparator<MyLabel>,
+			MouseListener, MouseMotionListener {
 		/**
 		 * 
 		 */
@@ -495,7 +495,7 @@ public class DatePanel extends JPanel {
 		private int holiday;
 		private int year, month, day;
 		private boolean isSelected;
-		
+
 		// private Holiday holiday;
 		public MyLabelContainer(MyLabel myb) {
 			this.myb = myb;
@@ -569,6 +569,7 @@ public class DatePanel extends JPanel {
 			}
 			this.repaint();
 		}
+
 		public boolean contains(Point p) {
 			return this.getBounds().contains(p);
 		}
@@ -629,9 +630,9 @@ public class DatePanel extends JPanel {
 	static SimpleDateFormat chineseDateFormat = new SimpleDateFormat(
 			"yyyy年MM月dd日");
 
-	private class MyLabel extends JPanel{
+	private class MyLabel extends JPanel {
 		private static final long serialVersionUID = 3668734399227577214L;
-		
+
 		JLabel aJLabel = new JLabel();
 		JLabel bJLabel = new JLabel();
 		Lunar lunar;
@@ -652,7 +653,7 @@ public class DatePanel extends JPanel {
 			aJLabel.setHorizontalAlignment(JLabel.CENTER);
 			bJLabel.setHorizontalAlignment(JLabel.CENTER);
 			Calendar today = Calendar.getInstance();
-			String timeString= year + "年" + (month + 1)+ "月" + day + "日";
+			String timeString = year + "年" + (month + 1) + "月" + day + "日";
 			try {
 				today.setTime(chineseDateFormat.parse(timeString));
 			} catch (ParseException e) {
@@ -695,7 +696,6 @@ public class DatePanel extends JPanel {
 			}
 		}
 
-
 		protected void paintComponent(Graphics g) {
 			Graphics2D g2d = (Graphics2D) g.create();
 			g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
@@ -704,7 +704,7 @@ public class DatePanel extends JPanel {
 					&& month == select.get(Calendar.MONTH)) {
 				// 如果当前日期是选择日期,则高亮显示
 				g2d.setColor(UI.scrollColor);
-				g2d.fillRoundRect(20, 0, getWidth()-40, getHeight(), 3, 3);
+				g2d.fillRoundRect(20, 0, getWidth() - 40, getHeight(), 3, 3);
 			}
 			if (year == now.get(Calendar.YEAR)
 					&& month == now.get(Calendar.MONTH)
@@ -1711,10 +1711,10 @@ public class DatePanel extends JPanel {
 	}
 
 	public static interface DateActionListener {
-		public void dateActionClick(Calendar calendar,String date);
+		public void dateActionClick(Calendar calendar, String date);
 	}
 
-	public void setDateSelectListener( DateActionListener listener) {
+	public void setDateSelectListener(DateActionListener listener) {
 		this.dateListener = listener;
 	}
 }

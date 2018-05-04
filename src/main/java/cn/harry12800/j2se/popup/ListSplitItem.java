@@ -30,10 +30,10 @@ public class ListSplitItem extends JLabel {
 		Graphics2D g2d = (Graphics2D) g.create();
 		GradientPaint p2;
 		p2 = new GradientPaint(0, 1, new Color(34, 34, 34, 200), 0, h - 10,
-				new Color(34, 30, 34,  200));
+				new Color(34, 30, 34, 200));
 		g2d.setPaint(p2);
-		g2d.setStroke(new BasicStroke(0.5f));  
-		g2d.drawLine(33, h/2-1, w-10, h/2-1);
+		g2d.setStroke(new BasicStroke(0.5f));
+		g2d.drawLine(33, h / 2 - 1, w - 10, h / 2 - 1);
 		g2d.dispose();
 	}
 

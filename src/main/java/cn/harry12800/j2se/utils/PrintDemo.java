@@ -31,48 +31,49 @@ public class PrintDemo {
 		String ar = FileUtils.getSrcByFilePath("C:/Users/harry12800/Desktop/export.csv");
 		System.err.println(ar);
 	}
+
 	public static void main2(String[] args) {
-		 
-	 
-			// 构建打印请求属性集
-			HashPrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
-			// 设置打印格式，因为未确定类型，所以选择autosense
-			DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
-			// 查找所有的可用的打印服务
-			PrintService printService[] = PrintServiceLookup.lookupPrintServices(flavor, pras);
-			for (PrintService printService2 : printService) {
-				System.out.println(printService2.getName());
-			}
-			// 定位默认的打印服务
-			PrintService defaultService = PrintServiceLookup.lookupDefaultPrintService();
-			System.out.println(defaultService.getName());
-//			// 显示打印对话框
-//			PrintService service = ServiceUI.printDialog(null, 200, 200, printService, defaultService, flavor, pras);
-//			if (service != null) {
-//				try {
-//					DocPrintJob job = service.createPrintJob(); // 创建打印作业
-//					FileInputStream fis = new FileInputStream(file); // 构造待打印的文件流
-//					DocAttributeSet das = new HashDocAttributeSet();
-//					Doc doc = new SimpleDoc(fis, flavor, das);
-//					
-//					job.print(doc, pras);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
+
+		// 构建打印请求属性集
+		HashPrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
+		// 设置打印格式，因为未确定类型，所以选择autosense
+		DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
+		// 查找所有的可用的打印服务
+		PrintService printService[] = PrintServiceLookup.lookupPrintServices(flavor, pras);
+		for (PrintService printService2 : printService) {
+			System.out.println(printService2.getName());
+		}
+		// 定位默认的打印服务
+		PrintService defaultService = PrintServiceLookup.lookupDefaultPrintService();
+		System.out.println(defaultService.getName());
+		//			// 显示打印对话框
+		//			PrintService service = ServiceUI.printDialog(null, 200, 200, printService, defaultService, flavor, pras);
+		//			if (service != null) {
+		//				try {
+		//					DocPrintJob job = service.createPrintJob(); // 创建打印作业
+		//					FileInputStream fis = new FileInputStream(file); // 构造待打印的文件流
+		//					DocAttributeSet das = new HashDocAttributeSet();
+		//					Doc doc = new SimpleDoc(fis, flavor, das);
+		//					
+		//					job.print(doc, pras);
+		//				} catch (Exception e) {
+		//					e.printStackTrace();
+		//				}
+		//			}
 	}
+
 	/**
 	 * 功能:实现excel打印工作
 	 */
 	public static boolean printExcelFile(File f) {
 		if (f != null && f.exists()) {
-			try{
+			try {
 				ComThread.Release();
 				ComThread.InitSTA();
-			}catch(RuntimeException e){
+			} catch (RuntimeException e) {
 				return false;
 			}
-			
+
 			ActiveXComponent xl = new ActiveXComponent("Excel.Application");
 
 			// System.out.println("version=" +

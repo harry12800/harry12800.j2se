@@ -33,8 +33,8 @@ import cn.harry12800.j2se.style.UI;
 public class TextPanel extends JPanel {
 
 	private static final long serialVersionUID = 4529266044762990227L;
-	private Timer timer=null;
-	float s=30;
+	private Timer timer = null;
+	float s = 30;
 	int time;
 	private JPanel initHead;
 	@SuppressWarnings("unused")
@@ -42,8 +42,9 @@ public class TextPanel extends JPanel {
 	@SuppressWarnings("unused")
 	private JPanel initFoot;
 	private TipFrame context;
+
 	public TextPanel(TipFrame tipFrame) {
-		this.context=tipFrame;
+		this.context = tipFrame;
 		this.setLayout(new BorderLayout());
 		this.initHead = initHead(tipFrame.builder.headTitle);
 		this.initBody = initBody();
@@ -53,14 +54,14 @@ public class TextPanel extends JPanel {
 		timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
-				s-=0.1;
-				if(s-0.0f<0.1) {
+				s -= 0.1;
+				if (s - 0.0f < 0.1) {
 					timer.cancel();
 					context.closeAndDispose();
 				}
 				initHead.repaint();
 			}
-		}, 1000,100);
+		}, 1000, 100);
 	}
 
 	private JPanel initFoot() {
@@ -69,35 +70,36 @@ public class TextPanel extends JPanel {
 		foot.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		ActionButton labelButton = new ActionButton(context.getBuilder().actionName, 100, 20);
 		foot.add(labelButton);
-		add(foot,BorderLayout.SOUTH);
+		add(foot, BorderLayout.SOUTH);
 		labelButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent mouseevent) {
 				context.setVisible(false);
-				if(context.getHandler()!=null)
+				if (context.getHandler() != null)
 					context.getHandler().execute();
 			}
 		});
 		return foot;
 	}
+
 	private JPanel initBody() {
 		JPanel body = new JPanel();
 		body.setBackground(UI.foreColor);
-		BoxLayout box = new BoxLayout(body,BoxLayout.Y_AXIS);
+		BoxLayout box = new BoxLayout(body, BoxLayout.Y_AXIS);
 		body.setLayout(box);
-		body.setBorder(new EmptyBorder(0,15,0,15));
+		body.setBorder(new EmptyBorder(0, 15, 0, 15));
 		for (String string : context.getBuilder().dataList) {
 			JLabel jLabel = new JLabel(string);
 			jLabel.setForeground(UI.fontColor);
 			jLabel.setFont(UI.微软雅黑Font);
-			body.add(jLabel );
+			body.add(jLabel);
 		}
-		add(body,BorderLayout.CENTER);
+		add(body, BorderLayout.CENTER);
 		return body;
 	}
 
 	private JPanel initHead(String title) {
-		JPanel head = new JPanel(){
+		JPanel head = new JPanel() {
 			@Override
 			protected void paintComponent(Graphics g) {
 				int w = getWidth();
@@ -106,27 +108,27 @@ public class TextPanel extends JPanel {
 				GradientPaint p2;
 				Color backgroundColor = UI.foreColor;
 				Color color = new Color(backgroundColor.getRed(), backgroundColor.getGreen(), backgroundColor.getBlue(), 50);
-				p2 = new GradientPaint(0, 1, backgroundColor , 0, h - 10,
+				p2 = new GradientPaint(0, 1, backgroundColor, 0, h - 10,
 						backgroundColor);
 				g2d.setPaint(p2);
 				g2d.fillRect(0, 0, w, h);
-				
+
 				Color backColor = UI.backColor(100);
 				p2 = new GradientPaint(0, 1, backColor, 0, h - 10,
 						color);
 				g2d.setPaint(p2);
-				int lv = (int) ((s*1.0/30)*w);
+				int lv = (int) ((s * 1.0 / 30) * w);
 				g2d.fillRect(0, 0, lv, h);
 				g2d.dispose();
 				super.paintComponent(g);
 			}
-			 
+
 		};
 		head.setPreferredSize(new Dimension(1000, 30));
-		
+
 		head.setOpaque(false);
-		add(head,BorderLayout.NORTH);
-		JLabel jLabel = new JLabel(title==null?"  ":"  "+title);
+		add(head, BorderLayout.NORTH);
+		JLabel jLabel = new JLabel(title == null ? "  " : "  " + title);
 		ImageBtn closeButton = new ImageBtn(ImageUtils.getByName("close24.png"));
 		closeButton.setPreferredSize(new Dimension(24, 24));
 		closeButton.setSize(new Dimension(24, 24));
@@ -134,10 +136,10 @@ public class TextPanel extends JPanel {
 		jLabel.setForeground(UI.fontColor);
 		head.setLayout(new BorderLayout());
 		jLabel.setOpaque(false);
-		head.add(jLabel,BorderLayout.WEST);
-		head.add(closeButton,BorderLayout.EAST);
+		head.add(jLabel, BorderLayout.WEST);
+		head.add(closeButton, BorderLayout.EAST);
 		closeButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				context.dispose();
@@ -152,13 +154,13 @@ public class TextPanel extends JPanel {
 		int h = getHeight();
 		Graphics2D g2d = (Graphics2D) g.create();
 		GradientPaint p2;
-		p2 = new GradientPaint(0, 1,  J2seColor.getBackgroundColor(), 0, h - 10,
-				 J2seColor.getBackgroundColor());
+		p2 = new GradientPaint(0, 1, J2seColor.getBackgroundColor(), 0, h - 10,
+				J2seColor.getBackgroundColor());
 		g2d.setPaint(p2);
 		g2d.drawRoundRect(1, 1, w - 3, h - 3, 5, 5);
-//		g2d.drawLine(1, 1, w-1,1);
-//		g2d.drawLine(1, 2, w-1, 2);
+		//		g2d.drawLine(1, 1, w-1,1);
+		//		g2d.drawLine(1, 2, w-1, 2);
 		g2d.dispose();
 	}
-	 
+
 }

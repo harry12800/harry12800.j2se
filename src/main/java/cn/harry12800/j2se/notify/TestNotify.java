@@ -1,15 +1,17 @@
 package cn.harry12800.j2se.notify;
 
-public class TestNotify implements Notify{
+public class TestNotify implements Notify {
 
-	int i=0;
+	int i = 0;
+
 	public TestNotify(int i) {
-		 this.i = i;
+		this.i = i;
 	}
+
 	@Override
 	public String getTitle() {
 		// TODO Auto-generated method stub
-		return "title"+i;
+		return "title" + i;
 	}
 
 	@Override
@@ -21,25 +23,25 @@ public class TestNotify implements Notify{
 	@Override
 	public String getContent() {
 		// TODO Auto-generated method stub
-		return "content"+i;
+		return "content" + i;
 	}
 
 	@Override
 	public String getIcon() {
 		// TODO Auto-generated method stub
-		return "icon"+i;
+		return "icon" + i;
 	}
 
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void close() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

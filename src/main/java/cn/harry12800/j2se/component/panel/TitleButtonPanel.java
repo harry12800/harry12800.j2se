@@ -1,5 +1,5 @@
 package cn.harry12800.j2se.component.panel;
- 
+
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -17,8 +17,8 @@ import javax.swing.JLayeredPane;
 import cn.harry12800.j2se.action.MyActionListener;
 import cn.harry12800.j2se.component.panel.TitlePanel.Builder;
 
-public class TitleButtonPanel  extends JLayeredPane {
-	
+public class TitleButtonPanel extends JLayeredPane {
+
 	private TitleButton minBtn;
 	private TitleButton exitBtn;
 	private TitleButton maxBtn;
@@ -27,44 +27,46 @@ public class TitleButtonPanel  extends JLayeredPane {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 	public TitleButtonPanel(Builder builder) {
 		setSize(100, 50);
 		this.builder = builder;
 		switch (builder.titleHeight) {
 		case large:
-			setLayout(new FlowLayout(FlowLayout.RIGHT,10,3));
+			setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 3));
 			break;
 		case middle:
-			setLayout(new FlowLayout(FlowLayout.RIGHT,10,2));
+			setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 2));
 			break;
 		default:
-			setLayout(new FlowLayout(FlowLayout.RIGHT,10,0));
+			setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 0));
 			break;
 		}
 		setBorder(null);
-//		setOpaque(false);
-//		setBackground(new Color(0,0,0,0));
-		if(builder.hasMenu) {
+		//		setOpaque(false);
+		//		setBackground(new Color(0,0,0,0));
+		if (builder.hasMenu) {
 			MenuButton menuButton = new MenuButton(builder);
 			add(menuButton);
 		}
-		if(builder.hasMin) {
-			minBtn = new TitleButton("min","最小化",builder);
+		if (builder.hasMin) {
+			minBtn = new TitleButton("min", "最小化", builder);
 			add(minBtn);
 		}
-		if(builder.hasMax) {
-			maxBtn = new TitleButton("max","最大化",builder);
+		if (builder.hasMax) {
+			maxBtn = new TitleButton("max", "最大化", builder);
 			add(maxBtn);
 		}
-		exitBtn = new TitleButton("exit","关闭",builder);
+		exitBtn = new TitleButton("exit", "关闭", builder);
 		add(exitBtn);
 		init();
 	}
-	
+
 	class MenuButton extends JLabel {
 		public int width;
 		public int height;
-		boolean hover =false;
+		boolean hover = false;
+
 		public MenuButton(final Builder builder) {
 			switch (builder.titleHeight) {
 			case large:
@@ -89,30 +91,34 @@ public class TitleButtonPanel  extends JLayeredPane {
 					hover = true;
 					repaint();
 				}
+
 				@Override
 				public void mouseExited(MouseEvent e) {
 					hover = false;
 					repaint();
 				}
+
 				@Override
 				public void mouseReleased(MouseEvent e) {
-					if(contains(e.getPoint())){
-						builder.popupFrame.show(e.getPoint(),MenuButton.this);
+					if (contains(e.getPoint())) {
+						builder.popupFrame.show(e.getPoint(), MenuButton.this);
 					}
 				}
 			});
 		}
+
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
+
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			Graphics2D g2d = (Graphics2D) g.create();
-			if(hover){
+			if (hover) {
 				g2d.setColor(Color.WHITE);
-			}else{
+			} else {
 				g2d.setColor(Color.BLACK);
 			}
 			g2d.drawLine(2, 6, 14, 6);
@@ -120,8 +126,9 @@ public class TitleButtonPanel  extends JLayeredPane {
 			g2d.drawLine(2, 16, 14, 16);
 			g2d.dispose();
 		}
-		 
+
 	}
+
 	private void init() {
 		exitBtn.addActionListener(new MyActionListener() {
 			@Override
@@ -130,30 +137,29 @@ public class TitleButtonPanel  extends JLayeredPane {
 			}
 		});
 		exitBtn.setCursor(new Cursor(12));
-		if(maxBtn!=null){
+		if (maxBtn != null) {
 			maxBtn.setCursor(new Cursor(12));
 			maxBtn.addActionListener(new MyActionListener() {
 				@Override
 				public void exe(MouseEvent e) {
-					if(builder.window instanceof Frame){
-						Frame s = (Frame)builder.window;
-						if(s.getExtendedState() == JFrame.MAXIMIZED_BOTH){
+					if (builder.window instanceof Frame) {
+						Frame s = (Frame) builder.window;
+						if (s.getExtendedState() == JFrame.MAXIMIZED_BOTH) {
 							s.setExtendedState(JFrame.NORMAL);
-						}
-						else {
+						} else {
 							s.setExtendedState(JFrame.MAXIMIZED_BOTH);
-						}	
+						}
 					}
 				}
 			});
 		}
-		if(minBtn!=null) {
+		if (minBtn != null) {
 			minBtn.setCursor(new Cursor(12));
 			minBtn.addActionListener(new MyActionListener() {
 				@Override
 				public void exe(MouseEvent e) {
-					if(builder.window instanceof Frame){
-						Frame s = (Frame)builder.window;
+					if (builder.window instanceof Frame) {
+						Frame s = (Frame) builder.window;
 						s.setExtendedState(JFrame.ICONIFIED);
 					}
 				}

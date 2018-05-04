@@ -22,8 +22,6 @@
 	<classpathentry kind="lib" path="lib/json-20160810.jar"/>
 	<classpathentry kind="lib" path="lib/speech_sdk-1.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/jl1.0.1.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/harry12800.wordexcel"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/harry12800.tools"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>

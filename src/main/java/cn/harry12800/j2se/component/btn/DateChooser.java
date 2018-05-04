@@ -62,10 +62,10 @@ public class DateChooser extends JPanel {
 	private JP2 jp2;
 	private JP3 jp3;
 	private JP4 jp4;
-	private int w =100;
+	private int w = 100;
 	private int h = 32;
-	String value="单击选择日期";
-	boolean hover =false;
+	String value = "单击选择日期";
+	boolean hover = false;
 	private Font font = new Font("宋体", Font.PLAIN, 12);
 	private final LabelManager lm = new LabelManager();
 	private SimpleDateFormat sdf;
@@ -80,7 +80,7 @@ public class DateChooser extends JPanel {
 		return new DateChooser();
 	}
 
-	public static DateChooser getInstance(Date date ) {
+	public static DateChooser getInstance(Date date) {
 		return new DateChooser(date);
 	}
 
@@ -95,15 +95,15 @@ public class DateChooser extends JPanel {
 	/**
 	 * Creates a new instance of DateChooser
 	 */
-	private DateChooser( ) {
+	private DateChooser() {
 		this(new Date());
 	}
 
-	private DateChooser(Date date ) {
+	private DateChooser(Date date) {
 		this(date, "yyyy年MM月dd日");
 	}
 
-	private DateChooser(String format ) {
+	private DateChooser(String format) {
 		this(new Date(), format);
 	}
 
@@ -118,9 +118,10 @@ public class DateChooser extends JPanel {
 		initPanel();
 	}
 
-	public void addDateActionListener(DateActionListener dateListener){
+	public void addDateActionListener(DateActionListener dateListener) {
 		this.dateListener = dateListener;
 	}
+
 	/**
 	 * 是否允许用户选择
 	 */
@@ -147,7 +148,7 @@ public class DateChooser extends JPanel {
 
 	// 根据初始化的日期,初始化面板
 	private void initPanel() {
-		monthPanel = new JPanel( );
+		monthPanel = new JPanel();
 		monthPanel.setLayout(new BorderLayout());
 		monthPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		monthPanel.setOpaque(false);
@@ -166,6 +167,7 @@ public class DateChooser extends JPanel {
 			public void ancestorRemoved(AncestorEvent event) {
 
 			}
+
 			// 只要祖先组件一移动,马上就让popup消失
 			public void ancestorMoved(AncestorEvent event) {
 				hidePanel();
@@ -216,32 +218,33 @@ public class DateChooser extends JPanel {
 			}
 		});
 	}
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g.create();
 		GradientPaint p2;
-		if(hover){
+		if (hover) {
 			p2 = new GradientPaint(0, 1, new Color(186, 131, 164, 200), 0, h - 10,
 					new Color(255, 255, 255, 255));
 			g2d.setPaint(p2);
 			g2d.drawRoundRect(1, 1, w - 3, h - 3, 5, 5);
-		}
-		else{
+		} else {
 			p2 = new GradientPaint(0, 1, new Color(150, 150, 150, 50), 0, h - 10,
-					new Color(160,160, 160, 100));
+					new Color(160, 160, 160, 100));
 			g2d.setPaint(p2);
 			g2d.drawRoundRect(1, 1, w - 3, h - 3, 5, 5);
 		}
 		GradientPaint p1 = new GradientPaint(0, 1, new Color(255, 255, 255, 255), 0, h - 10,
-				new Color(255,255, 255, 255));
+				new Color(255, 255, 255, 255));
 		g2d.setPaint(p1);
 		g2d.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND)); //设置新的画刷
-		Font font =  UI.normalFont(14);
+		Font font = UI.normalFont(14);
 		g2d.setFont(font);
-		g2d.drawString(value, w/2-40, h/2+5);
+		g2d.drawString(value, w / 2 - 40, h / 2 + 5);
 		g2d.dispose();
 		super.paintComponent(g);
 	}
+
 	// 根据新的日期刷新
 	private void refresh() {
 		jp1.updateDate();
@@ -259,9 +262,9 @@ public class DateChooser extends JPanel {
 		} else if (showDate instanceof JLabel) {
 			((JLabel) showDate).setText(sdf.format(select.getTime()));
 		}
-		value= sdf.format(select.getTime());
-		if(dateListener!=null)
-		dateListener.dateActionClick(select,sdf.format(select.getTime()));
+		value = sdf.format(select.getTime());
+		if (dateListener != null)
+			dateListener.dateActionClick(select, sdf.format(select.getTime()));
 		this.getParent().repaint();
 		repaint();
 		hidePanel();
@@ -278,7 +281,7 @@ public class DateChooser extends JPanel {
 
 	// 显示日期选择面板
 	private void showPanel(Component owner) {
-//		System.out.println("显示");
+		//		System.out.println("显示");
 		if (pop != null) {
 			pop.hide();
 		}
@@ -313,7 +316,7 @@ public class DateChooser extends JPanel {
 
 		public JP1() {
 			super(new BorderLayout());
-//			this.setBackground(new Color(160, 185, 215));
+			//			this.setBackground(new Color(160, 185, 215));
 			initJP1();
 		}
 
@@ -352,17 +355,17 @@ public class DateChooser extends JPanel {
 			yearleft.addMouseListener(new MouseAdapter() {
 				public void mouseEntered(MouseEvent me) {
 					yearleft.setCursor(new Cursor(Cursor.HAND_CURSOR));
-//					yearleft.setForeground(Color.RED);
+					//					yearleft.setForeground(Color.RED);
 				}
 
 				public void mouseExited(MouseEvent me) {
 					yearleft.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-//					yearleft.setForeground(Color.BLACK);
+					//					yearleft.setForeground(Color.BLACK);
 				}
 
 				public void mousePressed(MouseEvent me) {
 					select.add(Calendar.YEAR, -1);
-//					yearleft.setForeground(Color.WHITE);
+					//					yearleft.setForeground(Color.WHITE);
 					refresh();
 				}
 
@@ -451,16 +454,16 @@ public class DateChooser extends JPanel {
 			String string = "日一二三四五六";
 			int length = "日一二三四五六".length();
 			for (int i = 0; i < length; i++) {
-				JLabel jLabel = new JLabel(string.charAt(i)+"",JLabel.CENTER);
+				JLabel jLabel = new JLabel(string.charAt(i) + "", JLabel.CENTER);
 				jLabel.setOpaque(false);
 				add(jLabel);
 			}
 		}
 
 		protected void paintComponent(Graphics g) {
-//			g.setFont(font);
-//			g.drawString("  日     一     二     三     四     五    六", 5, 10);
-//			g.drawLine(0, 15, getWidth(), 15);
+			//			g.setFont(font);
+			//			g.drawString("  日     一     二     三     四     五    六", 5, 10);
+			//			g.drawLine(0, 15, getWidth(), 15);
 		}
 
 		private void updateDate() {
@@ -502,29 +505,34 @@ public class DateChooser extends JPanel {
 			select.setTime(temp);
 		}
 	}
-	private class MyLabelContainer extends  JPanel{
+
+	private class MyLabelContainer extends JPanel {
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
+
 		public MyLabelContainer(MyLabel myb) {
 			setLayout(new BorderLayout());
-			setBorder(new EmptyBorder(5,0,5,0));
+			setBorder(new EmptyBorder(5, 0, 5, 0));
 			setOpaque(false);
 			add(myb);
 		}
 	}
+
 	static SimpleDateFormat chineseDateFormat = new SimpleDateFormat("yyyy年MM月dd日");
-	private class MyLabel extends  JPanel implements Comparator<MyLabel>,
+
+	private class MyLabel extends JPanel implements Comparator<MyLabel>,
 			MouseListener, MouseMotionListener {
 		private static final long serialVersionUID = 3668734399227577214L;
 		private int year, month, day;
 		private boolean isSelected;
 		JLabel aJLabel = new JLabel();
-		JLabel bJLabel= new JLabel();
+		JLabel bJLabel = new JLabel();
 		Lunar lunar;
+
 		public MyLabel(int year, int month, int day) {
-			super(new GridLayout(2,1,0,0));
+			super(new GridLayout(2, 1, 0, 0));
 			MyLabel.this.setPreferredSize(new Dimension(50, 20));
 			MyLabel.this.setSize(50, 20);
 			setOpaque(false);
@@ -532,17 +540,17 @@ public class DateChooser extends JPanel {
 			this.day = day;
 			this.month = month;
 			aJLabel = new JLabel();
-			bJLabel= new JLabel();
+			bJLabel = new JLabel();
 			aJLabel.setHorizontalAlignment(JLabel.CENTER);
 			bJLabel.setHorizontalAlignment(JLabel.CENTER);
 			Calendar today = Calendar.getInstance();
-		    try {
-				today.setTime(chineseDateFormat.parse(year+"年"+(month+1)+"月"+day+"日"));
+			try {
+				today.setTime(chineseDateFormat.parse(year + "年" + (month + 1) + "月" + day + "日"));
 			} catch (ParseException e) {
 				e.printStackTrace();
-			}  
-		    lunar = new Lunar(today);
-		    add(aJLabel);
+			}
+			lunar = new Lunar(today);
+			add(aJLabel);
 			add(bJLabel);
 			if (month == select.get(Calendar.MONTH)) {
 				bJLabel.setForeground(Color.WHITE);
@@ -551,18 +559,18 @@ public class DateChooser extends JPanel {
 				bJLabel.setForeground(Color.LIGHT_GRAY);
 				aJLabel.setForeground(Color.LIGHT_GRAY);
 			}
-			bJLabel.setFont(new Font("微软雅黑",Font.PLAIN,8));
-			aJLabel.setText(day+"");
-			String festival1 = getOuterFestival(month+1,day);
-			String festival2 = getInnerFestival(lunar.month,lunar.day);
-			if(festival1==null&&festival2==null)
+			bJLabel.setFont(new Font("微软雅黑", Font.PLAIN, 8));
+			aJLabel.setText(day + "");
+			String festival1 = getOuterFestival(month + 1, day);
+			String festival2 = getInnerFestival(lunar.month, lunar.day);
+			if (festival1 == null && festival2 == null)
 				bJLabel.setText(Lunar.getChinaDayString(MyLabel.this.lunar.day));
-			else if(festival1==null&&festival2!=null){
-				bJLabel.setText(festival2 );
-			}else if(festival1!=null&&festival2==null){
-				bJLabel.setText(festival1 );
-			}else {
-				bJLabel.setText(festival1+"/"+festival2);
+			else if (festival1 == null && festival2 != null) {
+				bJLabel.setText(festival2);
+			} else if (festival1 != null && festival2 == null) {
+				bJLabel.setText(festival1);
+			} else {
+				bJLabel.setText(festival1 + "/" + festival2);
 			}
 			this.addMouseListener(this);
 			this.addMouseMotionListener(this);
@@ -580,77 +588,77 @@ public class DateChooser extends JPanel {
 		}
 
 		private String getInnerFestival(int month2, int day2) {
-			if(month2 == 8 && day2 == 15){
+			if (month2 == 8 && day2 == 15) {
 				return "中秋节";
 			}
-			if(month2 == 1 && day2 == 15){
+			if (month2 == 1 && day2 == 15) {
 				return "元宵节";
 			}
-			if(month2 == 1 && day2 == 1){
+			if (month2 == 1 && day2 == 1) {
 				return "春节";
 			}
-			if(month2 == 5 && day2 == 5){
+			if (month2 == 5 && day2 == 5) {
 				return "端午节";
 			}
-			if(month2 == 7 && day2 == 7){
+			if (month2 == 7 && day2 == 7) {
 				return "情人节";
 			}
-			if(month2 == 7 && day2 == 15){
+			if (month2 == 7 && day2 == 15) {
 				return "中元节";
 			}
-			if(month2 == 9 && day2 == 9){
+			if (month2 == 9 && day2 == 9) {
 				return "重阳节";
 			}
-			if(month2 == 12 && day2 == 8){
+			if (month2 == 12 && day2 == 8) {
 				return "腊八节";
 			}
 			return null;
 		}
 
 		private String getOuterFestival(int month2, int day2) {
-			if(month2 == 1 && day2 == 1){
+			if (month2 == 1 && day2 == 1) {
 				return "元旦节";
 			}
-			if(month2 == 10 && day2 == 1){
+			if (month2 == 10 && day2 == 1) {
 				return "国庆节";
 			}
-			if(month2 == 2 && day2 == 14){
+			if (month2 == 2 && day2 == 14) {
 				return "情人节";
 			}
-			if(month2 == 3 && day2 == 8){
+			if (month2 == 3 && day2 == 8) {
 				return "妇女节";
 			}
-			if(month2 == 3 && day2 == 12){
+			if (month2 == 3 && day2 == 12) {
 				return "植树节";
 			}
-			if(month2 == 5 && day2 == 1){
+			if (month2 == 5 && day2 == 1) {
 				return "劳动节";
 			}
-			if(month2 == 5 && day2 == 1){
+			if (month2 == 5 && day2 == 1) {
 				return "青年节";
 			}
-			if(month2 == 6 && day2 == 1){
+			if (month2 == 6 && day2 == 1) {
 				return "儿童节";
 			}
-			if(month2 == 7 && day2 == 1){
+			if (month2 == 7 && day2 == 1) {
 				return "建党节";
 			}
-			if(month2 == 8 && day2 == 1){
+			if (month2 == 8 && day2 == 1) {
 				return "建军节";
 			}
-			if(month2 == 4 && day2 == 5){
+			if (month2 == 4 && day2 == 5) {
 				return "清明节";
 			}
-			if(month2 == 9 && day2 == 10){
+			if (month2 == 9 && day2 == 10) {
 				return "教师节";
 			}
-			if(month2 == 12 && day2 == 24){
+			if (month2 == 12 && day2 == 24) {
 				return "平安夜";
 			}
-			if(month2 == 12 && day2 == 25){
+			if (month2 == 12 && day2 == 25) {
 				return "圣诞节";
 			}
-			if(month2 == 10 && day2 == 31){
+			if (month2 == 10 && day2 == 31) {
 				return "万圣节";
 			}
 			return null;
@@ -679,7 +687,7 @@ public class DateChooser extends JPanel {
 					&& month == select.get(Calendar.MONTH)) {
 				// 如果当前日期是选择日期,则高亮显示
 				g.setColor(UI.foreColor);
-				g.fillRoundRect(0, 0, getWidth(), getHeight(),25,200);
+				g.fillRoundRect(0, 0, getWidth(), getHeight(), 25, 200);
 			}
 			if (year == now.get(Calendar.YEAR)
 					&& month == now.get(Calendar.MONTH)
@@ -692,8 +700,8 @@ public class DateChooser extends JPanel {
 				p.addPoint(getWidth() - 1, 0);
 				p.addPoint(getWidth() - 1, getHeight() - 1);
 				p.addPoint(0, getHeight() - 1);
-//				gd.drawPolygon(p);
-				gd.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, getWidth()-1, getHeight()-1);
+				//				gd.drawPolygon(p);
+				gd.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, getWidth() - 1, getHeight() - 1);
 			}
 			if (isSelected) {// 如果被选中了就画出一个虚线框出来
 				Stroke s = new BasicStroke(1.0f, BasicStroke.CAP_SQUARE,
@@ -832,12 +840,12 @@ public class DateChooser extends JPanel {
 		public JP4() {
 			super(new BorderLayout());
 			this.setPreferredSize(new Dimension(295, 20));
-//			this.setBackground(new Color(160, 185, 215));
+			//			this.setBackground(new Color(160, 185, 215));
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
 			Calendar today = Calendar.getInstance();
 			today.setTime(new Date());
-		    Lunar lunar = new Lunar(today);
-			final JLabel jl = new JLabel("今天: " + sdf.format(new Date())+"（"+lunar+"）");
+			Lunar lunar = new Lunar(today);
+			final JLabel jl = new JLabel("今天: " + sdf.format(new Date()) + "（" + lunar + "）");
 			jl.setToolTipText("点击选择今天日期");
 			this.add(jl, BorderLayout.CENTER);
 			jl.addMouseListener(new MouseAdapter() {
@@ -859,7 +867,7 @@ public class DateChooser extends JPanel {
 				}
 
 				public void mouseReleased(MouseEvent me) {
-//					jl.setForeground(Color.BLACK);
+					//					jl.setForeground(Color.BLACK);
 				}
 			});
 		}

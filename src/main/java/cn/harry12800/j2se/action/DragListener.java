@@ -25,15 +25,16 @@ public class DragListener extends MouseAdapter {
 	private Cursor down;
 	private Cursor normal;
 	private Container target;
-	private boolean isFrame=false;
+	private boolean isFrame = false;
+
 	public DragListener(Container component) {
 		initCursor();
 		this.com = component;
-		if(component instanceof JWindow){
-			isFrame=true;
-			this.target =	(( JWindow)component).getContentPane();
+		if (component instanceof JWindow) {
+			isFrame = true;
+			this.target = ((JWindow) component).getContentPane();
 		}
-		if(target==null){
+		if (target == null) {
 			target = component;
 		}
 		target.addMouseListener(this);
@@ -45,44 +46,45 @@ public class DragListener extends MouseAdapter {
 					int left = com.getLocation().x;
 					int top = com.getLocation().y;
 					com.setLocation(left + e.getX() - xx, top + e.getY() - yy);
-				} else if (isDraging&&isFrame) {
+				} else if (isDraging && isFrame) {
 					int left = com.getLocation().x;
 					int top = com.getLocation().y;
 					int width = com.getWidth();
 					int height = com.getHeight();
 					switch (type) {
-						case Cursor.NW_RESIZE_CURSOR:
-							com.setLocation(left + e.getX() - xx, top + e.getY()- yy);
-							com.setSize(width - e.getX() + xx, height - e.getY()+ yy);
-							break;
-						case Cursor.SW_RESIZE_CURSOR:
-							com.setLocation(left + e.getX() - xx, top);
-							com.setSize(width - e.getX() + xx, e.getY());
-							break;
-						case Cursor.W_RESIZE_CURSOR:
-							com.setLocation(left + e.getX() - xx, top);
-							com.setSize(width - e.getX() + xx, height);
-							break;
-						case Cursor.NE_RESIZE_CURSOR:
-							com.setLocation(left, top + e.getY()- yy);
-							com.setSize( e.getX() , height - e.getY()+ yy);
-							break;
-						case Cursor.SE_RESIZE_CURSOR:
-							com.setSize(e.getX(), e.getY());
-							break;
-						case Cursor.E_RESIZE_CURSOR:
-							com.setSize(e.getX(), height);
-							break;
-						case Cursor.N_RESIZE_CURSOR:
-							com.setLocation(left, top + e.getY()- yy);
-							com.setSize(width, height - e.getY()+ yy);
-							break;
-						case Cursor.S_RESIZE_CURSOR:
-							com.setSize(width , e.getY());
-							break;
+					case Cursor.NW_RESIZE_CURSOR:
+						com.setLocation(left + e.getX() - xx, top + e.getY() - yy);
+						com.setSize(width - e.getX() + xx, height - e.getY() + yy);
+						break;
+					case Cursor.SW_RESIZE_CURSOR:
+						com.setLocation(left + e.getX() - xx, top);
+						com.setSize(width - e.getX() + xx, e.getY());
+						break;
+					case Cursor.W_RESIZE_CURSOR:
+						com.setLocation(left + e.getX() - xx, top);
+						com.setSize(width - e.getX() + xx, height);
+						break;
+					case Cursor.NE_RESIZE_CURSOR:
+						com.setLocation(left, top + e.getY() - yy);
+						com.setSize(e.getX(), height - e.getY() + yy);
+						break;
+					case Cursor.SE_RESIZE_CURSOR:
+						com.setSize(e.getX(), e.getY());
+						break;
+					case Cursor.E_RESIZE_CURSOR:
+						com.setSize(e.getX(), height);
+						break;
+					case Cursor.N_RESIZE_CURSOR:
+						com.setLocation(left, top + e.getY() - yy);
+						com.setSize(width, height - e.getY() + yy);
+						break;
+					case Cursor.S_RESIZE_CURSOR:
+						com.setSize(width, e.getY());
+						break;
 					default:
 						break;
-					};
+					}
+					;
 				}
 			}
 
@@ -93,7 +95,8 @@ public class DragListener extends MouseAdapter {
 				int height = com.getHeight();
 				int xx = e.getX();
 				int yy = e.getY();
-				if(!isFrame)return ;
+				if (!isFrame)
+					return;
 				if (xx < 5 && yy < 5) { // 左上角
 					com.setCursor(leftUp);
 				} else if (xx < 5 && height - yy < 5) { // 左下角

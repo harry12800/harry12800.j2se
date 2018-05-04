@@ -31,20 +31,21 @@ public class ExitBtn extends JButton {
 	private String name;
 	public Builder builder;
 	private ClickAction clickAction;
-	static BufferedImage image ;
+	static BufferedImage image;
 	static {
-	  image = ImageUtils.getByName("exit_hover.png");
+		image = ImageUtils.getByName("exit_hover.png");
 	}
+
 	public static class Builder {
 		public boolean hasborder = true;
 		public boolean handCursor = true;
 		public boolean hasTip;
 		public boolean hasCheck = false;
 		public boolean checked = false;
-		public Image image= null;
+		public Image image = null;
 		public Color bgcolor;
-		public int align=0;
-		public int borderRadius= 0;
+		public int align = 0;
+		public int borderRadius = 0;
 	}
 
 	public static Builder createLabelBuilder() {
@@ -96,8 +97,8 @@ public class ExitBtn extends JButton {
 		this.w = w;
 		this.h = h;
 		this.builder = builder;
-		setMinimumSize(new Dimension(w, h) );
-		setMaximumSize( new Dimension(w, h) );
+		setMinimumSize(new Dimension(w, h));
+		setMaximumSize(new Dimension(w, h));
 		setPreferredSize(new Dimension(w, h));
 		setBackground(builder.bgcolor);
 		setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -106,13 +107,12 @@ public class ExitBtn extends JButton {
 		addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(e.getKeyCode()==10){
-					if(clickAction!=null){
+				if (e.getKeyCode() == 10) {
+					if (clickAction != null) {
 						clickAction.leftClick(null);
 					}
-				}
-				else if(e.getKeyCode()==27){
-				 
+				} else if (e.getKeyCode() == 27) {
+
 				}
 			}
 		});
@@ -122,10 +122,11 @@ public class ExitBtn extends JButton {
 				hover = false;
 				repaint();
 			}
+
 			@Override
 			public void focusGained(FocusEvent arg0) {
 				hover = true;
-				repaint();				
+				repaint();
 			}
 		});
 		addMouseListener(new MouseAdapter() {
@@ -147,7 +148,8 @@ public class ExitBtn extends JButton {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				if (e.getButton() == MouseEvent.BUTTON1) {}
+				if (e.getButton() == MouseEvent.BUTTON1) {
+				}
 				super.mouseReleased(e);
 			}
 		});
@@ -173,28 +175,29 @@ public class ExitBtn extends JButton {
 	@Override
 	protected void paintBorder(Graphics g) {
 	}
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g.create();
 		GradientPaint p2;
 		super.paintComponent(g);
-//		if (builder.bgcolor != null) {
-//		g2d.setColor(new Color(0, 0, 0, 1));
-//		g2d.fillRoundRect(0, 0, w+1 , h+1 ,0, 0);
-//		}
+		//		if (builder.bgcolor != null) {
+		//		g2d.setColor(new Color(0, 0, 0, 1));
+		//		g2d.fillRoundRect(0, 0, w+1 , h+1 ,0, 0);
+		//		}
 		g2d.setColor(Color.WHITE);
 		if (hover) {
 			p2 = new GradientPaint(0, 1, new Color(186, 131, 164, 200), 0, h - 10, new Color(255, 255, 255, 255));
 			g2d.setPaint(p2);
-			g2d.drawRoundRect(1, 1, w-2 , h-2, 2, 2);
+			g2d.drawRoundRect(1, 1, w - 2, h - 2, 2, 2);
 		}
-		Shape shape =  new RoundRectangle2D.Double(2,0,w+1,h+1,0,0);
+		Shape shape = new RoundRectangle2D.Double(2, 0, w + 1, h + 1, 0, 0);
 		g2d.setClip(shape);
-		g2d.drawRoundRect(0, 0, w-1, h-1, 2, 2);
-//		GradientPaint p1 = new GradientPaint(0, 1, new Color(255, 255, 255, 255), 0, h - 10,
-//				new Color(255, 255, 255, 255));
-//		g2d.setPaint(p1);
-//		g2d.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND)); // 设置新的画刷
+		g2d.drawRoundRect(0, 0, w - 1, h - 1, 2, 2);
+		//		GradientPaint p1 = new GradientPaint(0, 1, new Color(255, 255, 255, 255), 0, h - 10,
+		//				new Color(255, 255, 255, 255));
+		//		g2d.setPaint(p1);
+		//		g2d.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND)); // 设置新的画刷
 		g2d.drawImage(image, 2, 7, 10, 10, null);
 		g2d.dispose();
 	}
@@ -205,15 +208,16 @@ public class ExitBtn extends JButton {
 
 	private static final long serialVersionUID = 1L;
 
-	public static Builder createBgColorBuilder(Color color,File file) {
+	public static Builder createBgColorBuilder(Color color, File file) {
 		Builder createBuilder = createBuilder();
 		createBuilder.bgcolor = color;
 		ImageIcon bigIcon = Clip.getBigIcon(file);
-		if(bigIcon!=null){
+		if (bigIcon != null) {
 			createBuilder.image = bigIcon.getImage();
 		}
 		return createBuilder;
 	}
+
 	public static Builder createBgColorBuilder(Color color) {
 		Builder createBuilder = createBuilder();
 		createBuilder.bgcolor = color;
@@ -240,5 +244,5 @@ public class ExitBtn extends JButton {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 }

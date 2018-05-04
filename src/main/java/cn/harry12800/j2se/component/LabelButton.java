@@ -31,7 +31,7 @@ public class LabelButton extends JButton {
 	private int w;
 	private int h;
 	private String name;
-	private int nameLen =0;
+	private int nameLen = 0;
 	public Builder builder;
 	private ClickAction clickAction;
 	private ChangeListener changeAction;
@@ -43,10 +43,10 @@ public class LabelButton extends JButton {
 		public boolean hasTip;
 		public boolean hasCheck = false;
 		public boolean checked = false;
-		public Image image= null;
+		public Image image = null;
 		public Color bgcolor;
-		public int align=0;
-		public int borderRadius= 0;
+		public int align = 0;
+		public int borderRadius = 0;
 	}
 
 	public static Builder createLabelBuilder() {
@@ -101,7 +101,7 @@ public class LabelButton extends JButton {
 		this.builder = builder;
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		try {
-			nameLen = (name.getBytes("GBK").length)/2;
+			nameLen = (name.getBytes("GBK").length) / 2;
 		} catch (UnsupportedEncodingException e1) {
 			e1.printStackTrace();
 		}
@@ -110,28 +110,28 @@ public class LabelButton extends JButton {
 		addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(e.getKeyCode()==10){
-					if(clickAction!=null){
+				if (e.getKeyCode() == 10) {
+					if (clickAction != null) {
 						clickAction.leftClick(null);
 					}
 				}
 			}
 		});
 		addFocusListener(new FocusListener() {
-			@Override	
-				public void focusLost(FocusEvent arg0) {
+			@Override
+			public void focusLost(FocusEvent arg0) {
 				hover = false;
 				repaint();
 			}
-			
+
 			@Override
 			public void focusGained(FocusEvent arg0) {
 				hover = true;
-				repaint();				
+				repaint();
 			}
 		});
-		setMinimumSize(new Dimension(w, h) );
-		setMaximumSize( new Dimension(w, h) );
+		setMinimumSize(new Dimension(w, h));
+		setMaximumSize(new Dimension(w, h));
 		setPreferredSize(new Dimension(w, h));
 		setFont(new Font("宋体", Font.PLAIN, 12));
 		Color color = new Color(231, 224, 224);
@@ -145,8 +145,8 @@ public class LabelButton extends JButton {
 				setForeground(color);
 				hover = true;
 				requestFocus();
-//				repaint();
-				if(hoverAction!=null)
+				//				repaint();
+				if (hoverAction != null)
 					hoverAction.hover(e);
 			}
 
@@ -156,15 +156,15 @@ public class LabelButton extends JButton {
 				setForeground(color);
 				hover = false;
 				repaint();
-//				LabelButton.this.transferFocus();
-				if(hoverAction!=null)
+				//				LabelButton.this.transferFocus();
+				if (hoverAction != null)
 					hoverAction.out();
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				if (e.getButton() == MouseEvent.BUTTON1) {
-					
+
 					if (builder.hasCheck) {
 						builder.checked = !builder.checked;
 						repaint();
@@ -189,13 +189,17 @@ public class LabelButton extends JButton {
 	public interface ChangeListener {
 		void changed(boolean checked);
 	}
+
 	public interface HoverListener {
-		void hover( MouseEvent e);
+		void hover(MouseEvent e);
+
 		void out();
 	}
+
 	public void addChangeListener(ChangeListener a) {
 		this.changeAction = a;
 	}
+
 	public void addHoverListener(HoverListener a) {
 		this.hoverAction = a;
 	}
@@ -210,30 +214,30 @@ public class LabelButton extends JButton {
 		GradientPaint p2;
 		if (builder.bgcolor != null) {
 			g2d.setColor(builder.bgcolor);
-			g2d.fillRoundRect(0, 0, w, h, builder.borderRadius*2, builder.borderRadius*2);
+			g2d.fillRoundRect(0, 0, w, h, builder.borderRadius * 2, builder.borderRadius * 2);
 		}
 		if (builder.hasborder)
 			if (hover) {
-				p2 = new GradientPaint(0, 1, new Color(186, 131, 164, 200), 0, h , new Color(255, 255, 255, 255));
+				p2 = new GradientPaint(0, 1, new Color(186, 131, 164, 200), 0, h, new Color(255, 255, 255, 255));
 				g2d.setPaint(p2);
-				g2d.drawRoundRect(0,0, w-1 , h-1, 5, 5);
+				g2d.drawRoundRect(0, 0, w - 1, h - 1, 5, 5);
 			} else {
 				p2 = new GradientPaint(0, 1, new Color(150, 150, 150, 50), 0, h, new Color(160, 160, 160, 100));
 				g2d.setPaint(p2);
-				g2d.drawRoundRect(0, 0, w-1 , h-1, 5, 5);
+				g2d.drawRoundRect(0, 0, w - 1, h - 1, 5, 5);
 			}
-		
+
 		GradientPaint p1 = new GradientPaint(0, 0, new Color(255, 255, 255, 255), 0, h,
 				new Color(255, 255, 255, 255));
 		g2d.setPaint(p1);
 		Stroke stroke = g2d.getStroke();
 		g2d.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND)); // 设置新的画刷
 		g2d.setFont(new Font("宋体", Font.PLAIN, 12));
-		if(builder.align > 0)
-			g2d.drawString(name,  builder.align, h / 2 + 5);
-		else if(builder.align==0){
-			g2d.drawString(name,  h, h / 2 + 5);
-		}else {
+		if (builder.align > 0)
+			g2d.drawString(name, builder.align, h / 2 + 5);
+		else if (builder.align == 0) {
+			g2d.drawString(name, h, h / 2 + 5);
+		} else {
 			g2d.drawString(name, w / 2 - 15 * (nameLen / 2), h / 2 + 5);
 		}
 		g2d.setStroke(stroke);
@@ -253,16 +257,15 @@ public class LabelButton extends JButton {
 				g2d.drawRoundRect(8, 8, h - 15, h - 15, 3, 3);
 			}
 		}
-		if(builder.image!=null)
-		{
-//			System.out.println(builder.image);
-//			BufferedImage a = (BufferedImage) builder.image;
-//			try {
-//				ImageIO.write(a , "PNG", new File("D:/image/"+name+".png"));
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}// 输出到文件流
-			g2d.drawImage(builder.image, 3, 3, h-6, h-6, null);
+		if (builder.image != null) {
+			//			System.out.println(builder.image);
+			//			BufferedImage a = (BufferedImage) builder.image;
+			//			try {
+			//				ImageIO.write(a , "PNG", new File("D:/image/"+name+".png"));
+			//			} catch (IOException e) {
+			//				e.printStackTrace();
+			//			}// 输出到文件流
+			g2d.drawImage(builder.image, 3, 3, h - 6, h - 6, null);
 		}
 		g2d.dispose();
 	}
@@ -273,15 +276,16 @@ public class LabelButton extends JButton {
 
 	private static final long serialVersionUID = 1L;
 
-	public static Builder createBgColorBuilder(Color color,File file) {
+	public static Builder createBgColorBuilder(Color color, File file) {
 		Builder createBuilder = createBuilder();
 		createBuilder.bgcolor = color;
 		ImageIcon bigIcon = Clip.getBigIcon(file);
-		if(bigIcon!=null){
+		if (bigIcon != null) {
 			createBuilder.image = bigIcon.getImage();
 		}
 		return createBuilder;
 	}
+
 	public static Builder createBgColorBuilder(Color color) {
 		Builder createBuilder = createBuilder();
 		createBuilder.bgcolor = color;
@@ -312,8 +316,8 @@ public class LabelButton extends JButton {
 	public static Builder createBgColorBuilder(Color color, BufferedImage byName) {
 		Builder createBuilder = createBuilder();
 		createBuilder.bgcolor = color;
-		createBuilder.image =byName;
+		createBuilder.image = byName;
 		return createBuilder;
 	}
-	
+
 }

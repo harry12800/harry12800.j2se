@@ -16,6 +16,7 @@ import java.awt.geom.RoundRectangle2D;
 import javax.swing.JButton;
 
 import cn.harry12800.j2se.style.UI;
+
 /**
  * 开关按钮
  * @author Yuexin
@@ -30,7 +31,7 @@ public class TurnButton extends JButton {
 	int h = 0;// getHeight();
 	int w = 0;// getWidth();
 	int x = 2;
-	private boolean value  = false;
+	private boolean value = false;
 
 	public TurnButton(int w, int h) {
 		this.w = w;
@@ -41,8 +42,8 @@ public class TurnButton extends JButton {
 		setPreferredSize(new Dimension(w, h));
 		setCursor(new Cursor(Cursor.HAND_CURSOR));
 		setLayout(null);
-//		final Parent parent = new Parent();
-//		add(parent);
+		//		final Parent parent = new Parent();
+		//		add(parent);
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -87,11 +88,9 @@ public class TurnButton extends JButton {
 		Graphics2D g2d = (Graphics2D) g.create();
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
-		if (value)
-		{
+		if (value) {
 			g2d.setColor(Color.BLUE);
-		}
-		else
+		} else
 			g2d.setColor(Color.lightGray);
 		g2d.fillRoundRect(2, 2, w - 4, h - 4, h, h);
 		g2d.dispose();
@@ -108,19 +107,19 @@ public class TurnButton extends JButton {
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setStroke(new BasicStroke(3));
-		Shape clip = new RoundRectangle2D.Double(x,2,h - 4,h - 4,h - 4,h - 4);
-		g2d.setClip(clip );
-		   GradientPaint paint = new GradientPaint(0, 0, UI.voidColor,getWidth(), 0,
-				   UI.foreColor);
-		   g2d.setPaint(paint);// 设置绘图对象的填充模式
-//		if (!value)
-//			g2d.setColor(UI.voidColor);
-//		else
-//			g2d.setColor(UI.foreColor);
+		Shape clip = new RoundRectangle2D.Double(x, 2, h - 4, h - 4, h - 4, h - 4);
+		g2d.setClip(clip);
+		GradientPaint paint = new GradientPaint(0, 0, UI.voidColor, getWidth(), 0,
+				UI.foreColor);
+		g2d.setPaint(paint);// 设置绘图对象的填充模式
+		//		if (!value)
+		//			g2d.setColor(UI.voidColor);
+		//		else
+		//			g2d.setColor(UI.foreColor);
 		g2d.fillRect(0, 0, getWidth(), getHeight());
-//		g2d.fillOval(x, 2, h - 4, h - 4);
+		//		g2d.fillOval(x, 2, h - 4, h - 4);
 		g2d.dispose();
-		
+
 	}
 
 	public boolean getValue() {
@@ -129,6 +128,7 @@ public class TurnButton extends JButton {
 
 	public void setValue(boolean soundPlay) {
 		value = soundPlay;
-		if(value) x = getPreferredSize().width-getPreferredSize().height;
+		if (value)
+			x = getPreferredSize().width - getPreferredSize().height;
 	}
 }

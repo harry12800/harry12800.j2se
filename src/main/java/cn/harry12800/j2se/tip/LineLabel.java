@@ -64,7 +64,8 @@ public class LineLabel extends JLabel {
 		char[] charArray = content.toCharArray();
 		int start = 0;
 		int len = 0;
-		if(w<=0)return;
+		if (w <= 0)
+			return;
 		StringBuffer snBuffer = new StringBuffer("<html>");
 
 		while (start + len < content.length()) {
