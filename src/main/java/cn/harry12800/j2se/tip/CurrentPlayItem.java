@@ -5,7 +5,7 @@ import java.awt.Color;
 import javax.swing.BorderFactory;
 
 public class CurrentPlayItem implements Runnable {
-	private ItemPanel itemPanel;
+	ItemPanel<?> itemPanel;
 	int position = 0;
 	int x = 0;
 	int r = 0, g = 0, b = 0;
@@ -21,7 +21,7 @@ public class CurrentPlayItem implements Runnable {
 		}
 	}
 
-	public synchronized void setItemPanel(ItemPanel itemPanel) {
+	public synchronized void setItemPanel(ItemPanel<?> itemPanel) {
 		position = 0;
 		direct = 1;
 		stopItemPanel();

@@ -14,19 +14,19 @@ public class ListPanel<T extends Letter> extends JPanel {
 	/**
 	 * 
 	 */
-	private Color selectColor = new Color(18, 171, 130);
-	private Color selectBackColor = new Color(18, 171, 130);
+	//	private Color selectColor = new Color(18, 171, 130);
+	//	private Color selectBackColor = new Color(18, 171, 130);
 	private static final long serialVersionUID = 1L;
 	private ListCallBack<T> callback;
 	private List<ItemPanel<T>> items = Lists.newArrayList();
 	/**
 	 * 父子缩进
 	 */
-	private int indent = 5;
+	public int indent = 5;
 	/**
 	 * 两个单元格的间距
 	 */
-	private int itemGap = 0;
+	public int itemGap = 0;
 
 	public ListPanel() {
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));

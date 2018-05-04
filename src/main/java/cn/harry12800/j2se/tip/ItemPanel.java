@@ -20,8 +20,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import cn.harry12800.j2se.component.btn.ImageBtn;
-import cn.harry12800.j2se.component.utils.ImageUtils;
 import cn.harry12800.j2se.style.UI;
 import cn.harry12800.j2se.tip.ListPanel.ListCallBack;
 
@@ -149,7 +147,7 @@ public class ItemPanel<T extends Letter> extends JPanel {
 		// Box createVerticalBox1 = Box.createVerticalBox();
 		ComponentOrientation o1 = ComponentOrientation.LEFT_TO_RIGHT;
 		mainBox.setComponentOrientation(o1);
-		Box rootBox = Box.createHorizontalBox();
+		//		Box rootBox = Box.createHorizontalBox();
 		// createVerticalBox1.add(new JButton("adas22"));
 		// add(createVerticalBox1);
 	}
@@ -181,7 +179,7 @@ public class ItemPanel<T extends Letter> extends JPanel {
 		Box titleBox = Box.createHorizontalBox();
 		Component hglue = Box.createHorizontalGlue();
 		titleBox.add(Box.createHorizontalStrut(letter.getIndent()));
-		ImageBtn imageBtn = new ImageBtn(ImageUtils.getByName("downG.png"));
+		//		ImageBtn imageBtn = new ImageBtn(ImageUtils.getByName("downG.png"));
 		JLabel label = new JLabel("   +");
 		titleBox.add(label);
 

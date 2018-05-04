@@ -17,7 +17,6 @@ import javax.swing.text.Document;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
-import cn.harry12800.j2se.action.DragListener;
 import cn.harry12800.j2se.component.panel.TitlePanel;
 
 public class NotifyWindow extends BaseWindow {
@@ -77,6 +76,7 @@ public class NotifyWindow extends BaseWindow {
 		this.setLocation(0, 0);
 	}
 
+	@SuppressWarnings("unused")
 	public synchronized static void error(String desc) {
 		if (true)
 			return;
@@ -108,6 +108,7 @@ public class NotifyWindow extends BaseWindow {
 		}, 10000);
 	}
 
+	@SuppressWarnings("unused")
 	public synchronized static void out(String desc) {
 		if (true)
 			return;

@@ -90,6 +90,7 @@ public class Clip {
 	 * @param f
 	 * @return
 	 */
+	@SuppressWarnings("restriction")
 	public static ImageIcon getBigIcon(File f) {
 		if (f != null && f.exists()) {
 			try {

@@ -7,11 +7,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JDialog;
 
+import com.sun.awt.AWTUtilities;
+
 import cn.harry12800.j2se.component.btn.DIYButton;
 import cn.harry12800.j2se.style.UI;
 
-import com.sun.awt.AWTUtilities;
-
+@SuppressWarnings("restriction")
 public class DIYDlg extends JDialog {
 	/**
 	 * 

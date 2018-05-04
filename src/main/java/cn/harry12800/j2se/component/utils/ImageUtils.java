@@ -19,16 +19,17 @@ import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 
-import sun.net.www.protocol.jar.JarURLConnection;
 import cn.harry12800.j2se.component.btn.DIYButton;
 import cn.harry12800.tools.Lists;
 import cn.harry12800.tools.Maps;
+import sun.net.www.protocol.jar.JarURLConnection;
 
 /**
  * 图片资源装载器
  * @author Yuexin
  *
  */
+@SuppressWarnings("restriction")
 public class ImageUtils {
 	public static Map<String, BufferedImage> map = Maps.newHashMap();
 	static {
