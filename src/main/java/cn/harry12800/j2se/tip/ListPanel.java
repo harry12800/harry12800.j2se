@@ -106,10 +106,7 @@ public class ListPanel<T extends Letter> extends JPanel {
 	}
 
 	public boolean removeItem(int componentAt) {
-		System.out.println(componentAt);
-		@SuppressWarnings("unchecked")
-		ItemPanel<T> component2 = (ItemPanel<T>) getComponent(componentAt + 2);
-		System.out.println(component2);
+		ItemPanel<?> component2 = (ItemPanel<?>) getComponent(componentAt + 2);
 		if (component2.parentItem != null) {
 			remove(component2);
 			items.remove(component2);
