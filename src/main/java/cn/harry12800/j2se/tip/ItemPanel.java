@@ -35,7 +35,7 @@ public class ItemPanel<T extends Letter> extends JPanel {
 	private T letter;
 	public boolean isopen = false;
 	public ItemPanel<T> parentItem;
-
+	public ListPanel<T> listPanel;
 	/**
 	 * 获取letter
 	 * 
@@ -152,9 +152,26 @@ public class ItemPanel<T extends Letter> extends JPanel {
 		// add(createVerticalBox1);
 	}
 
-	public ItemPanel(final ListPanel<?> listPanel, final T letter) {
-		setCursor(new Cursor(Cursor.HAND_CURSOR));
+	public ItemPanel<T> getParentItem() {
+		return parentItem;
+	}
+
+	public void setParentItem(ItemPanel<T> parentItem) {
+		this.parentItem = parentItem;
+	}
+
+	public ListPanel<?> getListPanel() {
+		return listPanel;
+	}
+
+	public void setListPanel(ListPanel<T> listPanel) {
+		this.listPanel = listPanel;
+	}
+
+	public ItemPanel(final ListPanel<T> listPanel, final T letter) {
 		this.letter = letter;
+		this.listPanel = listPanel;
+		setCursor(new Cursor(Cursor.HAND_CURSOR));
 		setRequestFocusEnabled(true);
 		setFocusable(true);
 		setOpaque(false);
@@ -217,6 +234,10 @@ public class ItemPanel<T extends Letter> extends JPanel {
 		mainBox.setComponentOrientation(o1);
 		// createVerticalBox1.add(new JButton("adas22"));
 		// add(createVerticalBox1);
+		setMouseListener();
+	}
+
+	private void setMouseListener() {
 		addMouseListener(new MouseListener() {
 
 			@Override
@@ -245,12 +266,11 @@ public class ItemPanel<T extends Letter> extends JPanel {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				@SuppressWarnings("unchecked")
 				ListCallBack<T> callback = (ListCallBack<T>) listPanel.getCallback();
 				if (callback != null)
 					callback.item(ItemPanel.this, ItemPanel.this.letter);
 			}
-		});
+		});		
 	}
 
 	/**
