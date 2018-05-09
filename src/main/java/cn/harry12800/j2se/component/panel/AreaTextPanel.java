@@ -127,4 +127,9 @@ public class AreaTextPanel extends JPanel {
 	public String getText() {
 		return area.getText().trim();
 	}
+	@Override
+	public void requestFocus() {
+		super.requestFocus();
+		area.requestFocus();
+	}
 }
