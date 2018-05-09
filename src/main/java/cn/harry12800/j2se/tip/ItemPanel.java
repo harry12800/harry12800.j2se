@@ -150,6 +150,7 @@ public class ItemPanel<T extends Letter> extends JPanel {
 		//		Box rootBox = Box.createHorizontalBox();
 		// createVerticalBox1.add(new JButton("adas22"));
 		// add(createVerticalBox1);
+		setMouseListener();
 	}
 
 	public ItemPanel<T> getParentItem() {
