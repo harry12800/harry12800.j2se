@@ -98,6 +98,7 @@ public class AreaTextPanel extends JPanel {
 
 	public void setText(String srcByFilePath) {
 		area.setText(srcByFilePath);
+		area.setCaretPosition( area.getDocument().getLength());
 	}
 
 	private boolean controlPressed = false;
