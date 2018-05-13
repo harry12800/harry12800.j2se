@@ -51,7 +51,7 @@ public class SelectDirActioner implements ActionListener {
 
 	public static void main(String[] args) {
 		JFileChooser jFileChooser = new JFileChooser();
-		jFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		jFileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		jFileChooser.setCurrentDirectory(new File("D:/"));
 		jFileChooser.setSelectedFile(new File("D:/a.text"));
 		jFileChooser.setName("abc");

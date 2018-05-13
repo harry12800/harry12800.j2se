@@ -13,6 +13,7 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URI;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -138,7 +139,6 @@ public class Clip {
 	 */
 	public static void openFile(String path) throws Exception {
 		java.awt.Desktop.getDesktop().open(new File(path));
-
 	}
 
 	public static native boolean modifyPrintByName(String name);
@@ -170,8 +170,7 @@ public class Clip {
 		jFrame.setVisible(true);
 	}
 
-	public static void main(String[] args) {
-
+	public static void main(String[] args) throws IOException {
 		JLabel jLabel = new JLabel();
 		try {
 			jLabel.setBounds(1, 1, 50, 50);
