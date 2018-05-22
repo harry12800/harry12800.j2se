@@ -188,7 +188,8 @@ public class LabelButton extends JButton {
 			if (builder.checked) {
 				g2d.drawRoundRect(8, 8, h - 15, h - 15, 3, 3);
 				g2d.setColor(Color.BLUE);
-				g2d.fillRoundRect(10, 10, h - 18, h - 18, 5, 5);
+				g2d.drawString("√", 8, 16);
+//				g2d.fillRoundRect(10, 10, h - 18, h - 18, 5, 5);
 			} else {
 				g2d.drawRoundRect(8, 8, h - 15, h - 15, 3, 3);
 			}

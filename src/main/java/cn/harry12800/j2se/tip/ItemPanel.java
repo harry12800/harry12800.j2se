@@ -30,31 +30,13 @@ public class ItemPanel<T extends Letter> extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JLabel titleLabel;
-	private LineLabel a;
+	private JLabel a;
 	private JLabel dateLabel;
 	private T letter;
 	public boolean isopen = false;
 	public ItemPanel<T> parentItem;
 	public ListPanel<T> listPanel;
-	/**
-	 * 获取letter
-	 * 
-	 * @return the letter
-	 */
-	public T getLetter() {
-		return letter;
-	}
-
-	/**
-	 * 设置letter
-	 * 
-	 * @param letter
-	 *            the letter to set
-	 */
-	public void setLetter(T letter) {
-		this.letter = letter;
-	}
-
+	
 	public ItemPanel(T letter) {
 		this.letter = letter;
 		//		setTransferHandler(new MyTransferHandler(this) );
@@ -95,13 +77,16 @@ public class ItemPanel<T extends Letter> extends JPanel {
 		setRequestFocusEnabled(true);
 		setFocusable(true);
 		this.titleLabel = new JLabel(letter.getTitle());
-		this.a = new LineLabel(letter.getContent());
+		this.a = new JLabel(letter.getContent());
 		titleLabel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 0));
 		this.dateLabel = new JLabel(letter.getDate() + "  ");
 		// titleLabel.setBorder(BorderFactory.createEmptyBorder(5, 10,5, 0));
 		titleLabel.setFont(UI.微软雅黑Font);
 		a.setFont(UI.微软雅黑Font);
 		dateLabel.setFont(UI.微软雅黑Font);
+		dateLabel.setOpaque(false);
+		a.setOpaque(false);
+		titleLabel.setOpaque(false);
 		int x = 0;
 		int r = 0, g = 0, b = 0;
 		while (x < 250) {
@@ -110,7 +95,7 @@ public class ItemPanel<T extends Letter> extends JPanel {
 			b = (int) (Math.random() * 255);
 			x = r * r + g * g + b * b;
 		}
-		setBackground(new Color(r, g, b));
+		setBackground(new Color(r, g, b,100));
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
 		Box titleBox = Box.createHorizontalBox();
@@ -301,6 +286,24 @@ public class ItemPanel<T extends Letter> extends JPanel {
 	@Override
 	public String toString() {
 		return "ItemPanel [letter=" + letter + ", isopen=" + isopen + "]";
+	}
+	/**
+	 * 获取letter
+	 * 
+	 * @return the letter
+	 */
+	public T getLetter() {
+		return letter;
+	}
+
+	/**
+	 * 设置letter
+	 * 
+	 * @param letter
+	 *            the letter to set
+	 */
+	public void setLetter(T letter) {
+		this.letter = letter;
 	}
 
 }
