@@ -98,7 +98,7 @@ public class AreaTextPanel extends JPanel {
 
 	public void setText(String srcByFilePath) {
 		area.setText(srcByFilePath);
-		area.setCaretPosition( area.getDocument().getLength());
+		area.setCaretPosition(area.getDocument().getLength());
 	}
 
 	private boolean controlPressed = false;
@@ -128,6 +128,7 @@ public class AreaTextPanel extends JPanel {
 	public String getText() {
 		return area.getText().trim();
 	}
+
 	@Override
 	public void requestFocus() {
 		super.requestFocus();

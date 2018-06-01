@@ -36,7 +36,7 @@ public class ItemPanel<T extends Letter> extends JPanel {
 	public boolean isopen = false;
 	public ItemPanel<T> parentItem;
 	public ListPanel<T> listPanel;
-	
+
 	public ItemPanel(T letter) {
 		this.letter = letter;
 		//		setTransferHandler(new MyTransferHandler(this) );
@@ -95,7 +95,7 @@ public class ItemPanel<T extends Letter> extends JPanel {
 			b = (int) (Math.random() * 255);
 			x = r * r + g * g + b * b;
 		}
-		setBackground(new Color(r, g, b,100));
+		setBackground(new Color(r, g, b, 100));
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
 		Box titleBox = Box.createHorizontalBox();
@@ -256,7 +256,7 @@ public class ItemPanel<T extends Letter> extends JPanel {
 				if (callback != null)
 					callback.item(ItemPanel.this, ItemPanel.this.letter);
 			}
-		});		
+		});
 	}
 
 	/**
@@ -287,6 +287,7 @@ public class ItemPanel<T extends Letter> extends JPanel {
 	public String toString() {
 		return "ItemPanel [letter=" + letter + ", isopen=" + isopen + "]";
 	}
+
 	/**
 	 * 获取letter
 	 * 

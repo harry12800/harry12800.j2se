@@ -36,18 +36,18 @@ public class NotifyWindow extends BaseWindow {
 	static NotifyWindow instance = new NotifyWindow();
 
 	private NotifyWindow() {
-				this.setSize(250, 300);
-				//setShape(new RoundRectangle2D.Double(0, 0, 400, 300, 0, 0));
-				ImageIcon image = new ImageIcon("image\\logo\\3.png");
-				JLabel picture = new JLabel(image);
-				picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());
-				this.getLayeredPane().add(picture, new Integer(Integer.MIN_VALUE));
-				this.setOpacity(0.93f);
-				setContentPane(createCenterPanel());
-				
-				setLeftTopScreen();
-				this.setVisible(true);
-				new DragListener(this);
+		this.setSize(250, 300);
+		//setShape(new RoundRectangle2D.Double(0, 0, 400, 300, 0, 0));
+		ImageIcon image = new ImageIcon("image\\logo\\3.png");
+		JLabel picture = new JLabel(image);
+		picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());
+		this.getLayeredPane().add(picture, new Integer(Integer.MIN_VALUE));
+		this.setOpacity(0.93f);
+		setContentPane(createCenterPanel());
+
+		setLeftTopScreen();
+		this.setVisible(true);
+		new DragListener(this);
 	}
 
 	protected JComponent createCenterPanel() {
