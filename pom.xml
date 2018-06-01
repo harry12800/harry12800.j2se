@@ -5,7 +5,7 @@
 
 	<groupId>cn.harry12800</groupId>
 	<artifactId>harry12800.j2se</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0</version>
 	<build>
 		<plugins>
 			<plugin>
