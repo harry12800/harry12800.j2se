@@ -7,7 +7,9 @@ import java.awt.Toolkit;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
@@ -17,6 +19,7 @@ import javax.swing.text.Document;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
+import cn.harry12800.j2se.action.DragListener;
 import cn.harry12800.j2se.component.panel.TitlePanel;
 
 public class NotifyWindow extends BaseWindow {
@@ -33,18 +36,18 @@ public class NotifyWindow extends BaseWindow {
 	static NotifyWindow instance = new NotifyWindow();
 
 	private NotifyWindow() {
-		//		this.setSize(250, 300);
-		//		//setShape(new RoundRectangle2D.Double(0, 0, 400, 300, 0, 0));
-		//		ImageIcon image = new ImageIcon("image\\logo\\3.png");
-		//		picture = new JLabel(image);
-		//		picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());
-		//		this.getLayeredPane().add(picture, new Integer(Integer.MIN_VALUE));
-		//		this.setOpacity(0.93f);
-		//		setContentPane(createCenterPanel());
-		//		
-		//		setLeftTopScreen();
-		//		this.setVisible(true);
-		//		new DragListener(this);
+				this.setSize(250, 300);
+				//setShape(new RoundRectangle2D.Double(0, 0, 400, 300, 0, 0));
+				ImageIcon image = new ImageIcon("image\\logo\\3.png");
+				JLabel picture = new JLabel(image);
+				picture.setBounds(0, 0, image.getIconWidth(), image.getIconHeight());
+				this.getLayeredPane().add(picture, new Integer(Integer.MIN_VALUE));
+				this.setOpacity(0.93f);
+				setContentPane(createCenterPanel());
+				
+				setLeftTopScreen();
+				this.setVisible(true);
+				new DragListener(this);
 	}
 
 	protected JComponent createCenterPanel() {
@@ -76,10 +79,7 @@ public class NotifyWindow extends BaseWindow {
 		this.setLocation(0, 0);
 	}
 
-	@SuppressWarnings("unused")
 	public synchronized static void error(String desc) {
-		if (true)
-			return;
 		//	com.sun.awt.AWTUtilities.setWindowOpacity(NotifyWindow.instance, 0.0f);
 		instance.setVisible(true);
 		if (time != null) {
@@ -108,10 +108,7 @@ public class NotifyWindow extends BaseWindow {
 		}, 10000);
 	}
 
-	@SuppressWarnings("unused")
 	public synchronized static void out(String desc) {
-		if (true)
-			return;
 		//	com.sun.awt.AWTUtilities.setWindowOpacity(NotifyWindow.instance, 0.0f);
 		instance.setVisible(true);
 		if (time != null) {
