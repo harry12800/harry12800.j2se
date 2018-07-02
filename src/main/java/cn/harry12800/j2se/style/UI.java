@@ -41,12 +41,12 @@ public class UI {
 		return new Color(backColor.getRed(), backColor.getGreen(), backColor.getBlue(), op);
 	}
 
-	static {
-		loadIndyFont();
-		loadforeColor();
-		loadBackColor();
-		loadCustomProps();
-	}
+//	static {
+//		loadIndyFont();
+//		loadforeColor();
+//		loadBackColor();
+//		loadCustomProps();
+//	}
 
 	public static void loadBackColor() {
 		UIManager.put("CheckBox.background", foreColor);
@@ -90,7 +90,7 @@ public class UI {
 		UIManager.put("ComboBox.background", foreColor);
 	}
 
-	private static void loadCustomProps() {
+	public static void loadCustomProps() {
 		try {
 			Class<?> child = Thread.currentThread().getContextClassLoader()
 					.loadClass("cn.harry12800.j2se.style.UITT");
