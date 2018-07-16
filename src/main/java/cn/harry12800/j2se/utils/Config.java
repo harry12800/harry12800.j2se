@@ -10,7 +10,7 @@ import cn.harry12800.tools.Maps;
 
 public class Config {
 	static Map<String, String> map = Maps.newHashMap();
-	static String path = System.getProperty("user.dir") + File.separator + "config.ini";
+	static String path = System.getProperty("user.dir") + File.separator + "config.properties";
 	static {
 		try {
 			if (!new File(path).exists())
