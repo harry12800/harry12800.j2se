@@ -16,13 +16,16 @@ public class Config {
 	static String path = homePath() + File.separator + "config.properties";
 	static {
 		try (InputStream stream = Config.class.getResourceAsStream("/config.properties");) {
-			if (!new File(path).exists())
+			if (!new File(path).exists()&&stream!=null)
 				FileUtils.inputStream2File(path, stream);
+			if (!new File(path).exists()&&stream==null)
+				FileUtils.createFile(path);
 			Properties p = new Properties();
+			System.out.println(path);
 			p.load(new FileInputStream(new File(path)));
-			Enumeration<?> en=p.propertyNames();
-	         while (en.hasMoreElements()) {
-	             String key=(String) en.nextElement();
+			Enumeration<Object> keys = p.keys();
+	         while (keys.hasMoreElements()) {
+	             String key=(String) keys.nextElement();
 	             String property=p.getProperty(key);
 	             map.put(key, property);
 	             System.out.println(key + "."+property);
