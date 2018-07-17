@@ -10,6 +10,8 @@ import java.awt.geom.Point2D;
 import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 
+import cn.harry12800.j2se.style.UI;
+
 /**
  * Created by harry12800 on 17-6-4.
  */
@@ -27,7 +29,7 @@ public class MyGradientProgressBarUI extends BasicProgressBarUI {
 		int barRectWidth = width - (b.right + b.left);
 		int barRectHeight = height - (b.top + b.bottom);
 		// int arcSize = height / 2 - 1;
-		int arcSize = 0;
+		int arcSize = 5;
 
 		int amountFull = getAmountFull(b, barRectWidth, barRectHeight);
 		// 已完成的进度
@@ -42,10 +44,12 @@ public class MyGradientProgressBarUI extends BasicProgressBarUI {
 		Point2D end = new Point2D.Float(amountFull - 1, barRectHeight - 1);
 		// 这里设置的终止点是当前已经完成的进度的那个点
 
-		GradientPaint gradientPaint = new GradientPaint(start, Colors.PROGRESS_BAR_START, end, Colors.PROGRESS_BAR_END);
+		GradientPaint gradientPaint = new GradientPaint(start, UI.foreColor, end, UI.foreColor(130));
 
 		graphics2d.setPaint(gradientPaint);
 
 		graphics2d.fillRoundRect(b.left, b.top, amountFull - 1, barRectHeight, arcSize, arcSize);// 这里实现的是圆角的效果将arcSize调成0即可实现矩形效果
+		graphics2d.setColor(UI.backColor);
+		graphics2d.drawString(progressBar.getName(), 3,11);
 	}
 }

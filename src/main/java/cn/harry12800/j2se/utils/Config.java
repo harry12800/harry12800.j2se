@@ -2,34 +2,31 @@ package cn.harry12800.j2se.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.util.Enumeration;
-import java.util.Map;
 import java.util.Properties;
 
 import cn.harry12800.tools.FileUtils;
 import cn.harry12800.tools.MachineUtils;
-import cn.harry12800.tools.Maps;
 
 public class Config {
-	static Map<String, String> map = Maps.newHashMap();
+	//	static Map<String, String> map = Maps.newHashMap();
 	static String path = homePath() + File.separator + "config.properties";
+	static Properties p = new Properties();
 	static {
 		try (InputStream stream = Config.class.getResourceAsStream("/config.properties");) {
-			if (!new File(path).exists()&&stream!=null)
+			if (!new File(path).exists() && stream != null)
 				FileUtils.inputStream2File(path, stream);
-			if (!new File(path).exists()&&stream==null)
+			if (!new File(path).exists() && stream == null)
 				FileUtils.createFile(path);
-			Properties p = new Properties();
-			System.out.println(path);
 			p.load(new FileInputStream(new File(path)));
-			Enumeration<Object> keys = p.keys();
-	         while (keys.hasMoreElements()) {
-	             String key=(String) keys.nextElement();
-	             String property=p.getProperty(key);
-	             map.put(key, property);
-	             System.out.println(key + "."+property);
-	         }
+			//			Enumeration<Object> keys = p.keys();
+			//	         while (keys.hasMoreElements()) {
+			//	             String key=(String) keys.nextElement();
+			//	             String property=p.getProperty(key);
+			//	             map.put(key, property);
+			//	             System.out.println(key + "."+property);
+			//	         }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -57,12 +54,19 @@ public class Config {
 	}
 
 	public static String getProp(String key) {
-		return map.get(key);
+		//		return map.get(key);
+		return p.getProperty(key);
 	}
 
 	public synchronized static void setProp(String key, String value) {
-		FileUtils.appendContent(path, key + "=" + value + "\r\n");
-		map.put(key, value);
+		p.put(key, value);
+		FileOutputStream fos;
+		try {
+			fos = new FileOutputStream(new File(path));
+			p.store(fos, "配置文件");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public synchronized static void setProp(Class<?> class1, String propName,

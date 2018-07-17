@@ -12,7 +12,7 @@ public class MyRCProgressBar extends RCProgressBar {
 	public MyRCProgressBar() {
 		setMaximum(100);
 		setMinimum(0);
-		setName("更新中");
+		setName("等待更新中");
 		setUI(new MyGradientProgressBarUI());
 		// TODO Auto-generated constructor stub
 	}
