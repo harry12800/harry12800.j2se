@@ -69,6 +69,7 @@ public class TextPanel extends JPanel {
 		foot.setBackground(UI.foreColor);
 		foot.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		ActionButton labelButton = new ActionButton(context.getBuilder().actionName, 100, 20);
+		labelButton.setForeground(Color.WHITE);
 		foot.add(labelButton);
 		add(foot, BorderLayout.SOUTH);
 		labelButton.addMouseListener(new MouseAdapter() {

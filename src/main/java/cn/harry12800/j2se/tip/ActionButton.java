@@ -31,16 +31,15 @@ public class ActionButton extends JLabel {
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				Color color = new Color(255, 255, 255);
-				setForeground(color);
+//				Color color = new Color(255, 255, 255);
+//				setForeground(color);
 				hover = true;
 				repaint();
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				Color color = new Color(186, 186, 186);
-				setForeground(color);
+				setForeground(Color.WHITE);
 				hover = false;
 				repaint();
 			}
