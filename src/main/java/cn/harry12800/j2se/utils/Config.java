@@ -14,6 +14,10 @@ public class Config {
 	static String path = homePath() + File.separator + "config.properties";
 	static Properties p = new Properties();
 	static {
+		load();
+	}
+
+	public static void load(){
 		try (InputStream stream = Config.class.getResourceAsStream("/config.properties");) {
 			if (!new File(path).exists() && stream != null)
 				FileUtils.inputStream2File(path, stream);
@@ -31,7 +35,6 @@ public class Config {
 			e.printStackTrace();
 		}
 	}
-
 	public static String homePath() {
 		boolean byClass = MachineUtils.getByClass(Config.class);
 		String homePath = "";
@@ -75,6 +78,10 @@ public class Config {
 	}
 
 	public static String getProp(Class<?> class1, String propName) {
+		return getProp(class1.getName() + "." + propName);
+	}
+	public static String getPropForce(Class<?> class1, String propName) {
+		load();
 		return getProp(class1.getName() + "." + propName);
 	}
 }
