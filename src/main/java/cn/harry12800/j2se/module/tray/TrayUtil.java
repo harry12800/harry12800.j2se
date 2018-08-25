@@ -1,4 +1,4 @@
-package cn.harry12800.j2se.utils;
+package cn.harry12800.j2se.module.tray;
 
 import java.awt.AWTException;
 import java.awt.Image;
@@ -8,10 +8,15 @@ import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.concurrent.LinkedBlockingDeque;
 
 import javax.swing.JFrame;
 
 import cn.harry12800.j2se.component.utils.ImageUtils;
+import cn.harry12800.j2se.utils.IconUtil;
+import cn.harry12800.j2se.utils.OSUtil;
 
 public class TrayUtil {
 	private Image normalTrayIcon; // 正常时的任务栏图标
@@ -21,6 +26,8 @@ public class TrayUtil {
 	private JFrame frame;
 	private static TrayUtil context;
 	private TrayInfo trayInfo;
+	private Collection<TrayInfo> trayInfoSet = new LinkedBlockingDeque<>();
+	private Thread thread;
 
 	private TrayUtil() {
 		context = this;
@@ -63,26 +70,15 @@ public class TrayUtil {
 		} else {
 			// 任务栏图标停止闪动
 			if (trayFlashing) {
-				trayFlashing = false;
-				trayIcon.setImage(normalTrayIcon);
 				trayInfo.e.exe(trayInfo);
+				trayInfoSet.remove(trayInfo);
 			}
 		}
 	}
 
-	public static interface TrayListener {
-		public void exe(TrayInfo e);
-	}
-
-	public static class TrayInfo {
-		public String id;
-		public int Type;
-		public TrayListener e;
-		public Image icon;
-	}
-
 	public void pushTrayInfo(TrayInfo trayInfo) {
 		this.trayInfo = trayInfo;
+		trayInfoSet.add(trayInfo);
 		setTrayFlashing();
 	}
 
@@ -91,6 +87,7 @@ public class TrayUtil {
 	}
 
 	public void setFrame(JFrame frame) {
+		System.err.println(frame);
 		this.frame = frame;
 	}
 
@@ -99,24 +96,39 @@ public class TrayUtil {
 	 */
 	public void setTrayFlashing() {
 		trayFlashing = true;
-		new Thread(new Runnable() {
+		if(this.thread!=null)
+		{
+			this.thread.interrupt();
+			this.thread = null;
+		}
+		this.thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				while (trayFlashing) {
-					try {
-						trayIcon.setImage(emptyTrayIcon);
-						Thread.sleep(800);
-
-						trayIcon.setImage(trayInfo.icon);
-						Thread.sleep(800);
-
-					} catch (InterruptedException e) {
-						e.printStackTrace();
+				Iterator<TrayInfo> iterator = trayInfoSet.iterator();
+				while (!trayInfoSet.isEmpty()) {
+					if(iterator.hasNext()) {
+						TrayInfo next = iterator.next();
+						trayInfo = next;
+						try {
+							trayIcon.setImage(next.icon);
+							trayIcon.setImageAutoSize(true);
+							Thread.sleep(800);
+							trayIcon.setImage(emptyTrayIcon);
+							trayIcon.setImageAutoSize(true);
+							Thread.sleep(800);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}else {
+						iterator = trayInfoSet.iterator();
 					}
 				}
-
+				trayIcon.setImage(normalTrayIcon);
+				trayIcon.setImageAutoSize(true);
 			}
-		}).start();
+		});
+		thread.start();
+				
 	}
 
 	public boolean isTrayFlashing() {
