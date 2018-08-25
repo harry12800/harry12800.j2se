@@ -8,9 +8,9 @@ import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Collection;
 import java.util.Iterator;
-import java.util.concurrent.LinkedBlockingDeque;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.swing.JFrame;
 
@@ -25,7 +25,7 @@ public class TrayUtil {
 	private JFrame frame;
 	private static TrayUtil context;
 	private TrayInfo trayInfo;
-	private Collection<TrayInfo> trayInfoSet = new LinkedBlockingDeque<>();
+	private Set<TrayInfo> trayInfoSet = new LinkedHashSet<>();
 	private Thread thread;
 
 	private TrayUtil() {
@@ -109,7 +109,7 @@ public class TrayUtil {
 						TrayInfo next = iterator.next();
 						trayInfo = next;
 						try {
-							trayIcon.setImage(next.icon);
+							trayIcon.setImage(next.icon.getImage());
 							trayIcon.setImageAutoSize(true);
 							Thread.sleep(800);
 							trayIcon.setImage(emptyTrayIcon);

@@ -1,11 +1,11 @@
 package cn.harry12800.j2se.module.tray;
 
-import java.awt.Image;
+import javax.swing.ImageIcon;
 
 public   class TrayInfo   {
 		public String id;
 		public TrayListener e;
-		public Image icon;
+		public ImageIcon icon;
 		public String type;
 		@Override
 		public int hashCode() {
