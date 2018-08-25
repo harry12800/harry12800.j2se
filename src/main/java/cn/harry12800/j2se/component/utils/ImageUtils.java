@@ -47,7 +47,7 @@ import sun.net.www.protocol.jar.JarURLConnection;
 public class ImageUtils {
 	public static Map<String, BufferedImage> map = Maps.newHashMap();
 	static {
-		//addImage(ImageUtils.class);
+		addImage(ImageUtils.class);
 	}
 
 	public static synchronized void addImage(Class<?> clazz) {
