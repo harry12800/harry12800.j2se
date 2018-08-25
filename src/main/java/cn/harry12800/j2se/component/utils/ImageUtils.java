@@ -2,6 +2,7 @@ package cn.harry12800.j2se.component.utils;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;
@@ -170,7 +171,13 @@ public class ImageUtils {
 		ImageIcon icon = new ImageIcon(getByName(name));
 		return icon;
 	}
-
+	public static ImageIcon getIcon(String name, int width, int height) {
+		ImageIcon icon = new ImageIcon(getByName(name));
+		if (width > 0 && height > 0) {
+			icon.setImage(icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
+		}
+		return icon;
+	}
 	public static ImageIcon getPicture(String name) {
 		//		ImageIcon icon = new ImageIcon(MyScrollBarUI.class.getClassLoader()
 		//				.getResource("image/"+name));

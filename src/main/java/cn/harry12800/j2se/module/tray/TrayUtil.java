@@ -15,7 +15,6 @@ import java.util.concurrent.LinkedBlockingDeque;
 import javax.swing.JFrame;
 
 import cn.harry12800.j2se.component.utils.ImageUtils;
-import cn.harry12800.j2se.utils.IconUtil;
 import cn.harry12800.j2se.utils.OSUtil;
 
 public class TrayUtil {
@@ -42,11 +41,11 @@ public class TrayUtil {
 		SystemTray systemTray = SystemTray.getSystemTray();// 获取系统托盘
 		try {
 			if (OSUtil.getOsType() == OSUtil.Mac_OS) {
-				normalTrayIcon = IconUtil.getIcon(TrayUtil.class, "/image/ic_launcher_dark.png", 20, 20).getImage();
+				normalTrayIcon = ImageUtils.getIcon("image/ic_launcher_dark.png", 20, 20).getImage();
 			} else {
-				normalTrayIcon = IconUtil.getIcon(TrayUtil.class, "/image/ic_launcher.png", 20, 20).getImage();
+				normalTrayIcon = ImageUtils.getIcon("image/ic_launcher.png", 20, 20).getImage();
 			}
-			emptyTrayIcon = IconUtil.getIcon(TrayUtil.class, "/image/ic_launcher_empty.png", 20, 20).getImage();
+			emptyTrayIcon = ImageUtils.getIcon("image/ic_launcher_empty.png", 20, 20).getImage();
 			trayIcon = new TrayIcon(ImageUtils.getByName("image/system.png"), tip);
 			// trayIcon.setImageAutoSize(true);
 
