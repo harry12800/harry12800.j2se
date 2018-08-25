@@ -12,7 +12,6 @@ import com.sun.awt.AWTUtilities;
 import cn.harry12800.j2se.component.btn.DIYButton;
 import cn.harry12800.j2se.style.UI;
 
-@SuppressWarnings("restriction")
 public class DIYDlg extends JDialog {
 	/**
 	 * 
@@ -28,7 +27,6 @@ public class DIYDlg extends JDialog {
 	public DIYDlg(String name, String idcard) {
 		this.name = name;
 		init();
-		//getRootPane().setDefaultButton(btn); // ���ô���Ĭ�ϰ�ť
 	}
 
 	public static void main(String[] args) {
