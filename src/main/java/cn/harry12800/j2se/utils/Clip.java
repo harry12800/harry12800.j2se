@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
@@ -199,5 +200,34 @@ public class Clip {
 		} catch (Exception e1) {
 			JOptionPane.showMessageDialog(c, "can't set such style");
 		}
+	}
+
+	/**
+	 * 
+	 * @param frame
+	 * @param count 抖动次数 
+	 */
+	public static void shakeFrame(JFrame frame, int count) {
+		Point point = frame.getLocation();// 窗体位置
+		frame.setVisible(true);
+		new Thread(
+				new Runnable() {
+					public void run() {
+						for (int i = 10; i > 0; i--) {
+							// 设置 真的
+							for (int j = count; j > 0; j--) {
+								point.y += i;
+								frame.setLocation(point);
+								point.x += i;
+								frame.setLocation(point);
+								point.y -= i;
+								frame.setLocation(point);
+								point.x -= i;
+								frame.setLocation(point);
+
+							}
+						}
+					}
+				}).start();
 	}
 }

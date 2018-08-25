@@ -41,12 +41,12 @@ public class UI {
 		return new Color(backColor.getRed(), backColor.getGreen(), backColor.getBlue(), op);
 	}
 
-//	static {
-//		loadIndyFont();
-//		loadforeColor();
-//		loadBackColor();
-//		loadCustomProps();
-//	}
+	//	static {
+	//		loadIndyFont();
+	//		loadforeColor();
+	//		loadBackColor();
+	//		loadCustomProps();
+	//	}
 
 	public static void loadBackColor() {
 		UIManager.put("CheckBox.background", foreColor);

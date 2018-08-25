@@ -8,12 +8,12 @@ import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 
-import cn.harry12800.tools.FileUtils;
-
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.ComThread;
 import com.jacob.com.Dispatch;
 import com.jacob.com.Variant;
+
+import cn.harry12800.tools.FileUtils;
 
 /**
  * 建立与打印机的连接

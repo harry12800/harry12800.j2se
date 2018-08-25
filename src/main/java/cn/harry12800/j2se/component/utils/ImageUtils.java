@@ -1,6 +1,11 @@
 package cn.harry12800.j2se.component.utils;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.Transparency;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -10,6 +15,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLDecoder;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.jar.JarEntry;
@@ -18,8 +24,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
+import javax.imageio.stream.MemoryCacheImageInputStream;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
-import cn.harry12800.j2se.component.btn.DIYButton;
+import com.sun.imageio.plugins.bmp.BMPImageReader;
+import com.sun.imageio.plugins.gif.GIFImageReader;
+import com.sun.imageio.plugins.jpeg.JPEGImageReader;
+import com.sun.imageio.plugins.png.PNGImageReader;
+
 import cn.harry12800.tools.Lists;
 import cn.harry12800.tools.Maps;
 import sun.net.www.protocol.jar.JarURLConnection;
@@ -29,18 +44,17 @@ import sun.net.www.protocol.jar.JarURLConnection;
  * @author Yuexin
  *
  */
-@SuppressWarnings("restriction")
 public class ImageUtils {
 	public static Map<String, BufferedImage> map = Maps.newHashMap();
 	static {
-		addImage(ImageUtils.class);
+		//addImage(ImageUtils.class);
 	}
 
-	public static void addImage(Class<?> clazz) {
+	public static synchronized void addImage(Class<?> clazz) {
 		String name = clazz.getName();
 		name = "/" + name.replace(".", "/") + ".class";
 		InputStream in = null;
-		URL resource = DIYButton.class.getResource(name);
+		URL resource = ImageUtils.class.getResource(name);
 		try {
 			URLConnection openConnection = resource.openConnection();
 			//			System.out.println(openConnection);
@@ -54,7 +68,7 @@ public class ImageUtils {
 					Matcher matcher = p.matcher(name);
 					if (matcher.find()) {
 						String group = matcher.group(1);
-						in = DIYButton.class.getResourceAsStream("/" + name);
+						in = ImageUtils.class.getResourceAsStream("/" + name);
 						BufferedImage read = ImageIO.read(in);
 						map.put(group, read);
 						in.close();
@@ -93,7 +107,34 @@ public class ImageUtils {
 	}
 
 	public static BufferedImage getByName(String name) {
-		return map.get(name);
+		BufferedImage bufferedImage = map.get(name);
+		return bufferedImage != null ? bufferedImage : getResource(name);
+	}
+
+	private static BufferedImage getResource(String name) {
+		InputStream resourceAsStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(name);
+		BufferedImage read = null;
+		try {
+			read = ImageIO.read(resourceAsStream);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return read;
+	}
+
+	public static BufferedImage getByCustom(int width, int height) {
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		Graphics2D g = image.createGraphics();
+		image = g.getDeviceConfiguration().createCompatibleImage(width, height, Transparency.TRANSLUCENT);
+		g.dispose();
+		g = image.createGraphics();
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setColor(Color.white);
+		g.drawRoundRect(0, 1, width / 2, height - 2, 4, 4);
+		g.drawLine(0, height / 4, width / 2, height / 4);
+		g.drawLine(0, height / 4 * 3, width / 2, height / 4 * 3);
+		g.dispose();
+		return image;
 	}
 
 	public static void main(String[] args) {
@@ -123,5 +164,96 @@ public class ImageUtils {
 			}
 		}
 		//DeveloperUtils.generateCodeSuffixPrefix(ImageUtils.class, "list.add(\"", "\");", 99, 114);
+	}
+
+	public static Icon getIcon(String name) {
+		ImageIcon icon = new ImageIcon(getByName(name));
+		return icon;
+	}
+
+	public static ImageIcon getPicture(String name) {
+		//		ImageIcon icon = new ImageIcon(MyScrollBarUI.class.getClassLoader()
+		//				.getResource("image/"+name));
+		ImageIcon icon = new ImageIcon(getByName(name));
+		return icon;
+	}
+
+	public static String getType(String path) throws Exception {
+		File file = new File(path);
+		byte[] buf = new byte[10240];
+		FileInputStream fi = new FileInputStream(file);
+		fi.read(buf);
+		String contentType = getContentType(buf);
+		fi.close();
+		return contentType;
+	}
+
+	// Returns the format of the image in the file 'f'.
+	// Returns null if the format is not known.
+	public static String getFormatInFile(File f) {
+		return getFormatName(f);
+	}
+
+	// Returns the format name of the image in the object 'o'.
+	// Returns null if the format is not known.
+	private static String getFormatName(Object o) {
+		try {
+			// Create an image input stream on the image
+			ImageInputStream iis = ImageIO.createImageInputStream(o);
+			// Find all image readers that recognize the image format
+			Iterator<ImageReader> iter = ImageIO.getImageReaders(iis);
+			if (!iter.hasNext()) {
+				// No readers found
+				return null;
+			}
+			// Use the first reader
+			ImageReader reader = iter.next();
+
+			// Close stream
+			iis.close();
+
+			// Return the format name
+			return reader.getFormatName();
+		} catch (IOException e) {
+			//
+			e.printStackTrace();
+		}
+
+		// The image could not be read
+		return null;
+	}
+
+	public static String getContentType(byte[] mapObj) throws IOException {
+		String type = "";
+		ByteArrayInputStream bais = null;
+		MemoryCacheImageInputStream mcis = null;
+		try {
+			bais = new ByteArrayInputStream(mapObj);
+			mcis = new MemoryCacheImageInputStream(bais);
+			Iterator<ImageReader> itr = ImageIO.getImageReaders(mcis);
+			while (itr.hasNext()) {
+				ImageReader reader = (ImageReader) itr.next();
+				if (reader instanceof GIFImageReader)
+					type = "image/gif";
+				else if (reader instanceof JPEGImageReader)
+					type = "image/jpeg";
+				else if (reader instanceof PNGImageReader)
+					type = "image/png";
+				else if (reader instanceof BMPImageReader)
+					type = "application/x-bmp";
+			}
+		} finally {
+			if (bais != null)
+				try {
+					bais.close();
+				} catch (IOException ioe) {
+				}
+			if (mcis != null)
+				try {
+					mcis.close();
+				} catch (IOException ioe) {
+				}
+		}
+		return type;
 	}
 }

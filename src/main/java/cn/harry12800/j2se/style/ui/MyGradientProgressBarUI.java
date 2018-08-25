@@ -50,6 +50,6 @@ public class MyGradientProgressBarUI extends BasicProgressBarUI {
 
 		graphics2d.fillRoundRect(b.left, b.top, amountFull - 1, barRectHeight, arcSize, arcSize);// 这里实现的是圆角的效果将arcSize调成0即可实现矩形效果
 		graphics2d.setColor(UI.backColor);
-		graphics2d.drawString(progressBar.getName(), 3,11);
+		graphics2d.drawString(progressBar.getName(), 3, 11);
 	}
 }
