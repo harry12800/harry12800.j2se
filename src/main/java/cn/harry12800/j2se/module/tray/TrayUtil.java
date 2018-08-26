@@ -11,6 +11,8 @@ import java.awt.event.MouseEvent;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JFrame;
 
@@ -41,14 +43,13 @@ public class TrayUtil {
 		SystemTray systemTray = SystemTray.getSystemTray();// 获取系统托盘
 		try {
 			if (OSUtil.getOsType() == OSUtil.Mac_OS) {
-				normalTrayIcon = ImageUtils.getIcon("image/ic_launcher_dark.png", 20, 20).getImage();
+				normalTrayIcon = ImageUtils.getIcon("image/ic_launcher_dark.png", 16, 16).getImage();
 			} else {
-				normalTrayIcon = ImageUtils.getIcon("image/ic_launcher.png", 20, 20).getImage();
+				normalTrayIcon = ImageUtils.getIcon("image/ic_launcher.png", 16, 16).getImage();
 			}
-			emptyTrayIcon = ImageUtils.getIcon("image/ic_launcher_empty.png", 20, 20).getImage();
+			emptyTrayIcon = ImageUtils.getIcon("image/ic_launcher_empty.png", 16, 16).getImage();
 			trayIcon = new TrayIcon(ImageUtils.getByName("image/system.png"), tip);
 			// trayIcon.setImageAutoSize(true);
-
 			systemTray.add(trayIcon);
 			trayIcon.addMouseListener(new MouseAdapter() {
 				@Override
@@ -104,17 +105,17 @@ public class TrayUtil {
 			@Override
 			public void run() {
 				Iterator<TrayInfo> iterator = trayInfoSet.iterator();
-				while (!trayInfoSet.isEmpty()) {
+				while (!trayInfoSet.isEmpty()&&trayFlashing) {
 					if(iterator.hasNext()) {
 						TrayInfo next = iterator.next();
 						trayInfo = next;
 						try {
 							trayIcon.setImage(next.icon.getImage());
-							trayIcon.setImageAutoSize(true);
-							Thread.sleep(800);
+//							trayIcon.setImageAutoSize(true);
+							Thread.sleep(500);
 							trayIcon.setImage(emptyTrayIcon);
-							trayIcon.setImageAutoSize(true);
-							Thread.sleep(800);
+//							trayIcon.setImageAutoSize(true);
+							Thread.sleep(500);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -123,7 +124,7 @@ public class TrayUtil {
 					}
 				}
 				trayIcon.setImage(normalTrayIcon);
-				trayIcon.setImageAutoSize(true);
+//				trayIcon.setImageAutoSize(true);
 			}
 		});
 		thread.start();
@@ -150,5 +151,27 @@ public class TrayUtil {
 
 	public void addMenuItem(MenuItem mit1) {
 		trayIcon.getPopupMenu().insert(mit1, 1);
+	}
+	
+	public static void main(String[] args) {
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			
+			@Override
+			public void run() {
+				try {
+					Thread.currentThread().sleep(5000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				System.out.println(Thread.currentThread().getName());
+			}
+		}, 1000);
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		timer.cancel();
 	}
 }
