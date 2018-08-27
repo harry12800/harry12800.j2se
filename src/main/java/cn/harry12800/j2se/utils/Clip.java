@@ -208,6 +208,8 @@ public class Clip {
 	 */
 	public static void shakeFrame(JFrame frame, int count) {
 		Point point = frame.getLocation();// 窗体位置
+		frame.setExtendedState(JFrame.NORMAL);
+		frame.toFront();
 		frame.setVisible(true);
 		new Thread(
 				new Runnable() {
