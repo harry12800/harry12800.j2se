@@ -9,10 +9,9 @@ import java.awt.TrayIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 import javax.swing.JFrame;
 
@@ -27,8 +26,10 @@ public class TrayUtil {
 	private JFrame frame;
 	private static TrayUtil context;
 	private TrayInfo trayInfo;
-	private Set<TrayInfo> trayInfoSet = new LinkedHashSet<>();
+	private CopyOnWriteArraySet<TrayInfo> trayInfoSet = new CopyOnWriteArraySet<TrayInfo>();
+	//List lists = new CopyOnWriteArrayList() ;
 	private Thread thread;
+	private Timer timer;
 
 	private TrayUtil() {
 		context = this;
@@ -54,8 +55,8 @@ public class TrayUtil {
 			trayIcon.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mousePressed(MouseEvent e) {
-					//					super.mouseClicked(e);
-					trayLeftClick();
+					if (e.getButton() == 1)
+						trayLeftClick();
 				}
 			});
 		} catch (AWTException e) {
@@ -65,21 +66,29 @@ public class TrayUtil {
 
 	protected void trayLeftClick() {
 		// 显示主窗口
-		if (trayInfo == null) {
+		if (trayInfoSet.isEmpty()) {
+			frame.setExtendedState(JFrame.NORMAL);
+			frame.toFront();
 			frame.setVisible(true);
 		} else {
 			// 任务栏图标停止闪动
-			if (trayFlashing) {
-				trayInfo.e.exe(trayInfo);
-				trayInfoSet.remove(trayInfo);
-			}
+			trayInfoSet.remove(trayInfo);
+			trayInfo.e.exe(trayInfo);
 		}
 	}
 
 	public void pushTrayInfo(TrayInfo trayInfo) {
 		this.trayInfo = trayInfo;
 		trayInfoSet.add(trayInfo);
-		setTrayFlashing();
+		setTimerTrayFlashing();
+		//		setThreadTrayFlashing();
+	}
+
+	public void popTrayInfo(String id, ETrayType type) {
+		TrayInfo trayInfo = new TrayInfo();
+		trayInfo.type = type;
+		trayInfo.id = id;
+		trayInfoSet.remove(trayInfo);
 	}
 
 	public JFrame getFrame() {
@@ -87,17 +96,15 @@ public class TrayUtil {
 	}
 
 	public void setFrame(JFrame frame) {
-		System.err.println(frame);
 		this.frame = frame;
 	}
 
 	/**
-	 * 设置任务栏图标闪动
+	 * 设置任务栏图标闪动 线程模式
 	 */
-	public void setTrayFlashing() {
+	public void setThreadTrayFlashing() {
 		trayFlashing = true;
-		if(this.thread!=null)
-		{
+		if (this.thread != null) {
 			this.thread.interrupt();
 			this.thread = null;
 		}
@@ -105,30 +112,63 @@ public class TrayUtil {
 			@Override
 			public void run() {
 				Iterator<TrayInfo> iterator = trayInfoSet.iterator();
-				while (!trayInfoSet.isEmpty()&&trayFlashing) {
-					if(iterator.hasNext()) {
+				while (!trayInfoSet.isEmpty() && trayFlashing) {
+					if (iterator.hasNext()) {
 						TrayInfo next = iterator.next();
 						trayInfo = next;
 						try {
 							trayIcon.setImage(next.icon.getImage());
-//							trayIcon.setImageAutoSize(true);
+							//							trayIcon.setImageAutoSize(true);
 							Thread.sleep(500);
 							trayIcon.setImage(emptyTrayIcon);
-//							trayIcon.setImageAutoSize(true);
 							Thread.sleep(500);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
-					}else {
+					} else {
 						iterator = trayInfoSet.iterator();
 					}
 				}
 				trayIcon.setImage(normalTrayIcon);
-//				trayIcon.setImageAutoSize(true);
 			}
 		});
 		thread.start();
-				
+	}
+
+	/**
+	 * 设置任务栏图标闪动 定时器模式
+	 */
+	static int x = 0;
+
+	public synchronized void setTimerTrayFlashing() {
+		if (timer != null) {
+			timer.cancel();
+		}
+		timer = new Timer();
+		timer.schedule(new TimerTask() {
+			public void run() {
+				if (trayInfoSet.isEmpty()) {
+					trayIcon.setImage(normalTrayIcon);
+					timer.cancel();
+					return;
+				}
+				if ((x & 1) == 0) {
+					x++;
+					Iterator<TrayInfo> iterator = trayInfoSet.iterator();
+					try {
+						TrayInfo next = iterator.next();
+						trayInfo = next;
+						trayIcon.setImage(next.icon.getImage());
+					} catch (Exception e) {
+						trayIcon.setImage(emptyTrayIcon);
+						e.printStackTrace();
+					}
+				} else {
+					x--;
+					trayIcon.setImage(emptyTrayIcon);
+				}
+			}
+		}, 0, 500);
 	}
 
 	public boolean isTrayFlashing() {
@@ -152,26 +192,5 @@ public class TrayUtil {
 	public void addMenuItem(MenuItem mit1) {
 		trayIcon.getPopupMenu().insert(mit1, 1);
 	}
-	
-	public static void main(String[] args) {
-		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
-			
-			@Override
-			public void run() {
-				try {
-					Thread.currentThread().sleep(5000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				System.out.println(Thread.currentThread().getName());
-			}
-		}, 1000);
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		timer.cancel();
-	}
+
 }

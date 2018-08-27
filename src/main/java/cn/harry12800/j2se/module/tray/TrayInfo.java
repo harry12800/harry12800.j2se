@@ -6,7 +6,7 @@ public   class TrayInfo   {
 		public String id;
 		public TrayListener e;
 		public ImageIcon icon;
-		public String type;
+		public ETrayType type;
 		@Override
 		public int hashCode() {
 			final int prime = 31;
