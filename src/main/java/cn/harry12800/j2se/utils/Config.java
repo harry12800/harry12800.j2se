@@ -61,7 +61,10 @@ public class Config {
 		//		return map.get(key);
 		return p.getProperty(key);
 	}
-
+	public static String getPropForce(String key) {
+		load();
+		return p.getProperty(key);
+	}
 	public synchronized static void setProp(String key, String value) {
 		p.put(key, value);
 		FileOutputStream fos;
