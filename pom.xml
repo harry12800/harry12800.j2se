@@ -26,7 +26,7 @@
 		<dependency>
 			<groupId>cn.harry12800</groupId>
 			<artifactId>harry12800.tools</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0</version>
 		</dependency>
 		<!-- <dependency> <groupId>cn.harry12800</groupId> <artifactId>harry12800.wordexcel</artifactId> 
 			<version>1.0-SNAPSHOT</version> </dependency> -->
