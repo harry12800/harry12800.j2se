@@ -58,8 +58,10 @@ public class Config {
 	}
 
 	public static String getProp(String key) {
-		//		return map.get(key);
 		return p.getProperty(key);
+	}
+	public static int getIntProp(String key) {
+		return Integer.valueOf(p.getProperty(key));
 	}
 	public static String getPropForce(String key) {
 		load();
