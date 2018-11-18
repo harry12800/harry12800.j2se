@@ -10,7 +10,7 @@ import cn.harry12800.tools.FileUtils;
 import cn.harry12800.tools.MachineUtils;
 
 public class Config {
-	//	static Map<String, String> map = Maps.newHashMap();
+	// static Map<String, String> map = Maps.newHashMap();
 	static String path = homePath() + File.separator + "config.properties";
 	static Properties p = new Properties();
 	static {
@@ -24,13 +24,13 @@ public class Config {
 			if (!new File(path).exists() && stream == null)
 				FileUtils.createFile(path);
 			p.load(new FileInputStream(new File(path)));
-			//			Enumeration<Object> keys = p.keys();
-			//	         while (keys.hasMoreElements()) {
-			//	             String key=(String) keys.nextElement();
-			//	             String property=p.getProperty(key);
-			//	             map.put(key, property);
-			//	             System.out.println(key + "."+property);
-			//	         }
+			// Enumeration<Object> keys = p.keys();
+			// while (keys.hasMoreElements()) {
+			// String key=(String) keys.nextElement();
+			// String property=p.getProperty(key);
+			// map.put(key, property);
+			// System.out.println(key + "."+property);
+			// }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -60,26 +60,26 @@ public class Config {
 	public static String getProp(String key) {
 		return p.getProperty(key);
 	}
+
 	public static int getIntProp(String key) {
 		return Integer.valueOf(p.getProperty(key));
 	}
+
 	public static String getPropForce(String key) {
 		load();
 		return p.getProperty(key);
 	}
+
 	public synchronized static void setProp(String key, String value) {
 		p.put(key, value);
-		FileOutputStream fos;
-		try {
-			fos = new FileOutputStream(new File(path));
+		try (FileOutputStream fos = new FileOutputStream(new File(path));) {
 			p.store(fos, "配置文件");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public synchronized static void setProp(Class<?> class1, String propName,
-			String propVal) {
+	public synchronized static void setProp(Class<?> class1, String propName, String propVal) {
 		setProp(class1.getName() + "." + propName, propVal);
 	}
 
