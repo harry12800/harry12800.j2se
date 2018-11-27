@@ -22,12 +22,12 @@ public class TrayUtil {
 	private Image normalTrayIcon; // 正常时的任务栏图标
 	private Image emptyTrayIcon; // 闪动时的任务栏图标
 	public TrayIcon trayIcon;
-	private boolean trayFlashing = false;
+	private volatile boolean trayFlashing = false;
 	private JFrame frame;
 	private static TrayUtil context;
 	private TrayInfo trayInfo;
 	private CopyOnWriteArraySet<TrayInfo> trayInfoSet = new CopyOnWriteArraySet<TrayInfo>();
-	//List lists = new CopyOnWriteArrayList() ;
+	// List lists = new CopyOnWriteArrayList() ;
 	private Thread thread;
 	private Timer timer;
 
@@ -81,7 +81,7 @@ public class TrayUtil {
 		this.trayInfo = trayInfo;
 		trayInfoSet.add(trayInfo);
 		setTimerTrayFlashing();
-		//		setThreadTrayFlashing();
+		// setThreadTrayFlashing();
 	}
 
 	public void popTrayInfo(String id, ETrayType type) {
@@ -118,7 +118,7 @@ public class TrayUtil {
 						trayInfo = next;
 						try {
 							trayIcon.setImage(next.icon.getImage());
-							//							trayIcon.setImageAutoSize(true);
+							// trayIcon.setImageAutoSize(true);
 							Thread.sleep(500);
 							trayIcon.setImage(emptyTrayIcon);
 							Thread.sleep(500);
@@ -192,5 +192,22 @@ public class TrayUtil {
 	public void addMenuItem(MenuItem mit1) {
 		trayIcon.getPopupMenu().insert(mit1, 1);
 	}
+	static class ThreadA extends Thread{
+	volatile	public boolean f = true;
 
+		@Override
+		public void run() {
+			while (f) {
+				int t = 100;
+				System.out.println(t);
+			}
+
+		}
+	}
+	public static void main(String[] args) {
+
+		ThreadA f = new ThreadA();
+		f.start();
+		f.f = false;
+	}
 }
