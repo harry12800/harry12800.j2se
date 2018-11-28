@@ -6,6 +6,17 @@
 	<groupId>cn.harry12800</groupId>
 	<artifactId>harry12800.j2se</artifactId>
 	<version>1.0</version>
+	<properties>
+		<okhttp.version>3.8.0</okhttp.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.encoding>UTF-8</java.encoding>
+		<java.version>1.8</java.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+		<mybatis.version>3.4.6</mybatis.version>
+	</properties>
 	<build>
 		<plugins>
 			<plugin>
@@ -42,7 +53,16 @@
 			<artifactId>jacob</artifactId>
 			<version>1.14.3</version>
 		</dependency> -->
-
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp</artifactId>
+			<version>${okhttp.version}</version>
+		</dependency>
 	</dependencies>
 
 </project>
