@@ -1,6 +1,7 @@
 package cn.harry12800.j2se.component;
 
 import cn.harry12800.j2se.style.ui.MyGradientProgressBarUI;
+import cn.harry12800.j2se.utils.FontUtil;
 
 public class MyRCProgressBar extends RCProgressBar {
 
@@ -12,9 +13,10 @@ public class MyRCProgressBar extends RCProgressBar {
 	public MyRCProgressBar() {
 		setMaximum(100);
 		setMinimum(0);
-		setName("等待更新中");
+		setName("");
 		setUI(new MyGradientProgressBarUI());
 		// TODO Auto-generated constructor stub
+		setFont(FontUtil.getDefaultFont(12));
 	}
 
 	public void setDesc(String string) {
