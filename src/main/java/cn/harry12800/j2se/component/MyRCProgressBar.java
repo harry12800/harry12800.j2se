@@ -1,5 +1,6 @@
 package cn.harry12800.j2se.component;
 
+import cn.harry12800.j2se.component.rc.RCProgressBar;
 import cn.harry12800.j2se.style.ui.MyGradientProgressBarUI;
 import cn.harry12800.j2se.utils.FontUtil;
 
