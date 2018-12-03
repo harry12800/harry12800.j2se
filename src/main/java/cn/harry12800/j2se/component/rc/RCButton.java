@@ -22,11 +22,17 @@ public class RCButton extends JButton {
 	private Color BUTTON_COLOR3 = new Color(216, 216, 216);
 	private Color borderColor = new Color(193, 193, 193);
 
+	private int fontSize =14;
 	public static final Color BUTTON_FOREGROUND_COLOR = Color.WHITE;
 	private boolean hover;
 
 	public RCButton() {
 		this("");
+	}
+	public RCButton(String name,int fontSize) {
+		this(name);
+		this.fontSize = fontSize;
+		setFont(FontUtil.getDefaultFont(fontSize));
 	}
 
 	public RCButton(String title, Color normal, Color hover, Color press) {
@@ -36,10 +42,17 @@ public class RCButton extends JButton {
 		this.BUTTON_COLOR3 = press;
 		this.borderColor = press;
 	}
-
+	public RCButton(String title, Color normal, Color hover, Color press,int fontSize) {
+		this(title);
+		this.BUTTON_COLOR1 = normal;
+		this.BUTTON_COLOR2 = hover;
+		this.BUTTON_COLOR3 = press;
+		this.borderColor = press;
+		setFont(FontUtil.getDefaultFont(fontSize));
+	}
 	public RCButton(String name) {
 		this.setText(name);
-		setFont(FontUtil.getDefaultFont(14));
+		setFont(FontUtil.getDefaultFont(fontSize));
 		setBorderPainted(false);
 		setForeground(BUTTON_FOREGROUND_COLOR);
 		setFocusPainted(false);
