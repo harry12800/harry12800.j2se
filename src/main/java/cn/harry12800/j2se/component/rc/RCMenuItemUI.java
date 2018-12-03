@@ -22,7 +22,9 @@ public class RCMenuItemUI extends BasicMenuItemUI {
 	public RCMenuItemUI() {
 		this(70, 25, new Font("微软雅黑", Font.PLAIN, 12));
 	}
-
+	public RCMenuItemUI(int width, int height) {
+		this(width, height, new Font("微软雅黑", Font.PLAIN, 12));
+	}
 	public RCMenuItemUI(int width, int height, Font font) {
 
 		this.width = width;
