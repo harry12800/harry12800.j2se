@@ -43,7 +43,8 @@ public class TipFrame extends BaseWindow {
 		this.builder = builder;
 		this.handler = builder.handler;
 		for (String string : builder.dataList) {
-			int _len = (getFontSize(string) + 1) / 2;
+			int _len = getFontMetrics(getFont()).stringWidth(string);
+//			int _len = (getFontSize(string) + 1) / 2;
 			if (_len > len) {
 				len = _len;
 			}
@@ -77,19 +78,6 @@ public class TipFrame extends BaseWindow {
 	 */
 	public void setBuilder(Builder builder) {
 		this.builder = builder;
-	}
-
-	private int getFontSize(String content) {
-		int byteLen = 0;
-		for (int i = 0; i < content.length(); i++) {
-			char ch = content.charAt(i);
-			if (ch > 128)
-				byteLen += 2;
-			else
-				byteLen++;
-
-		}
-		return byteLen;
 	}
 
 	public void showFrame() {
