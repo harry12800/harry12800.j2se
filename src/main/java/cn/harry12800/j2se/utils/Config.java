@@ -10,7 +10,6 @@ import cn.harry12800.tools.FileUtils;
 import cn.harry12800.tools.MachineUtils;
 
 public class Config {
-	// static Map<String, String> map = Maps.newHashMap();
 	static String path = homePath() + File.separator + "config.properties";
 	static Properties p = new Properties();
 	static {
@@ -24,13 +23,6 @@ public class Config {
 			if (!new File(path).exists() && stream == null)
 				FileUtils.createFile(path);
 			p.load(new FileInputStream(new File(path)));
-			// Enumeration<Object> keys = p.keys();
-			// while (keys.hasMoreElements()) {
-			// String key=(String) keys.nextElement();
-			// String property=p.getProperty(key);
-			// map.put(key, property);
-			// System.out.println(key + "."+property);
-			// }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -43,7 +35,6 @@ public class Config {
 			String clazz = System.getProperty("sun.java.command");
 			System.err.println("sun.java.command: " + clazz);
 			File file = new File(clazz);
-			// MachineUtils.printSystemProperties();
 			if (file.exists()) {
 				File file2 = new File(file.getAbsolutePath());
 				File parentFile = file2.getParentFile();
@@ -64,7 +55,9 @@ public class Config {
 	public static int getIntProp(String key) {
 		return Integer.valueOf(p.getProperty(key));
 	}
-
+	public static boolean getBooleanProp(String key) {
+		return Boolean.valueOf(p.getProperty(key));
+	}
 	public static String getPropForce(String key) {
 		load();
 		return p.getProperty(key);
@@ -79,16 +72,16 @@ public class Config {
 		}
 	}
 
-	public synchronized static void setProp(Class<?> class1, String propName, String propVal) {
-		setProp(class1.getName() + "." + propName, propVal);
+	public synchronized static void setProp(Class<?> clazz, String propName, String propVal) {
+		setProp(clazz.getName() + "." + propName, propVal);
 	}
 
-	public static String getProp(Class<?> class1, String propName) {
-		return getProp(class1.getName() + "." + propName);
+	public static String getProp(Class<?> clazz, String propName) {
+		return getProp(clazz.getName() + "." + propName);
 	}
 
-	public static String getPropForce(Class<?> class1, String propName) {
+	public static String getPropForce(Class<?> clazz, String propName) {
 		load();
-		return getProp(class1.getName() + "." + propName);
+		return getProp(clazz.getName() + "." + propName);
 	}
 }
