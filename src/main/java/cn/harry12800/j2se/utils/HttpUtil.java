@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.net.URLEncoder;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -20,7 +21,6 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import cn.harry12800.j2se.utils.JsonUtils;
 import okhttp3.FormBody;
 import okhttp3.Headers;
 import okhttp3.MediaType;
@@ -64,7 +64,9 @@ public class HttpUtil {
 	public static <T> T get(String url, Class<T> clazz) throws IOException {
 		return get(url, null, null, clazz);
 	}
-
+	public static <T> T get(String url, Type clazz) throws IOException {
+		return get(url, null, null, clazz);
+	}
 	public static String get(String url) throws IOException {
 		return get(url, null, null);
 	}
@@ -115,7 +117,32 @@ public class HttpUtil {
 		}
 	}
 
- 
+	public static <T> T get(String url, Map<String, String> headers, Map<String, String> params,
+			Type clazz) throws IOException {
+		if (params != null && params.size() > 0) {
+			StringBuffer buffer = new StringBuffer(url);
+			buffer.append("?");
+			for (String key : params.keySet()) {
+				buffer.append(key + "=");
+				buffer.append(params.get(key) + "&");
+			}
+			url = buffer.toString();
+		}
+
+		Request.Builder reqBuilder = new Request.Builder().url(url);
+		if (headers != null && headers.size() > 0) {
+			for (String key : headers.keySet()) {
+				reqBuilder.addHeader(key, headers.get(key));
+			}
+		}
+		Request request = reqBuilder.build();
+		Response response = client.newCall(request).execute();
+		if (response.isSuccessful()) {
+			return  (T) JsonUtils.string2Json(response.body().string(), clazz);
+		} else {
+			throw new IOException("Unexpected code " + response);
+		}
+	}
 	private static Response _get(String url, Map<String, String> headers, Map<String, String> params)
 			throws IOException {
 		if (params != null && params.size() > 0) {
@@ -123,7 +150,7 @@ public class HttpUtil {
 			buffer.append("?");
 			for (String key : params.keySet()) {
 				buffer.append(key + "=");
-				buffer.append(params.get(key) + "&");
+				buffer.append(URLEncoder.encode(params.get(key),"UTF-8") + "&");
 			}
 			url = buffer.toString();
 		}
