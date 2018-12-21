@@ -61,14 +61,14 @@ public class DemoScrollBarUI extends BasicScrollBarUI {
 
 	@Override
 	protected JButton createIncreaseButton(int orientation) {
-		JButton button = new JButton(produceImage("down.png"));
+		JButton button = new JButton(produceImage("close.png"));
 		button.setBorder(null);
 		return button;
 	}
 
 	@Override
 	protected JButton createDecreaseButton(int orientation) {
-		JButton button = new JButton(produceImage("up.png"));
+		JButton button = new JButton(produceImage("close.png"));
 		button.setBorder(null);
 		return button;
 	}
