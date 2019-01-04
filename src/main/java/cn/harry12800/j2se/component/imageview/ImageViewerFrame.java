@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -18,13 +19,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import cn.harry12800.j2se.component.rc.RCMenuItemUI;
+import cn.harry12800.j2se.component.utils.ImageUtils;
 
 /**
  * Created by harry12800 on 2017/6/25.
@@ -102,11 +103,10 @@ public class ImageViewerFrame extends JDialog {
 		popupMenu.add(enlargeItem);
 		popupMenu.add(narrowItem);
 		popupMenu.add(saveAsItem);
-
 		imageLabel = new ImageLabel();
-
-		setIconImage(new ImageIcon(getClass().getResource("ic_launcher.png")).getImage());
-
+		BufferedImage byName = ImageUtils.getByName("ic_launcher.png");
+		// new ImageIcon(getClass().getResource("ic_launcher.png")).getImage()
+		setIconImage(byName);
 	}
 
 	private void initView() {
@@ -169,11 +169,12 @@ public class ImageViewerFrame extends JDialog {
 			image = image.getScaledInstance(actualWidth, actualHeight, Image.SCALE_SMOOTH);
 		}
 
-		//imageLabel.setIcon(imageIcon);
+		// imageLabel.setIcon(imageIcon);
 		imageLabel.setImage(image);
 
 		this.setSize(new Dimension(actualWidth, actualHeight + 22));
-		this.setLocation((tooKit.getScreenSize().width - actualWidth) / 2, (tooKit.getScreenSize().height - actualHeight) / 2);
+		this.setLocation((tooKit.getScreenSize().width - actualWidth) / 2,
+				(tooKit.getScreenSize().height - actualHeight) / 2);
 	}
 
 	public Image scaledImage(float scale) {
@@ -307,7 +308,7 @@ public class ImageViewerFrame extends JDialog {
 
 	private void doScale(float increment) {
 		scale = scale + increment;
-		//System.out.println("倍率：" + scale);
+		// System.out.println("倍率：" + scale);
 
 		if (scale > maxScale) {
 			scale = maxScale;

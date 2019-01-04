@@ -45,7 +45,6 @@ import sun.net.www.protocol.jar.JarURLConnection;
  * @author Yuexin
  *
  */
-@SuppressWarnings("restriction")
 public class ImageUtils {
 	public static Map<String, BufferedImage> map = Maps.newHashMap();
 	static {
