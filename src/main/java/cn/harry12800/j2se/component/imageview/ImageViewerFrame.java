@@ -106,7 +106,8 @@ public class ImageViewerFrame extends JDialog {
 		imageLabel = new ImageLabel();
 		BufferedImage byName = ImageUtils.getByName("ic_launcher.png");
 		// new ImageIcon(getClass().getResource("ic_launcher.png")).getImage()
-		setIconImage(byName);
+		if (byName != null)
+			setIconImage(byName);
 	}
 
 	private void initView() {
