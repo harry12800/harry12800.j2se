@@ -34,6 +34,7 @@ public class HttpUtil {
 
 	public static abstract class HttpBaseCallBack<T> {
 		public Type mType;
+
 		static Type getSuperClassTypeParameter(Class<?> subClass) {
 			Type superClass = subClass.getGenericSuperclass();
 			if (superClass instanceof Class) {
@@ -64,34 +65,38 @@ public class HttpUtil {
 	public static <T> T get(String url, Class<T> clazz) throws IOException {
 		return get(url, null, null, clazz);
 	}
+
 	public static <T> T get(String url, Type clazz) throws IOException {
 		return get(url, null, null, clazz);
 	}
+
 	public static String get(String url) throws IOException {
 		return get(url, null, null);
 	}
 
 	public static byte[] getBytes(String url, Map<String, String> headers, Map<String, String> params)
 			throws IOException {
-		Response response = _get(url, headers, params);
-		if (response != null) {
-			return response.body().bytes();
-		} else {
-			throw new IOException("Get请求失败:" + url);
+		try (Response response = _get(url, headers, params);) {
+			if (response != null) {
+				return response.body().bytes();
+			} else {
+				throw new IOException("Get请求失败:" + url);
+			}
 		}
 	}
 
 	public static String get(String url, Map<String, String> headers, Map<String, String> params) throws IOException {
-		Response response = _get(url, headers, params);
-		if (response != null) {
-			return response.body().string();
-		} else {
-			throw new IOException("Get请求失败:" + url);
+		try (Response response = _get(url, headers, params);) {
+			if (response != null) {
+				return response.body().string();
+			} else {
+				throw new IOException("Get请求失败:" + url);
+			}
 		}
 	}
 
-	public static <T> T get(String url, Map<String, String> headers, Map<String, String> params,
-			 Class<T> clazz) throws IOException {
+	public static <T> T get(String url, Map<String, String> headers, Map<String, String> params, Class<T> clazz)
+			throws IOException {
 		if (params != null && params.size() > 0) {
 			StringBuffer buffer = new StringBuffer(url);
 			buffer.append("?");
@@ -109,16 +114,17 @@ public class HttpUtil {
 			}
 		}
 		Request request = reqBuilder.build();
-		Response response = client.newCall(request).execute();
-		if (response.isSuccessful()) {
-			return  JsonUtils.string2Json(response.body().string(), clazz);
-		} else {
-			throw new IOException("Unexpected code " + response);
+		try (Response response = client.newCall(request).execute();) {
+			if (response.isSuccessful()) {
+				return JsonUtils.string2Json(response.body().string(), clazz);
+			} else {
+				throw new IOException("Unexpected code " + response);
+			}
 		}
 	}
 
-	public static <T> T get(String url, Map<String, String> headers, Map<String, String> params,
-			Type clazz) throws IOException {
+	public static <T> T get(String url, Map<String, String> headers, Map<String, String> params, Type clazz)
+			throws IOException {
 		if (params != null && params.size() > 0) {
 			StringBuffer buffer = new StringBuffer(url);
 			buffer.append("?");
@@ -136,13 +142,15 @@ public class HttpUtil {
 			}
 		}
 		Request request = reqBuilder.build();
-		Response response = client.newCall(request).execute();
-		if (response.isSuccessful()) {
-			return  (T) JsonUtils.string2Json(response.body().string(), clazz);
-		} else {
-			throw new IOException("Unexpected code " + response);
+		try (Response response = client.newCall(request).execute();) {
+			if (response.isSuccessful()) {
+				return (T) JsonUtils.string2Json(response.body().string(), clazz);
+			} else {
+				throw new IOException("Unexpected code " + response);
+			}
 		}
 	}
+
 	private static Response _get(String url, Map<String, String> headers, Map<String, String> params)
 			throws IOException {
 		if (params != null && params.size() > 0) {
@@ -150,7 +158,7 @@ public class HttpUtil {
 			buffer.append("?");
 			for (String key : params.keySet()) {
 				buffer.append(key + "=");
-				buffer.append(URLEncoder.encode(params.get(key),"UTF-8") + "&");
+				buffer.append(URLEncoder.encode(params.get(key), "UTF-8") + "&");
 			}
 			url = buffer.toString();
 		}
@@ -184,8 +192,9 @@ public class HttpUtil {
 			}
 		}
 		Request requestPost = reqBuilder.post(requestBodyPost).build();
-		Response response = client.newCall(requestPost).execute();
-		return response.body().string();
+		try (Response response = client.newCall(requestPost).execute();) {
+			return response.body().string();
+		}
 	}
 
 	public static String postJson(String url, Map<String, String> headers, String json) throws IOException {
@@ -197,12 +206,16 @@ public class HttpUtil {
 			}
 		}
 		Request requestPost = reqBuilder.post(body).build();
-		Response response = client.newCall(requestPost).execute();
-		return response.body().string();
+		try (Response response = client.newCall(requestPost).execute();) {
+			return response.body().string();
+		}
 	}
+
 	@SuppressWarnings("unchecked")
-	public static <T> T postJson(String url, Map<String, String> headers, Object json,Class<T> returnClazz) throws IOException {
-		RequestBody body = FormBody.create(MediaType.parse("application/json; charset=utf-8"), JsonUtils.object2String(json));
+	public static <T> T postJson(String url, Map<String, String> headers, Object json, Class<T> returnClazz)
+			throws IOException {
+		RequestBody body = FormBody.create(MediaType.parse("application/json; charset=utf-8"),
+				JsonUtils.object2String(json));
 		Request.Builder reqBuilder = new Request.Builder().url(url);
 		if (headers != null && headers.size() > 0) {
 			for (String key : headers.keySet()) {
@@ -210,12 +223,14 @@ public class HttpUtil {
 			}
 		}
 		Request requestPost = reqBuilder.post(body).build();
-		Response response = client.newCall(requestPost).execute();
-		if(returnClazz == String.class) {
-			return (T) response.body().string();
+		try (Response response = client.newCall(requestPost).execute();) {
+			if (returnClazz == String.class) {
+				return (T) response.body().string();
+			}
+			return JsonUtils.string2Json(response.body().string(), returnClazz);
 		}
-		return JsonUtils.string2Json(response.body().string(), returnClazz);
 	}
+
 	public static byte[] download(String url) throws IOException {
 		return download(url, null, null, null);
 	}
@@ -241,9 +256,7 @@ public class HttpUtil {
 
 		Request request = reqBuilder.build();
 		byte[] data = null;
-		Response response = null;
-		try {
-			response = client.newCall(request).execute();
+		try (Response response = client.newCall(request).execute();) {
 			if (response.isSuccessful()) {
 				InputStream inputStream = response.body().byteStream();
 				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -263,22 +276,14 @@ public class HttpUtil {
 						int progress = (int) (sum * 1.0f / total * 100);
 						listener.onProgress(progress);
 					}
-
 				}
-
 				data = outputStream.toByteArray();
-
 				inputStream.close();
 				outputStream.close();
 			}
 		} catch (IOException e) {
 			throw e;
-		} finally {
-			if (response != null) {
-				response.close();
-			}
 		}
-
 		return data;
 	}
 
@@ -329,12 +334,12 @@ public class HttpUtil {
 
 	public static boolean upload(String url, String type, byte[] part) throws IOException {
 		Request request = new Request.Builder().url(url).post(RequestBody.create(MediaType.parse(type), part)).build();
-		Response response = client.newCall(request).execute();
-		if (response.isSuccessful()) {
-			return true;
+		try (Response response = client.newCall(request).execute();) {
+			if (response.isSuccessful()) {
+				return true;
+			}
+			return false;
 		}
-
-		return false;
 	}
 
 	/**
@@ -370,13 +375,13 @@ public class HttpUtil {
 		Request request = new Request.Builder().url(url).addHeader("User-Agent", "android")
 				.header("Content-Type", "text/html; charset=utf-8;").post(multipartBody)// 传参数、文件或者混合，改一下就行请求体就行
 				.build();
-		Response response = client.newCall(request).execute();
-
-		System.out.println(response.body().string());
-		if (response.isSuccessful()) {
-			return true;
+		try (Response response = client.newCall(request).execute();) {
+			System.out.println(response.body().string());
+			if (response.isSuccessful()) {
+				return true;
+			}
+			return false;
 		}
-		return false;
 	}
 
 	public static void main(String[] args) {
