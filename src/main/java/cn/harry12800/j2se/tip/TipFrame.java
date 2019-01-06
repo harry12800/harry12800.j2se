@@ -1,13 +1,19 @@
 package cn.harry12800.j2se.tip;
 
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Frame;
+import java.awt.Graphics2D;
 import java.awt.Insets;
+import java.awt.Paint;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.util.List;
 
 import cn.harry12800.j2se.component.BaseWindow;
+import cn.harry12800.j2se.style.UI;
 import cn.harry12800.j2se.utils.PlaySounds;
 import cn.harry12800.j2se.utils.Speak;
 import cn.harry12800.tools.Lists;
@@ -43,13 +49,12 @@ public class TipFrame extends BaseWindow {
 		this.builder = builder;
 		this.handler = builder.handler;
 		for (String string : builder.dataList) {
-			int _len = getFontMetrics(getFont()).stringWidth(string);
-//			int _len = (getFontSize(string) + 1) / 2;
+			int _len = getFontMetrics(UI.微软雅黑Font).stringWidth(string);
 			if (_len > len) {
 				len = _len;
 			}
 		}
-		w = len * 14;
+		w = len;
 		if (w < 250)
 			w = 250;
 		setType(Frame.Type.UTILITY);
@@ -140,6 +145,16 @@ public class TipFrame extends BaseWindow {
 
 	public static void main(String[] args) {
 		show(true, true, "asd", "asdf", "asdfaasdffffffffffffffffffffffffffffff阿萨德发阿萨德啊沙发啊sdfa\r\nasdfff");
+//		BufferedImage bImg = new BufferedImage(1,1, BufferedImage.TYPE_INT_ARGB);
+//
+//		//得到Graphics2D 对象
+//		Graphics2D g2d = (Graphics2D) bImg.getGraphics();
+//		// 设置字体
+//		g2d.setFont(UI.微软雅黑Font);
+//		FontMetrics fm = g2d.getFontMetrics(UI.微软雅黑Font);
+//		// 获取文字宽度
+//		int textWidth = fm.stringWidth("asdfaasdffffffffffffffffffffffffffffff阿萨德发阿萨德啊沙发啊sdfa");
+//		System.out.println(textWidth);
 	}
 
 	public static void show(Builder builder) {
