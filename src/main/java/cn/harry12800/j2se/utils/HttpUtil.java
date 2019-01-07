@@ -116,6 +116,8 @@ public class HttpUtil {
 		Request request = reqBuilder.build();
 		try (Response response = client.newCall(request).execute();) {
 			if (response.isSuccessful()) {
+				if(clazz ==String.class) return (T) response.body().string();
+				else
 				return JsonUtils.string2Json(response.body().string(), clazz);
 			} else {
 				throw new IOException("Unexpected code " + response);
@@ -144,6 +146,9 @@ public class HttpUtil {
 		Request request = reqBuilder.build();
 		try (Response response = client.newCall(request).execute();) {
 			if (response.isSuccessful()) {
+				if(clazz  == String.class){
+					return (T) response.body().string();
+				}
 				return (T) JsonUtils.string2Json(response.body().string(), clazz);
 			} else {
 				throw new IOException("Unexpected code " + response);
