@@ -19,9 +19,9 @@ import javax.swing.JScrollPane;
 import cn.harry12800.j2se.component.rc.adapter.BaseAdapter;
 import cn.harry12800.j2se.component.rc.adapter.HeaderViewHolder;
 import cn.harry12800.j2se.component.rc.adapter.ViewHolder;
+import cn.harry12800.j2se.style.MyScrollBarUI;
 import cn.harry12800.j2se.style.layout.VerticalFlowLayout;
 import cn.harry12800.j2se.style.ui.Colors;
-import cn.harry12800.j2se.style.ui.MyScrollBarUI;
 import cn.harry12800.j2se.style.ui.ScrollUI;
 
 /**

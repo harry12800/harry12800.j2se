@@ -454,7 +454,6 @@ public class JsonUtils {
 		T result = gson.fromJson(jsonData, type);
 		return result;
 	}
-
 	// 将Json数据解析成相应的映射对象
 	public static <T> T string2Json(File file, Class<T> type) throws Exception {
 		T result = gson.fromJson(FileUtils.getSrcByFilePath(file.getAbsolutePath(), "utf-8"), type);
@@ -471,6 +470,7 @@ public class JsonUtils {
 		FileUtils.writeContent(configPath, JsonFormatUtil.formatJson(json), "utf-8");
 	}
 
+	 
 	public static void saveObj(Object obj, String configPath) {
 		save(object2String(obj), configPath);
 	}
@@ -572,6 +572,10 @@ public class JsonUtils {
 
 	public static Object string2Json(String json, Type mType) {
 		  Object fromJson = gson.fromJson(json, mType);
+		  return fromJson;
+	}
+	public static Object string2Json(File file, Type mType) throws Exception {
+		  Object fromJson = gson.fromJson(FileUtils.getSrcByFilePath(file.getAbsolutePath(), "utf-8"), mType);
 		  return fromJson;
 	}
 }
