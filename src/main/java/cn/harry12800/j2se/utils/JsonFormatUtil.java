@@ -52,7 +52,7 @@ public final class JsonFormatUtil {
 			case '[':
 				sb.append(current);
 				if (!isInQuotationMarks) {
-					sb.append('\n');
+					sb.append('\r').append('\n');
 					indent++;
 					addIndentBlank(sb, indent);
 				}
@@ -60,7 +60,7 @@ public final class JsonFormatUtil {
 			case '}':
 			case ']':
 				if (!isInQuotationMarks) {
-					sb.append('\n');
+					sb.append('\r').append('\n');
 					indent--;
 					addIndentBlank(sb, indent);
 				}
@@ -69,7 +69,7 @@ public final class JsonFormatUtil {
 			case ',':
 				sb.append(current);
 				if (last != '\\' && !isInQuotationMarks) {
-					sb.append('\n');
+					sb.append('\r').append('\n');
 					addIndentBlank(sb, indent);
 				}
 				break;
